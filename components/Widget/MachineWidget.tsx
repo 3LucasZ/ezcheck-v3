@@ -33,6 +33,7 @@ type MachineWidgetProps = {
   //state
   inverted?: boolean;
   isEdit?: boolean;
+  using?: boolean;
 
   //functions
   handleAdd?: Function;
@@ -79,7 +80,10 @@ export default function MachineWidget(props: MachineWidgetProps) {
       mx={1} //so we can see the side shadows
       onClick={() => props.url && Router.push(props.url)}
       pr="2"
-      _hover={{ bg: props.url ? "gray.100" : "" }}
+      bg={props.using ? "orange.100" : "white"}
+      _hover={{
+        bg: props.url ? (props.using ? "orange.200" : "gray.100") : "",
+      }}
       minH="60px"
     >
       <HStack>

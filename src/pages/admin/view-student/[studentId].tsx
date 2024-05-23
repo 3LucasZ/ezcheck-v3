@@ -16,7 +16,6 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { StudentProps } from "archive/StudentWidget";
 import { GetServerSideProps } from "next";
 import { CertificateProps, MachineProps } from "types/db";
 import ConfirmDeleteModal from "components/ConfirmDeleteModal";
@@ -25,9 +24,6 @@ import Layout from "components/Layout/MainLayout";
 import SearchView from "components/SearchView";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
-import { checkAdmin, getMyAdmin } from "services/userHandler";
-import { AdminProps } from "archive/AdminWidget2";
-import MachineWidget2 from "archive/MachineWidget2";
 import { poster } from "services/poster";
 import { PiSignOutBold } from "react-icons/pi";
 import AdminLayout from "components/Layout/AdminLayout";
@@ -174,6 +170,7 @@ export default function StudentPage(props: PageProps) {
                   url={`/admin/view-machine/${cert.machine.id}`}
                   isEdit={isEdit}
                   inverted={false}
+                  using={cert.machine.name == props.student.using?.name}
                   handleRemove={() => rmCert(cert)}
                 />
               ),

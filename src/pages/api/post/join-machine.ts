@@ -25,7 +25,11 @@ export default async function handle(
       PIN: studentPIN,
     },
     include: {
-      certificates: true,
+      certificates: {
+        include: {
+          machine: true,
+        },
+      },
       using: true,
     },
   });
@@ -41,8 +45,8 @@ export default async function handle(
       "."
     : "No supervisors available.";
   //find student allowed machines
-  const machinesStr = student
-    ? student.certificates.map((cert) => cert.machineId)
+  const allowedMachineNames = student
+    ? student.certificates.map((cert) => cert.machine.name)
     : [];
 
   //check cases
@@ -102,7 +106,7 @@ export default async function handle(
     return res
       .status(500)
       .send(machine.name + " already in use by " + machine.usedBy.name + ".");
-  } else if (!machinesStr.includes(machineName)) {
+  } else if (!allowedMachineNames.includes(machineName)) {
     createLog(
       student.name +
         " is trying to use " +
@@ -111,7 +115,7 @@ export default async function handle(
         supervisorsMsg,
       2
     );
-    return res.status(500).send("Denied access");
+    return res.status(500).send("Not authorized");
   } else {
     try {
       await prisma.machine.update({
