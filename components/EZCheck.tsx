@@ -22,6 +22,7 @@ const gridLen = boxHeight - 3 * lcdPad - lcdHeight;
 
 type LEDProps = {
   left: boolean;
+  active: boolean;
 };
 function LED(props: LEDProps) {
   return (
@@ -34,10 +35,21 @@ function LED(props: LEDProps) {
       ]}
     >
       <cylinderGeometry args={[ledRadius, ledRadius, ledHeight]} />
-      <meshToonMaterial color={props.left ? "#FEB2B2" : "#81E6D9"} />
+      <meshToonMaterial
+        color={
+          props.active
+            ? props.left
+              ? "#FEB2B2"
+              : "#81E6D9"
+            : props.left
+            ? "#FEB2B2"
+            : "#81E6D9"
+        }
+      />
     </mesh>
   );
 }
+
 function Frame() {
   return (
     <mesh position={[0, 0, 0]}>
@@ -49,10 +61,10 @@ function Frame() {
         position={[0, boxHeight / 2 - lcdHeight / 2 - lcdPad, boxDepth / 2]}
       >
         <boxGeometry args={[lcdWidth, lcdHeight, lcdDepth]} />
-        <meshToonMaterial color={"var(--chakra-colors-orange-200);"} />
+        <meshToonMaterial color={"#63B3ED"} />
         <Text
           scale={[0.1, 0.1, 0.1]}
-          color="black" // default
+          color="white" // default
           anchorX="center" // default
           anchorY="middle" // default
           position={[0, 0, lcdDepth]}
