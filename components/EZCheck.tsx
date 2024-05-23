@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, extend } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Text } from "@react-three/drei";
 import { Flex } from "@chakra-ui/react";
 import { TextGeometry } from "three/examples/jsm/Addons.js";
 
@@ -34,7 +34,7 @@ function LED(props: LEDProps) {
       ]}
     >
       <cylinderGeometry args={[ledRadius, ledRadius, ledHeight]} />
-      <meshStandardMaterial color={props.left ? "#FF0000" : "#00FF00"} />
+      <meshToonMaterial color={props.left ? "#FEB2B2" : "#81E6D9"} />
     </mesh>
   );
 }
@@ -42,18 +42,27 @@ function Frame() {
   return (
     <mesh position={[0, 0, 0]}>
       <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
-      <meshStandardMaterial color="#CBD5E0" />
+      <meshToonMaterial color="var(--chakra-colors-orange-200);" />
       <LED left={true} />
       <LED left={false} />
       <mesh
         position={[0, boxHeight / 2 - lcdHeight / 2 - lcdPad, boxDepth / 2]}
       >
         <boxGeometry args={[lcdWidth, lcdHeight, lcdDepth]} />
-        <meshStandardMaterial color={"#0000FF"} />
+        <meshToonMaterial color={"var(--chakra-colors-orange-200);"} />
+        <Text
+          scale={[0.1, 0.1, 0.1]}
+          color="black" // default
+          anchorX="center" // default
+          anchorY="middle" // default
+          position={[0, 0, lcdDepth]}
+        >
+          HELLO WORLD
+        </Text>
       </mesh>
       <mesh position={[0, -boxHeight / 2 + gridLen / 2 + lcdPad, boxDepth / 2]}>
         <boxGeometry args={[gridLen, gridLen, lcdDepth]} />
-        <meshStandardMaterial color={"#CCCCCC"} />
+        <meshToonMaterial color={"#CCCCCC"} />
       </mesh>
     </mesh>
   );
@@ -65,7 +74,11 @@ export function EZCheck() {
       <Canvas>
         <OrbitControls />
         <ambientLight intensity={0.1} />
-        <directionalLight color="white" position={[0, 0, 5]} />
+        {/* <directionalLight color="white" position={[0, 0, 5]} /> */}
+        <directionalLight color="white" position={[2, 2, 2]} />
+        <mesh position={[2, 2, 2]}>
+          <boxGeometry args={[1, 1, 1]} />
+        </mesh>
         <Frame />
       </Canvas>
     </Flex>
