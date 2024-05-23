@@ -4,6 +4,8 @@ import { Canvas, extend } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
 import { Flex } from "@chakra-ui/react";
 import { TextGeometry } from "three/examples/jsm/Addons.js";
+import { Bloom, SelectiveBloom } from "@react-three/postprocessing";
+import { BlurPass, Resizer, KernelSize, Resolution } from "postprocessing";
 
 const boxWidth = 1.13;
 const boxHeight = 1.35;
@@ -35,16 +37,24 @@ function LED(props: LEDProps) {
       ]}
     >
       <cylinderGeometry args={[ledRadius, ledRadius, ledHeight]} />
+      <Bloom
+        intensity={10}
+        radius={0.85}
+        luminanceThreshold={0}
+        luminanceSmoothing={0}
+      />
       <meshToonMaterial
-        color={
-          props.active
-            ? props.left
-              ? "#FEB2B2"
-              : "#81E6D9"
-            : props.left
-            ? "#FEB2B2"
-            : "#81E6D9"
-        }
+        emissive={props.left ? "red" : "turquoise"}
+        // color={
+        //   props.active
+        //     ? props.left
+        //       ? "#FEB2B2"
+        //       : "#81E6D9"
+        //     : props.left
+        //     ? "#FEB2B2"
+        //     : "#81E6D9"
+        // }
+        toneMapped={false}
       />
     </mesh>
   );
@@ -55,13 +65,13 @@ function Frame() {
     <mesh position={[0, 0, 0]}>
       <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
       <meshToonMaterial color="var(--chakra-colors-orange-200);" />
-      <LED left={true} />
-      <LED left={false} />
+      <LED left={true} active={true} />
+      <LED left={false} active={false} />
       <mesh
         position={[0, boxHeight / 2 - lcdHeight / 2 - lcdPad, boxDepth / 2]}
       >
         <boxGeometry args={[lcdWidth, lcdHeight, lcdDepth]} />
-        <meshToonMaterial color={"#63B3ED"} />
+        <meshToonMaterial color={"#63B3ED"} emissive={"blue"} />
         <Text
           scale={[0.1, 0.1, 0.1]}
           color="white" // default
