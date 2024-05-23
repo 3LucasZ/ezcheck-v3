@@ -1,9 +1,10 @@
 //COPY FROM EZFIND2
 import { SmallAddIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { AspectRatio, Icon, IconButton, useDisclosure } from "@chakra-ui/react";
-import ConfirmActionModal from "components/Main/ConfirmActionModal";
+
 import { MouseEventHandler } from "react";
 import { FiHome, FiMinus, FiPlus, FiX } from "react-icons/fi";
+import ConfirmActionModal from "../Main/ConfirmActionModal";
 
 type AddRemoveButtonProps = {
   //work

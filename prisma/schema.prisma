@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//----USER AUTH----
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //custom admin
+  isAdmin       Boolean @default(false)
+  isSupervising   Boolean   @default(false)
+
+  //custom student
+  PIN       String?      @unique @db.VarChar(255) 
+  certificates  MachineCertificate[] @relation("recipient") //special
+  issuing MachineCertificate[] @relation("issuer") //special
+  using     Machine?    @relation("using") //special
+}
+ 
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+ 
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+} 
+
+//----DB----
+model Machine {
+  //primary
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(255)
+  description String    @db.VarChar(255) @default("")
+  image String @default("")
+  //miscellaneous
+  lastSeen  String?     @db.VarChar(255)
+  IP        String?     @db.VarChar(255)
+  //relations
+  certificates  MachineCertificate[] 
+  usedBy    User?    @relation("using", fields: [usedById], references: [id])
+  usedById  String?        @unique
+}
+
+model Log {
+  id        Int         @id @default(autoincrement())
+  timestamp String      @db.VarChar(255)
+  sender    String      @db.VarChar(255)
+  message   String      @db.VarChar(2047)
+  level     Int         //0 = info(create/update student/machine, legal join-machine, legal leave-machine), 1 = dangerous(delete student/machine, create/delete admin), 2 = fatal(wrong student password in join-machine, student using multiple machines)
+}
+
+//----Relations----
+model MachineCertificate {
+  //defn relation
+  machine Machine @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  machineId Int
+  recipient User @relation("recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  recipientId String
+
+  //meta
+  issuer User? @relation("issuer", fields: [issuerId], references: [id], onDelete: SetNull)
+  issuerId String?
+  @@id([machineId, recipientId])
+}

@@ -1,5 +1,5 @@
-import AutoResizeTextarea from "components/Composable/AutoResizeTextarea";
 import { responsiveHeaderFontSize } from "services/constants";
+import AutoResizeTextarea from "./AutoResizeTextarea";
 
 //value, onchanged, disabled
 export default function EditableTitle({ ...props }) {
