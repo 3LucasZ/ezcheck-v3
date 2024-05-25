@@ -4,16 +4,13 @@ import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 
-import { checkAdmin, getMyAdmin } from "services/userHandler";
-import { AdminProps } from "archive/AdminWidget2";
 import LogWidget, { LogProps } from "components/Widget/LogWidget";
 import AdminLayout from "components/Layout/AdminLayout";
 
 type PageProps = {
-  admins: AdminProps[];
   logs: LogProps[];
 };
-export default function Home({ admins, logs }: PageProps) {
+export default function Home({ logs }: PageProps) {
   const { data: session } = useSession();
   const user = session?.user;
   return (
@@ -31,7 +28,7 @@ export default function Home({ admins, logs }: PageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const logs = await prisma.log.findMany({
-    orderBy: [{ id: "desc" }],
+    orderBy: [{ id: "asc" }],
   });
   return {
     props: {

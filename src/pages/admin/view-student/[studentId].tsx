@@ -158,7 +158,9 @@ export default function StudentPage(props: PageProps) {
         <SearchView
           setIn={newCerts.map((cert) => {
             return {
-              name: cert.machine.name,
+              name:
+                (cert.machine.name == props.student.using?.name ? 0 : 1) +
+                cert.machine.name,
               widget: (
                 <MachineWidget
                   image={cert.machine.image}
