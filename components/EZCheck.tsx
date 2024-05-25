@@ -6,6 +6,7 @@ import { Flex } from "@chakra-ui/react";
 import { TextGeometry } from "three/examples/jsm/Addons.js";
 import { Bloom, SelectiveBloom } from "@react-three/postprocessing";
 import { BlurPass, Resizer, KernelSize, Resolution } from "postprocessing";
+import { useRef } from "react";
 
 const boxWidth = 1.13;
 const boxHeight = 1.35;
@@ -27,6 +28,7 @@ type LEDProps = {
   active: boolean;
 };
 function LED(props: LEDProps) {
+  const ref = useRef();
   return (
     <mesh
       position={[
@@ -37,14 +39,18 @@ function LED(props: LEDProps) {
       ]}
     >
       <cylinderGeometry args={[ledRadius, ledRadius, ledHeight]} />
-      <Bloom
-        intensity={10}
-        radius={0.85}
-        luminanceThreshold={0}
-        luminanceSmoothing={0}
-      />
-      <meshToonMaterial
-        emissive={props.left ? "red" : "turquoise"}
+      {/* <Bloom
+        intensity={1.0} // The bloom intensity.
+        blurPass={undefined} // A blur pass.
+        kernelSize={KernelSize.LARGE} // blur kernel size
+        luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
+        luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
+        mipmapBlur={false} // Enables or disables mipmap blur.
+        resolutionX={Resolution.AUTO_SIZE} // The horizontal resolution.
+        resolutionY={Resolution.AUTO_SIZE} // The vertical resolution.
+      /> */}
+      <meshBasicMaterial
+        // emissive={props.left ? "turquoise" : "red"}
         // color={
         //   props.active
         //     ? props.left
@@ -54,6 +60,8 @@ function LED(props: LEDProps) {
         //     ? "#FEB2B2"
         //     : "#81E6D9"
         // }
+
+        color={[100, 0, 0]}
         toneMapped={false}
       />
     </mesh>
@@ -92,9 +100,15 @@ function Frame() {
 
 export function EZCheck() {
   return (
-    <Flex bg="black" h="100vh">
-      <Canvas>
-        <OrbitControls />
+    <Flex h="100vh">
+      <Canvas camera={{ position: [0, 0, 3] }}>
+        <OrbitControls
+          enableZoom={false}
+          minAzimuthAngle={-Math.PI / 4}
+          maxAzimuthAngle={Math.PI / 4}
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 2}
+        />
         <ambientLight intensity={0.1} />
         {/* <directionalLight color="white" position={[0, 0, 5]} /> */}
         <directionalLight color="white" position={[2, 2, 2]} />
