@@ -1,5 +1,6 @@
-import { MutableRefObject } from "react";
+import { MutableRefObject, useState } from "react";
 import { boxWidth, ledRadius, boxHeight, ledHeight } from "./constants";
+import { useFrame } from "@react-three/fiber";
 
 type LEDProps = {
   left: boolean;
@@ -9,6 +10,19 @@ type LEDProps = {
 export default function LED(props: LEDProps) {
   const red = ["#FEB2B2", "#F56565"];
   const green = ["#81E6D9", "#38B2AC"];
+  const [on, setOn] = useState(false);
+  const [init, setInit] = useState(0);
+  useFrame(({ clock }) => {
+    if (init == 0) {
+      setInit(clock.getElapsedTime());
+    } else {
+      if (Math.round((clock.getElapsedTime() - init) * 10) % 10 > 5) {
+        props.active && setOn(true);
+      } else {
+        setOn(false);
+      }
+    }
+  });
   return (
     <mesh
       ref={props.rref}
@@ -23,13 +37,13 @@ export default function LED(props: LEDProps) {
       <meshStandardMaterial
         attach="material-0"
         emissive={props.left ? green[1] : red[1]}
-        emissiveIntensity={props.active ? 2.1 : 1}
+        emissiveIntensity={on ? 2.1 : 1}
         toneMapped={false}
       />
       <meshStandardMaterial
         attach="material-1"
         emissive={props.left ? green[0] : red[0]}
-        emissiveIntensity={props.active ? 1.8 : 1}
+        emissiveIntensity={on ? 1.8 : 1}
         toneMapped={false}
       />
     </mesh>

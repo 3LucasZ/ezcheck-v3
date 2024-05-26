@@ -9,9 +9,12 @@ import {
   boxPad,
   boxDepth,
   keyDepth,
+  gridDepth,
 } from "./constants";
 import { Text } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
+import { useRef, useState } from "react";
+import { Mesh } from "three";
 
 type KeyProps = {
   x: number;
@@ -20,23 +23,30 @@ type KeyProps = {
   onClick: Function;
 };
 function Key(props: KeyProps) {
+  const [active, setActive] = useState(false);
+  const trueKeyDepth = active ? gridDepth : keyDepth;
+  console.log(active);
   return (
     <mesh
-      position={[props.x, props.y, lcdDepth]}
-      onClick={(e) => {
+      position={[props.x, props.y, trueKeyDepth / 2]}
+      onPointerDown={(e) => {
         e.stopPropagation();
         props.onClick(props.text);
         // console.log(props.text);
+        setActive(true);
       }}
+      onPointerUp={(e) => setActive(false)}
+      onPointerLeave={(e) => setActive(false)}
+      onPointerOut={(e) => setActive(false)}
     >
-      <boxGeometry args={[keyLen, keyLen, keyDepth]} />
+      <boxGeometry args={[keyLen, keyLen, trueKeyDepth]} />
       <meshStandardMaterial attach={"material-0"} emissive={gray[6]} />
       <meshStandardMaterial attach={"material-1"} emissive={gray[7]} />
       <meshStandardMaterial attach={"material-2"} emissive={gray[5]} />
       <meshStandardMaterial attach={"material-3"} emissive={gray[6]} />
       <meshStandardMaterial attach={"material-4"} emissive={gray[6]} />
       <meshStandardMaterial attach={"material-5"} emissive={gray[6]} />
-      <Text scale={[0.1, 0.1, 0.1]} position={[0, 0, keyDepth / 2 + 0.001]}>
+      <Text scale={[0.1, 0.1, 0.1]} position={[0, 0, trueKeyDepth / 2 + 0.001]}>
         {props.text}
       </Text>
     </mesh>
@@ -68,9 +78,20 @@ export default function Keypad(props: KeypadProps) {
     );
   }
   return (
-    <mesh position={[0, -boxHeight / 2 + gridLen / 2 + boxPad, boxDepth / 2]}>
-      <boxGeometry args={[gridLen, gridLen, lcdDepth]} />
-      <meshStandardMaterial emissive={"#A0AEC0"} />
+    <mesh
+      position={[
+        0,
+        -boxHeight / 2 + gridLen / 2 + boxPad,
+        boxDepth / 2 + gridDepth / 2,
+      ]}
+    >
+      <boxGeometry args={[gridLen, gridLen, gridDepth]} />
+      <meshStandardMaterial attach={"material-0"} emissive={gray[4]} />
+      <meshStandardMaterial attach={"material-1"} emissive={gray[5]} />
+      <meshStandardMaterial attach={"material-2"} emissive={gray[3]} />
+      <meshStandardMaterial attach={"material-3"} emissive={gray[3]} />
+      <meshStandardMaterial attach={"material-4"} emissive={gray[4]} />
+      <meshStandardMaterial attach={"material-5"} emissive={gray[4]} />
       {...ret}
     </mesh>
   );

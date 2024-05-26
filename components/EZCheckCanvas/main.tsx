@@ -65,7 +65,7 @@ function EZCheck(props: EZCheckProps) {
             } else {
               setShow("PIN: ");
             }
-          } else {
+          } else if (key != "A" && key != "B" && key != "C" && key != "#") {
             const newPass = pass.length < 10 ? pass.concat(key) : pass;
             setPass(newPass);
             setShow("PIN: " + newPass);
@@ -91,11 +91,7 @@ export function EZCheckCanvas() {
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
         />
-        <EZCheck
-          leftLEDRef={leftLEDRef}
-          rightLEDRef={rightLEDRef}
-          good={false}
-        />
+        <EZCheck leftLEDRef={leftLEDRef} rightLEDRef={rightLEDRef} />
         <EffectComposer enableNormalPass={false}>
           <Bloom
             mipmapBlur
