@@ -134,7 +134,9 @@ export default function MachinePage({ machine, students }: PageProps) {
       </Flex>
       <SearchView
         setIn={newCerts.map((cert) => ({
-          name: cert.recipient!.name,
+          name:
+            (cert.recipient.name == machine.usedBy?.name ? 0 : 1) +
+            cert.recipient!.name,
           widget: (
             <UserWidget
               //data
@@ -147,6 +149,7 @@ export default function MachinePage({ machine, students }: PageProps) {
               email2={cert.issuer?.email}
               //xtra
               isEdit={isEdit}
+              using={cert.recipient.name == machine.usedBy?.name}
               handleRm={() => rmCert(cert)}
             />
           ),
@@ -204,6 +207,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       id: Number(context.params?.machineId),
     },
     include: {
+      usedBy: true,
       certificates: {
         include: {
           recipient: true,
