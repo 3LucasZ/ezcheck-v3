@@ -8,7 +8,7 @@ import {
   EffectComposer,
   ToneMapping,
 } from "@react-three/postprocessing";
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import { Mesh } from "three";
 import { ToneMappingMode } from "postprocessing";
 import LED from "./LED";
@@ -19,9 +19,12 @@ import Keypad from "./Keypad";
 type EZCheckProps = {
   leftLEDRef: MutableRefObject<any>;
   rightLEDRef: MutableRefObject<any>;
-  good: boolean;
 };
 function EZCheck(props: EZCheckProps) {
+  const [show, setShow] = useState("Welcome!");
+  const [pass, setPass] = useState("");
+  const [good, setGood] = useState<boolean | undefined>(undefined);
+
   return (
     <mesh position={[0, 0, 0]}>
       <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
@@ -31,10 +34,40 @@ function EZCheck(props: EZCheckProps) {
       <meshBasicMaterial attach="material-3" color="#CBD5E0" />
       <meshBasicMaterial attach="material-4" color="#CBD5E0" />
       <meshBasicMaterial attach="material-5" color="#CBD5E0" />
-      <LED left={true} active={props.good} rref={props.leftLEDRef} />
-      <LED left={false} active={!props.good} rref={props.rightLEDRef} />
-      <LCD text={"12345678901234 1234567890"} />
-      <Keypad />
+      <LED
+        left={true}
+        active={good != undefined ? good : false}
+        rref={props.leftLEDRef}
+      />
+      <LED
+        left={false}
+        active={good != undefined ? !good : false}
+        rref={props.rightLEDRef}
+      />
+      <LCD text={show} />
+      <Keypad
+        onClick={(key: string) => {
+          if (key == "D") {
+            setPass(pass.slice(0, -1));
+            setShow("PIN: " + pass.slice(0, -1));
+          } else if (key == "*") {
+            const good = Math.random() < 0.5;
+            if (good) {
+              setGood(true);
+              setPass("");
+              setShow("Authorized");
+            } else {
+              setGood(false);
+              setPass("");
+              setShow("Denied access");
+            }
+          } else {
+            const newPass = pass.length < 10 ? pass.concat(key) : pass;
+            setPass(newPass);
+            setShow("PIN: " + newPass);
+          }
+        }}
+      />
     </mesh>
   );
 }

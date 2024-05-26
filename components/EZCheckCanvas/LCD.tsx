@@ -21,7 +21,7 @@ export default function LCD(props: LCDProps) {
         anchorX="left" // default
         anchorY="top" // default
         position={[-lcdWidth / 2 + lcdPad, lcdHeight / 2, lcdDepth]}
-        maxWidth={lcdWidth}
+        maxWidth={lcdWidth * (1 / 0.11)}
       >
         {props.text}
         <meshBasicMaterial color="black" />
