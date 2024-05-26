@@ -1,16 +1,17 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Flex } from "@chakra-ui/react";
 import {
   Bloom,
   EffectComposer,
   ToneMapping,
 } from "@react-three/postprocessing";
-import { MutableRefObject, useRef, useState } from "react";
+import { useRef } from "react";
 import { Mesh } from "three";
 import { ToneMappingMode } from "postprocessing";
+import EZCheck from "./EZCheck";
 
 export function EZCheckCanvas() {
   const leftLEDRef = useRef<Mesh>(null!);
