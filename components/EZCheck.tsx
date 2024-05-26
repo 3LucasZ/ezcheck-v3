@@ -18,17 +18,37 @@ import { ToneMappingMode } from "postprocessing";
 const boxWidth = 1.13;
 const boxHeight = 1.35;
 const boxDepth = 0.5;
+const boxPad = 0.1;
 
 const ledRadius = boxDepth / 2 - 0.05;
 const ledHeight = 0.2;
 
-const lcdPad = 0.1;
-const lcdWidth = boxWidth - 2 * lcdPad;
+const lcdWidth = boxWidth - 2 * boxPad;
 const lcdHeight = lcdWidth / 3;
-const lcdDepth = 0.05;
+const lcdDepth = 0.02;
+const lcdPad = 0.025;
 
-// const gridLen = 0.75;
-const gridLen = boxHeight - 3 * lcdPad - lcdHeight;
+const gridLen = boxHeight - 3 * boxPad - lcdHeight;
+const gridPad = 0.04;
+const keys = [
+  "1",
+  "2",
+  "3",
+  "A",
+  "4",
+  "5",
+  "6",
+  "B",
+  "7",
+  "8",
+  "9",
+  "C",
+  "*",
+  "0",
+  "#",
+  "D",
+];
+const keyLen = (gridLen - 5 * gridPad) / 4;
 
 type LEDProps = {
   left: boolean;
@@ -66,30 +86,55 @@ function LED(props: LEDProps) {
 }
 function LCD() {
   return (
-    <mesh position={[0, boxHeight / 2 - lcdHeight / 2 - lcdPad, boxDepth / 2]}>
+    <mesh position={[0, boxHeight / 2 - lcdHeight / 2 - boxPad, boxDepth / 2]}>
       <boxGeometry args={[lcdWidth, lcdHeight, lcdDepth]} />
       <meshStandardMaterial
-        emissive={"#63B3ED"}
-        emissiveIntensity={2}
+        emissive={"#81E6D9"}
+        emissiveIntensity={1.54}
         toneMapped={false}
       />
       <Text
-        scale={[0.1, 0.1, 0.1]}
-        color="" // default
-        anchorX="center" // default
-        anchorY="middle" // default
-        position={[0, 0, lcdDepth]}
+        scale={[0.11, 0.11, 0]}
+        anchorX="left" // default
+        anchorY="top" // default
+        position={[-lcdWidth / 2 + lcdPad, lcdHeight / 2, lcdDepth]}
+        maxWidth={lcdWidth}
       >
-        HELLO WORLD
+        12345678901234 1234567890
+        <meshStandardMaterial />
       </Text>
     </mesh>
   );
 }
-function Keypad() {
+type KeyProps = {
+  x: number;
+  y: number;
+};
+function Key(props: KeyProps) {
   return (
-    <mesh position={[0, -boxHeight / 2 + gridLen / 2 + lcdPad, boxDepth / 2]}>
+    <mesh position={[props.x, props.y, lcdDepth]}>
+      <boxGeometry args={[keyLen, keyLen, lcdDepth]} />
+      <meshStandardMaterial emissive={"#000000"} />
+    </mesh>
+  );
+}
+function Keypad() {
+  const ret = [];
+  for (let i = 0; i < keys.length; i++) {
+    let x = (i % 4) * (gridPad + keyLen) - gridLen / 2 + keyLen / 2 + gridPad;
+    let y =
+      Math.floor(i / 4) * (gridPad + keyLen) -
+      gridLen / 2 +
+      keyLen / 2 +
+      gridPad;
+    ret.push(<Key x={x} y={y} />);
+  }
+  console.log(ret);
+  return (
+    <mesh position={[0, -boxHeight / 2 + gridLen / 2 + boxPad, boxDepth / 2]}>
       <boxGeometry args={[gridLen, gridLen, lcdDepth]} />
-      <meshStandardMaterial color={"red"} />
+      <meshStandardMaterial emissive={"#A0AEC0"} />
+      {...ret}
     </mesh>
   );
 }
@@ -123,6 +168,7 @@ export function EZCheckCanvas() {
     <Flex h="100vh">
       <Canvas camera={{ position: [0, 0, 3] }}>
         {/* <color attach="background" args={["#111"]} /> */}
+
         <OrbitControls
           enableZoom={false}
           minAzimuthAngle={-Math.PI / 4}
