@@ -36,13 +36,13 @@ export default function LED(props: LEDProps) {
       <meshStandardMaterial
         attach="material-0"
         emissive={props.left ? green[1] : red[1]}
-        emissiveIntensity={on ? 2.1 : 1}
+        emissiveIntensity={on ? 1.8 : 1}
         toneMapped={false}
       />
       <meshStandardMaterial
         attach="material-1"
         emissive={props.left ? green[0] : red[0]}
-        emissiveIntensity={on ? 1.8 : 1}
+        emissiveIntensity={on ? 1.7 : 1}
         toneMapped={false}
       />
     </mesh>
