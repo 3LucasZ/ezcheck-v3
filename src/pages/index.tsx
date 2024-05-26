@@ -33,7 +33,7 @@ import { responsivePx } from "services/constants";
 import FeatureCard from "components/FeatureCard";
 import Router from "next/router";
 import EZCheck from "components/EZCheckCanvas/EZCheck";
-import { EZCheckCanvas } from "components/EZCheckCanvas/main";
+import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -70,24 +70,8 @@ export default function Home() {
             >
               Valley Christian's official machine shop managing platform.
             </Text>
-            <Box h="8"></Box>
-            <Button
-              rounded={"full"}
-              px={6}
-              colorScheme={"orange"}
-              bg={"orange.300"}
-              _hover={{ bg: "orange.500" }}
-              onClick={(e) => {
-                e.preventDefault();
-                session
-                  ? Router.push(user?.isAdmin ? "/admin/home" : "/student/home")
-                  : signIn("google", { callbackUrl: "/main" });
-              }}
-            >
-              Get started
-            </Button>
           </Box>
-          <Box h="20"></Box>
+
           {/* <Text color={"gray.500"}>
             Whether you are a student or administrator, this is the ultimate
             management tool for your Never miss a meeting. Never be late for one
@@ -96,7 +80,26 @@ export default function Home() {
           </Text> */}
 
           <Stack direction={["column", "row"]} gap={0} pl={responsivePx}>
-            <Box w="100%">
+            <Box w="100%" h="500px">
+              <Box h="8"></Box>
+              <Button
+                rounded={"full"}
+                px={6}
+                colorScheme={"orange"}
+                bg={"orange.300"}
+                _hover={{ bg: "orange.500" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  session
+                    ? Router.push(
+                        user?.isAdmin ? "/admin/home" : "/student/home"
+                      )
+                    : signIn("google", { callbackUrl: "/main" });
+                }}
+              >
+                Get started
+              </Button>
+              <Box h="20"></Box>
               <FeatureCard
                 icon={FiUsers}
                 title="Students"
@@ -109,10 +112,13 @@ export default function Home() {
                 content="Manage machines and students without any hassle."
               />
             </Box>
-
+            <Box h={useBloom ? "" : "16"}></Box>
             <Box
-              w="100%"
-              h="400px"
+              // w="100%"
+              h={useBloom ? "500px" : "350px"}
+              maxH="100%"
+              aspectRatio={3 / 3}
+              // h="100%"
               // h="100%"
               // minH="500px"
               // display={"flex"}
@@ -124,12 +130,12 @@ export default function Home() {
                 maxH="400px"
                 aspectRatio={2 / 3}
               ></Image> */}
+
               <EZCheckCanvas useBloom={useBloom} />
             </Box>
           </Stack>
-          {/* <Box h="60"></Box> */}
-          {/* <Box h="10"></Box>
-          <Center>
+          <Box h="40"></Box>
+          {/* <Center>
             <Text fontSize={["2xl", "3xl"]}>Thank you to our sponsors:</Text>
           </Center>
           <HStack w="100%" justify={"center"}>

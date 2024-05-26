@@ -13,7 +13,6 @@ import { Mesh, Vector3 } from "three";
 import { ToneMappingMode } from "postprocessing";
 import EZCheck from "./EZCheck";
 import { ledHeight } from "./constants";
-import { iOS } from "services/utils";
 
 type PageProps = {
   useBloom?: boolean;
@@ -24,7 +23,7 @@ export function EZCheckCanvas(props: PageProps) {
 
   return (
     <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
-      {/* <color attach="background" args={["#111"]} /> */}
+      <color attach="background" args={["#111"]} />
       <OrbitControls
         enableZoom={false}
         minAzimuthAngle={-Math.PI / 4}
