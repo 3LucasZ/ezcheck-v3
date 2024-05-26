@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import {
   Bloom,
   EffectComposer,
@@ -13,10 +13,15 @@ import { Mesh, Vector3 } from "three";
 import { ToneMappingMode } from "postprocessing";
 import EZCheck from "./EZCheck";
 import { ledHeight } from "./constants";
+import { iOS } from "services/utils";
 
-export function EZCheckCanvas() {
+type PageProps = {
+  useBloom?: boolean;
+};
+export function EZCheckCanvas(props: PageProps) {
   const leftLEDRef = useRef<Mesh>(null!);
   const rightLEDRef = useRef<Mesh>(null!);
+
   return (
     <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
       {/* <color attach="background" args={["#111"]} /> */}
@@ -38,15 +43,17 @@ export function EZCheckCanvas() {
         /> */}
       <EZCheck leftLEDRef={leftLEDRef} rightLEDRef={rightLEDRef} />
 
-      <EffectComposer enableNormalPass={false}>
-        <Bloom
-          mipmapBlur
-          luminanceThreshold={1}
-          levels={8}
-          intensity={0.4 * 4}
-        />
-        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      </EffectComposer>
+      {props.useBloom && (
+        <EffectComposer enableNormalPass={false}>
+          <Bloom
+            mipmapBlur
+            luminanceThreshold={1}
+            levels={8}
+            intensity={0.4 * 4}
+          />
+          <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }

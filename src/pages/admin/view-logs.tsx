@@ -6,6 +6,7 @@ import prisma from "services/prisma";
 
 import LogWidget, { LogProps } from "components/Widget/LogWidget";
 import AdminLayout from "components/Layout/AdminLayout";
+import { TextingBar } from "components/Layout/TextingBar";
 
 type PageProps = {
   logs: LogProps[];
@@ -20,8 +21,9 @@ export default function Home({ logs }: PageProps) {
         {logs.map((log) => (
           <LogWidget log={log}></LogWidget>
         ))}
-        <Box minH="0px"></Box>
+        <Box minH="100px"></Box>
       </Box>
+      <TextingBar />
     </AdminLayout>
   );
 }

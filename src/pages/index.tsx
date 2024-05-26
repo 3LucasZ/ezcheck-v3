@@ -11,6 +11,7 @@ import {
   Image,
   AspectRatio,
   HStack,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { RouteButton } from "components/RouteButton";
 import Layout from "components/Layout/MainLayout";
@@ -37,6 +38,10 @@ import { EZCheckCanvas } from "components/EZCheckCanvas/main";
 export default function Home() {
   const { data: session } = useSession();
   const user = session?.user;
+  const useBloom = useBreakpointValue({
+    base: false,
+    sm: true,
+  });
   return (
     <>
       <Layout>
@@ -107,19 +112,22 @@ export default function Home() {
 
             <Box
               w="100%"
-              display={"flex"}
-              justifyContent="center"
-              overflow="hidden"
+              h="400px"
+              // h="100%"
+              // minH="500px"
+              // display={"flex"}
+              // justifyContent="center"
+              // overflow="hidden"
             >
               {/* <Image
                 src="images/module.png"
                 maxH="400px"
                 aspectRatio={2 / 3}
               ></Image> */}
-              <EZCheckCanvas />
+              <EZCheckCanvas useBloom={useBloom} />
             </Box>
           </Stack>
-          <Box h="60"></Box>
+          {/* <Box h="60"></Box> */}
           {/* <Box h="10"></Box>
           <Center>
             <Text fontSize={["2xl", "3xl"]}>Thank you to our sponsors:</Text>
