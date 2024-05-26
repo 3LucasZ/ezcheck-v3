@@ -32,3 +32,14 @@ export const orangeBtn = {
   _active: { bg: "orange.400" },
   ...btnBase,
 };
+
+export const gray = [
+  "#F7FAFC",
+  "#EDF2F7",
+  "#E2E8F0",
+  "#CBD5E0",
+  "#A0AEC0",
+  "#718096",
+  "#4A5568",
+  "#2D3748",
+];
