@@ -1,3 +1,4 @@
+import { gray } from "services/constants";
 import {
   lcdDepth,
   keyLen,
@@ -7,17 +8,28 @@ import {
   boxHeight,
   boxPad,
   boxDepth,
+  keyDepth,
 } from "./constants";
+import { Text } from "@react-three/drei";
 
 type KeyProps = {
   x: number;
   y: number;
+  text: string;
 };
 function Key(props: KeyProps) {
   return (
     <mesh position={[props.x, props.y, lcdDepth]}>
-      <boxGeometry args={[keyLen, keyLen, lcdDepth]} />
-      <meshStandardMaterial emissive={"#000000"} />
+      <boxGeometry args={[keyLen, keyLen, keyDepth]} />
+      <meshStandardMaterial attach={"material-0"} emissive={gray[6]} />
+      <meshStandardMaterial attach={"material-1"} emissive={gray[7]} />
+      <meshStandardMaterial attach={"material-2"} emissive={gray[5]} />
+      <meshStandardMaterial attach={"material-3"} emissive={gray[6]} />
+      <meshStandardMaterial attach={"material-4"} emissive={gray[6]} />
+      <meshStandardMaterial attach={"material-5"} emissive={gray[6]} />
+      <Text scale={[0.1, 0.1, 0.1]} position={[0, 0, keyDepth / 2 + 0.001]}>
+        {props.text}
+      </Text>
     </mesh>
   );
 }
@@ -30,7 +42,7 @@ export default function Keypad() {
       gridLen / 2 +
       keyLen / 2 +
       gridPad;
-    ret.push(<Key x={x} y={y} />);
+    ret.push(<Key x={x} y={y} text={keys[i]} />);
   }
   console.log(ret);
   return (

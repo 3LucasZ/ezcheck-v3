@@ -33,3 +33,4 @@ export const keys = [
   "D",
 ];
 export const keyLen = (gridLen - 5 * gridPad) / 4;
+export const keyDepth = 6 * lcdDepth;
