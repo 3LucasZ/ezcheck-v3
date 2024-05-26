@@ -34,6 +34,7 @@ import FeatureCard from "components/FeatureCard";
 import Router from "next/router";
 import EZCheck from "components/EZCheckCanvas/EZCheck";
 import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
+import { useState } from "react";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -42,13 +43,16 @@ export default function Home() {
     base: false,
     sm: true,
   });
+  const aspectRatio = 10 / 8.2;
+  const widths = [250, 300, 400, 500];
+  const heights = widths.map((width) => width * aspectRatio);
   return (
     <>
       <Layout>
         <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} />
         <Box overflowY={"auto"}>
           <Box px={responsivePx}>
-            <Box h="20"></Box>
+            <Box h={["10", "20"]}></Box>
             <Heading
               fontWeight={600}
               fontSize={["3xl", "4xl", "5xl"]}
@@ -79,8 +83,13 @@ export default function Home() {
             appropriate times. Read your smart “Daily Agenda” every morning.
           </Text> */}
 
-          <Stack direction={["column", "row"]} gap={0} pl={responsivePx}>
-            <Box w="100%" h="500px">
+          <Flex
+            direction={["column", "row"]}
+            gap={0}
+            pl={responsivePx}
+            // h="600px"
+          >
+            <Box>
               <Box h="8"></Box>
               <Button
                 rounded={"full"}
@@ -99,7 +108,7 @@ export default function Home() {
               >
                 Get started
               </Button>
-              <Box h="20"></Box>
+              <Box h={["10"]}></Box>
               <FeatureCard
                 icon={FiUsers}
                 title="Students"
@@ -112,29 +121,16 @@ export default function Home() {
                 content="Manage machines and students without any hassle."
               />
             </Box>
-            <Box h={useBloom ? "" : "16"}></Box>
+            <Box h={"10"} />
             <Box
-              // w="100%"
-              h={useBloom ? "500px" : "350px"}
-              maxH="100%"
-              aspectRatio={3 / 3}
-              // h="100%"
-              // h="100%"
-              // minH="500px"
-              // display={"flex"}
-              // justifyContent="center"
-              // overflow="hidden"
+              h={useBloom ? heights.map((height) => height + "px") : "350px"}
+              w={widths.map((width) => width + "px")}
+              alignSelf={"center"}
             >
-              {/* <Image
-                src="images/module.png"
-                maxH="400px"
-                aspectRatio={2 / 3}
-              ></Image> */}
-
               <EZCheckCanvas useBloom={useBloom} />
             </Box>
-          </Stack>
-          <Box h="40"></Box>
+          </Flex>
+          <Box h="20"></Box>
           {/* <Center>
             <Text fontSize={["2xl", "3xl"]}>Thank you to our sponsors:</Text>
           </Center>

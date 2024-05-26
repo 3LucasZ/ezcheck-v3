@@ -23,7 +23,7 @@ export function EZCheckCanvas(props: PageProps) {
 
   return (
     <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
-      <color attach="background" args={["#111"]} />
+      {/* <color attach="background" args={["#111"]} /> */}
       <OrbitControls
         enableZoom={false}
         minAzimuthAngle={-Math.PI / 4}
