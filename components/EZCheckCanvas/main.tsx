@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import { Flex } from "@chakra-ui/react";
 import {
   Bloom,
@@ -81,7 +81,7 @@ export function EZCheckCanvas() {
   const rightLEDRef = useRef<Mesh>(null!);
   return (
     <Flex h="100vh">
-      <Canvas camera={{ position: [0, 0, 3] }}>
+      <Canvas camera={{ zoom: 3 }}>
         {/* <color attach="background" args={["#111"]} /> */}
 
         <OrbitControls
@@ -91,7 +91,17 @@ export function EZCheckCanvas() {
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
         />
+        {/* <OrthographicCamera
+          makeDefault
+          zoom={2}
+          top={2}
+          bottom={-2}
+          left={-2}
+          right={2}
+          position={[0, 0, 20]}
+        /> */}
         <EZCheck leftLEDRef={leftLEDRef} rightLEDRef={rightLEDRef} />
+
         <EffectComposer enableNormalPass={false}>
           <Bloom
             mipmapBlur

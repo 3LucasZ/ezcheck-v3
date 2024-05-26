@@ -26,7 +26,6 @@ type KeyProps = {
 function Key(props: KeyProps) {
   const [active, setActive] = useState(false);
   const trueKeyDepth = active ? keyDownDepth : keyUpDepth;
-  console.log(active);
   return (
     <mesh
       position={[props.x, props.y, gridDepth / 2 + trueKeyDepth / 2]}
