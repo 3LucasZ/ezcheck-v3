@@ -12,6 +12,7 @@ type LCDProps = {
   text: string;
 };
 export default function LCD(props: LCDProps) {
+  const intensity = 1.54;
   return (
     <mesh
       position={[
@@ -24,32 +25,32 @@ export default function LCD(props: LCDProps) {
       <meshStandardMaterial
         attach={"material-0"}
         // emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-1"}
         // emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-2"}
         // emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-3"}
         // emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-4"}
         emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-5"}
         emissive={"#81E6D9"}
-        emissiveIntensity={1.54}
+        emissiveIntensity={intensity}
       />
       <Text
         scale={[0.11, 0.11, 0]}
