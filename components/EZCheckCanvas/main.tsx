@@ -47,19 +47,23 @@ function EZCheck(props: EZCheckProps) {
       <LCD text={show} />
       <Keypad
         onClick={(key: string) => {
+          setGood(undefined);
           if (key == "D") {
             setPass(pass.slice(0, -1));
             setShow("PIN: " + pass.slice(0, -1));
           } else if (key == "*") {
-            const good = Math.random() < 0.5;
-            if (good) {
-              setGood(true);
+            if (pass.length > 0) {
+              const good = Math.random() < 0.5;
+              if (good) {
+                setGood(true);
+                setShow("Authorized");
+              } else {
+                setGood(false);
+                setShow("Denied access");
+              }
               setPass("");
-              setShow("Authorized");
             } else {
-              setGood(false);
-              setPass("");
-              setShow("Denied access");
+              setShow("PIN: ");
             }
           } else {
             const newPass = pass.length < 10 ? pass.concat(key) : pass;
