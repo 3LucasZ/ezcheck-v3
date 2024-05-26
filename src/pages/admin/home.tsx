@@ -13,7 +13,14 @@ import { useSession } from "next-auth/react";
 import AdminLayout from "components/Layout/AdminLayout";
 import { CustomStat } from "components/Main/CustomStat";
 import { group } from "console";
-import { FiUsers, FiCpu, FiAward, FiCompass, FiZap } from "react-icons/fi";
+import {
+  FiUsers,
+  FiCpu,
+  FiAward,
+  FiCompass,
+  FiZap,
+  FiWatch,
+} from "react-icons/fi";
 import { responsivePx } from "services/constants";
 import prisma from "services/prisma";
 import { GetServerSideProps } from "next";
@@ -98,7 +105,7 @@ export default function Home(props: PageProps) {
               })),
             ]}
           />
-          <CustomDivider color="orange.300" icon={FiZap} text="In Use" />
+          <CustomDivider color="orange.300" icon={FiWatch} text="In Use" />
           <VStack w="100%">
             {machinesInUse.length > 0 ? (
               machinesInUse.map((machine) => (
