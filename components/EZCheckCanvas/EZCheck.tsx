@@ -1,5 +1,5 @@
 import { MutableRefObject, useState } from "react";
-import { boxDepth, boxHeight, boxWidth } from "./constants";
+import { boxDepth, boxHeight, boxWidth, ledHeight } from "./constants";
 import Keypad from "./Keypad";
 import LCD from "./LCD";
 import LED from "./LED";
@@ -14,7 +14,7 @@ export default function EZCheck(props: EZCheckProps) {
   const [good, setGood] = useState<boolean | undefined>(undefined);
 
   return (
-    <mesh position={[0, 0, 0]}>
+    <mesh position={[0, -ledHeight / 2, 0]}>
       <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
       <meshBasicMaterial attach="material-0" color="#CBD5E0" />
       <meshBasicMaterial attach="material-1" color="#A0AEC0" />
