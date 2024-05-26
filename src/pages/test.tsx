@@ -1,4 +1,4 @@
-import { EZCheckCanvas } from "components/EZCheck";
+import { EZCheckCanvas } from "components/EZCheckCanvas/main";
 import Layout from "components/Layout/MainLayout";
 
 export default function Test() {
