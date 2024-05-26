@@ -1,4 +1,4 @@
-import { MutableRefObject, useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import { boxWidth, ledRadius, boxHeight, ledHeight } from "./constants";
 import { useFrame } from "@react-three/fiber";
 
@@ -12,15 +12,14 @@ export default function LED(props: LEDProps) {
   const green = ["#81E6D9", "#38B2AC"];
   const [on, setOn] = useState(false);
   const [init, setInit] = useState(0);
-  useFrame(({ clock }) => {
-    if (init == 0) {
-      setInit(clock.getElapsedTime());
+  useEffect(() => {
+    setInit(Date.now());
+  }, [props.active]);
+  useFrame(() => {
+    if ((Date.now() - init) % 1000 > 500) {
+      props.active && setOn(true);
     } else {
-      if (Math.round((clock.getElapsedTime() - init) * 10) % 10 > 5) {
-        props.active && setOn(true);
-      } else {
-        setOn(false);
-      }
+      setOn(false);
     }
   });
   return (
