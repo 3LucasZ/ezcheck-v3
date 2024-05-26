@@ -22,6 +22,7 @@ export function TextingBar() {
           rounded={"full"}
           minH="60px"
           w="100%"
+          bg="white"
         />
         <Box
           minH={"60px"}
