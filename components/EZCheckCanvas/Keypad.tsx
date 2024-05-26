@@ -8,8 +8,9 @@ import {
   boxHeight,
   boxPad,
   boxDepth,
-  keyDepth,
+  keyUpDepth,
   gridDepth,
+  keyDownDepth,
 } from "./constants";
 import { Text } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
@@ -24,11 +25,11 @@ type KeyProps = {
 };
 function Key(props: KeyProps) {
   const [active, setActive] = useState(false);
-  const trueKeyDepth = active ? gridDepth : keyDepth;
+  const trueKeyDepth = active ? keyDownDepth : keyUpDepth;
   console.log(active);
   return (
     <mesh
-      position={[props.x, props.y, trueKeyDepth / 2]}
+      position={[props.x, props.y, gridDepth / 2 + trueKeyDepth / 2]}
       onPointerDown={(e) => {
         e.stopPropagation();
         props.onClick(props.text);

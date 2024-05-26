@@ -8,12 +8,12 @@ export const ledHeight = 0.2;
 
 export const lcdWidth = boxWidth - 2 * boxPad;
 export const lcdHeight = lcdWidth / 3;
-export const lcdDepth = 0.01;
+export const lcdDepth = 0.02;
 export const lcdPad = 0.025;
 
 export const gridLen = boxHeight - 3 * boxPad - lcdHeight;
 export const gridPad = 0.04;
-export const gridDepth = 0.04;
+export const gridDepth = 0.03;
 
 export const keys = [
   "1",
@@ -34,4 +34,5 @@ export const keys = [
   "D",
 ];
 export const keyLen = (gridLen - 5 * gridPad) / 4;
-export const keyDepth = 0.08;
+export const keyUpDepth = 0.03;
+export const keyDownDepth = 0.01;
