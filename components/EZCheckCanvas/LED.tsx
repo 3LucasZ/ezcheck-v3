@@ -22,14 +22,14 @@ export default function LED(props: LEDProps) {
       <cylinderGeometry args={[ledRadius, ledRadius, ledHeight]} />
       <meshStandardMaterial
         attach="material-0"
-        emissive={props.left ? red[1] : green[1]}
-        emissiveIntensity={props.active ? 2 : 1}
+        emissive={props.left ? green[1] : red[1]}
+        emissiveIntensity={props.active ? 2.5 : 1}
         toneMapped={false}
       />
       <meshStandardMaterial
         attach="material-1"
-        emissive={props.left ? red[0] : green[0]}
-        emissiveIntensity={props.active ? 2 : 1}
+        emissive={props.left ? green[0] : red[0]}
+        emissiveIntensity={props.active ? 2.5 : 1}
         toneMapped={false}
       />
     </mesh>

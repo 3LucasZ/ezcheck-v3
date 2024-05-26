@@ -16,11 +16,12 @@ import LCD from "./LCD";
 import { boxWidth, boxHeight, boxDepth } from "./constants";
 import Keypad from "./Keypad";
 
-type FrameProps = {
+type EZCheckProps = {
   leftLEDRef: MutableRefObject<any>;
   rightLEDRef: MutableRefObject<any>;
+  good: boolean;
 };
-function EZCheck(props: FrameProps) {
+function EZCheck(props: EZCheckProps) {
   return (
     <mesh position={[0, 0, 0]}>
       <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
@@ -30,8 +31,8 @@ function EZCheck(props: FrameProps) {
       <meshBasicMaterial attach="material-3" color="#CBD5E0" />
       <meshBasicMaterial attach="material-4" color="#CBD5E0" />
       <meshBasicMaterial attach="material-5" color="#CBD5E0" />
-      <LED left={true} active={true} rref={props.leftLEDRef} />
-      <LED left={false} active={true} rref={props.rightLEDRef} />
+      <LED left={true} active={props.good} rref={props.leftLEDRef} />
+      <LED left={false} active={!props.good} rref={props.rightLEDRef} />
       <LCD text={"12345678901234 1234567890"} />
       <Keypad />
     </mesh>
@@ -53,7 +54,11 @@ export function EZCheckCanvas() {
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
         />
-        <EZCheck leftLEDRef={leftLEDRef} rightLEDRef={rightLEDRef} />
+        <EZCheck
+          leftLEDRef={leftLEDRef}
+          rightLEDRef={rightLEDRef}
+          good={false}
+        />
         <EffectComposer enableNormalPass={false}>
           <Bloom
             mipmapBlur
