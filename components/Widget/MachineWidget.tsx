@@ -85,6 +85,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
         bg: props.url ? (props.using ? "orange.200" : "gray.100") : "",
       }}
       minH="60px"
+      w="100%"
     >
       <HStack>
         <AspectRatio minW="60px" ratio={1} bgGradient={genGradient(props.name)}>

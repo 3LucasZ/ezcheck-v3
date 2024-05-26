@@ -31,6 +31,7 @@ type UserWidgetProps = {
   //state
   inverted?: boolean;
   isEdit?: boolean;
+  using?: boolean;
 
   //functions
   disabled?: boolean;
@@ -76,9 +77,10 @@ export default function UserWidget(props: UserWidgetProps) {
           !props.disabled && Router.push(`/admin/view-student/${props.id}`)
         }
         px="2"
-        bg={props.isSupervising ? "orange.100" : "white"}
+        bg={props.using ? "orange.100" : "white"}
         _hover={{ bg: !props.disabled && "gray.100" }}
         minH="60px"
+        w="100%"
       >
         <HStack h="100%">
           <AspectRatio minW="45px" maxW="45px" ratio={1}>
