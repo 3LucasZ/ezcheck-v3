@@ -6,7 +6,7 @@ export async function serverCreateLog(
   sender?: string
 ) {
   try {
-    const timestamp = new Date().toLocaleString();
+    const timestamp = Date.now();
     const op = await prisma.log.create({
       data: {
         sender,
@@ -24,7 +24,7 @@ export async function clientCreateLog(
   sender?: string
 ) {
   try {
-    const timestamp = new Date().toLocaleString();
+    const timestamp = Date.now();
     const op = await prisma.log.create({
       data: {
         sender,
