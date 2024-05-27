@@ -20,6 +20,7 @@ import {
   FiCompass,
   FiZap,
   FiWatch,
+  FiClock,
 } from "react-icons/fi";
 import { responsivePx } from "services/constants";
 import prisma from "services/prisma";
@@ -84,28 +85,26 @@ export default function Home(props: PageProps) {
           />
         </SimpleGrid>
         <Box px={responsivePx}>
-          <CustomDivider
-            color="orange.300"
-            icon={FiZap}
-            text="Recently Created"
-          />
-          <Carousel
-            cards={[
-              ...props.students.map((student) => ({
-                image: student.image,
-                dbImage: false,
-                title: student.name,
-                url: "/admin/view-student/" + student.id,
-              })),
-              ...props.machines.map((machine) => ({
-                image: machine.image,
-                dbImage: true,
-                title: machine.name,
-                url: "/admin/view-machine/" + machine.id,
-              })),
-            ]}
-          />
-          <CustomDivider color="orange.300" icon={FiWatch} text="In Use" />
+          <CustomDivider color="orange.300" icon={FiZap} text="New" />
+          <VStack>
+            {props.students.map((student) => (
+              <UserWidget
+                id={student.id}
+                name={student.name}
+                email={student.email}
+                image={student.image}
+              />
+            ))}
+            {props.machines.map((machine) => (
+              <MachineWidget
+                name={machine.name}
+                description={machine.description}
+                image={machine.image}
+                url={`/admin/view-machine/${machine.id}`}
+              />
+            ))}
+          </VStack>
+          <CustomDivider color="orange.300" icon={FiClock} text="In Use" />
           <VStack w="100%">
             {machinesInUse.length > 0 ? (
               machinesInUse.map((machine) => (
@@ -149,3 +148,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+/*
+<Carousel
+            cards={[
+              ...props.students.map((student) => ({
+                image: student.image,
+                dbImage: false,
+                title: student.name,
+                url: "/admin/view-student/" + student.id,
+              })),
+              ...props.machines.map((machine) => ({
+                image: machine.image,
+                dbImage: true,
+                title: machine.name,
+                url: "/admin/view-machine/" + machine.id,
+              })),
+            ]}
+          />
+*/
