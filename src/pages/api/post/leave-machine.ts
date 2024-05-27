@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import createLog from "services/createLog";
+import serverCreateLog from "services/createLog";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 
@@ -33,7 +33,7 @@ export default async function handle(
     : "No supervisors available.";
   //check cases
   if (student == null || machine == null || supervisors.length == 0) {
-    createLog(
+    serverCreateLog(
       (student == null ? "An unknown student" : student.name) +
         " might be trespassing on " +
         (machine == null
@@ -62,7 +62,7 @@ export default async function handle(
           usedById: null,
         },
       });
-      createLog(
+      serverCreateLog(
         machine.usedBy?.name +
           " logged out of " +
           machine.name +
@@ -72,7 +72,7 @@ export default async function handle(
       );
       return res.status(200).send("Logged out");
     } catch (e) {
-      createLog("Database error: " + prismaErrHandler(e), 2);
+      serverCreateLog("Database error: " + prismaErrHandler(e), 2);
       return res.status(500).send("Internal error");
     }
   }

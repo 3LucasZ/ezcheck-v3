@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { debugMode } from "services/constants";
-import createLog from "services/createLog";
+import serverCreateLog from "services/createLog";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 
@@ -56,7 +56,7 @@ export default async function handle(
     IP == null ||
     supervisors.length == 0
   ) {
-    createLog(
+    serverCreateLog(
       (student == null ? "An unknown student" : student.name) +
         " might be trespassing on " +
         (machine == null
@@ -81,7 +81,7 @@ export default async function handle(
       return res.status(500).send("Unsupervised");
     }
   } else if (student.using != null) {
-    createLog(
+    serverCreateLog(
       student.name +
         " is trying to use " +
         machine.name +
@@ -93,7 +93,7 @@ export default async function handle(
     );
     return res.status(500).send("Already using " + student.using.name);
   } else if (machine.usedBy != null) {
-    createLog(
+    serverCreateLog(
       student.name +
         " is trying to use " +
         machine.name +
@@ -107,7 +107,7 @@ export default async function handle(
       .status(500)
       .send(machine.name + " already in use by " + machine.usedBy.name + ".");
   } else if (!allowedMachineNames.includes(machineName)) {
-    createLog(
+    serverCreateLog(
       student.name +
         " is trying to use " +
         machine.name +
@@ -127,13 +127,13 @@ export default async function handle(
           IP: IP,
         },
       });
-      createLog(
+      serverCreateLog(
         student.name + " started using " + machine.name + ". " + supervisorsMsg,
         0
       );
       return res.status(200).send(student.name);
     } catch (e) {
-      createLog("Database error: " + prismaErrHandler(e), 2);
+      serverCreateLog("Database error: " + prismaErrHandler(e), 2);
       return res.status(500).send("Internal error");
     }
   }

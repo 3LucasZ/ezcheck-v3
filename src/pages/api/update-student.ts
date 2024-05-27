@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "next-auth";
-import createLog from "services/createLog";
+import serverCreateLog from "services/createLog";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { CertificateProps } from "types/db";
@@ -50,7 +50,7 @@ export default async function handle(
       },
     });
     if (oldStudent?.isAdmin == false && isAdmin == true)
-      createLog(
+      serverCreateLog(
         requester.name +
           " granted admin privileges to " +
           oldStudent.name +
@@ -58,7 +58,7 @@ export default async function handle(
         1
       );
     if (oldStudent?.isAdmin == true && isAdmin == false) {
-      createLog(
+      serverCreateLog(
         requester.name +
           " removed admin privileges from " +
           oldStudent.name +

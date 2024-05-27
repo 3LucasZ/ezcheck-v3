@@ -37,9 +37,9 @@ export default function Home({ logs }: PageProps) {
           <LogWidget log={log}></LogWidget>
         ))} */}
         <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
-        <Box minH="100px"></Box>
+        <Box minH="16"></Box>
       </Box>
-      <TextingBar />
+      <TextingBar send={(e) => console.log(e)} />
     </AdminLayout>
   );
 }

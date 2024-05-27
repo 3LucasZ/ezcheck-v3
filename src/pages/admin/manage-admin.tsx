@@ -9,7 +9,6 @@ import AdminLayout from "components/Layout/AdminLayout";
 import { User } from "next-auth";
 import UserWidget from "components/Widget/UserWidget";
 import { responsiveHeaderFontSize, responsivePx } from "services/constants";
-import createLog from "services/createLog";
 
 type PageProps = {
   users: User[];
