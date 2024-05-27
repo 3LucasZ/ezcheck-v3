@@ -12,7 +12,7 @@ export default function AppBar() {
         <AppBarBtn icon={FiUsers} href="/admin/manage-students" />
         <AppBarBtn icon={FiCpu} href="/admin/manage-machines" />
         <AppBarBtn icon={FiFileText} href="/admin/view-logs" />
-        <AppBarBtn icon={FiTool} href="/admin/config" />
+        <AppBarBtn icon={FiTool} href="/admin/configure-machine" />
       </HStack>
     </Box>
   );
