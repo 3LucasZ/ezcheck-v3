@@ -3,16 +3,49 @@ import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 
-import { Box, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Link,
+  ListItem,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 import Header from "components/Layout/Header";
+import FAQ from "components/Layout/FAQ";
+import { responsivePx } from "services/constants";
 
 export default function Home() {
   const { data: session } = useSession();
   const user = session?.user;
   return (
     <Layout>
-      <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} />
+      {/* <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} /> */}
+
       <Box px="5" overflowY="auto">
+        <FAQ />
+        <Accordion allowToggle px={responsivePx} gap={8}>
+          <FAQItem
+            Q="What does the invert checkbox do?"
+            A="When invert mode is on, the display will tell you what items a
+          storage does not contain or what storages an item can not be found in."
+          />
+          <Box h="8" />
+          <FAQItem
+            Q="What does the invert checkbox do?"
+            A="When invert mode is on, the display will tell you what items a
+          storage does not contain or what storages an item can not be found in."
+          />
+          <FAQItem
+            Q="What does the invert checkbox do?"
+            A="When invert mode is on, the display will tell you what items a
+          storage does not contain or what storages an item can not be found in."
+          />
+        </Accordion>
         <Text fontSize="4xl">Version</Text>
         <Text fontSize="xl">2.1 (Alpha)</Text>
         <Text fontSize="4xl">Q&A</Text>
@@ -48,14 +81,29 @@ export default function Home() {
         >
           Terms of Service
         </Link>
-        <Text fontSize="4xl">Contact Us</Text>
-        <Text fontSize="xl">
-          Please do not hesitate to email us at sahuber@vcs.net if you have any
-          questions, need further instruction, or have suggestions for
-          improvement.
-        </Text>
+
         <Box h="10px"></Box>
       </Box>
     </Layout>
+  );
+}
+
+type FAQItemProps = {
+  Q: string;
+  A: string;
+};
+function FAQItem(props: FAQItemProps) {
+  return (
+    <AccordionItem m={4}>
+      <h2>
+        <AccordionButton>
+          <Box as="span" flex="1" textAlign="left">
+            {props.Q}
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+      </h2>
+      <AccordionPanel pb={4}>{props.A}</AccordionPanel>
+    </AccordionItem>
   );
 }
