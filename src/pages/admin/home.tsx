@@ -21,6 +21,7 @@ import {
   FiZap,
   FiWatch,
   FiClock,
+  FiAlertTriangle,
 } from "react-icons/fi";
 import { responsivePx } from "services/constants";
 import prisma from "services/prisma";
@@ -33,7 +34,7 @@ import UserWidget from "components/Widget/UserWidget";
 import MachineWidget from "components/Widget/MachineWidget";
 
 type PageProps = {
-  students: User[];
+  users: User[];
   machines: MachineProps[];
   certificates: CertificateProps[];
 };
@@ -43,7 +44,6 @@ export default function Home(props: PageProps) {
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null
   );
-  console.log(machinesInUse);
   return (
     <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
       <Box overflowY="auto">
@@ -54,8 +54,8 @@ export default function Home(props: PageProps) {
           py={[4, 6, 8]}
         >
           <CustomStat
-            label={"Students"}
-            value={"" + props.students.length}
+            label={"Users"}
+            value={"" + props.users.length}
             link={`/admin/manage-students`}
             icon={FiUsers}
             dark="cyan.400"
@@ -85,24 +85,37 @@ export default function Home(props: PageProps) {
           />
         </SimpleGrid>
         <Box px={responsivePx}>
-          <CustomDivider color="orange.300" icon={FiZap} text="New" />
+          <CustomDivider
+            color="orange.300"
+            icon={FiAlertTriangle}
+            text="Incomplete"
+          />
           <VStack>
-            {props.students.map((student) => (
-              <UserWidget
-                id={student.id}
-                name={student.name}
-                email={student.email}
-                image={student.image}
-              />
-            ))}
-            {props.machines.map((machine) => (
-              <MachineWidget
-                name={machine.name}
-                description={machine.description}
-                image={machine.image}
-                url={`/admin/view-machine/${machine.id}`}
-              />
-            ))}
+            {props.users
+              .filter((x) => !x.PIN)
+              .map((x) => (
+                <UserWidget
+                  id={x.id}
+                  name={x.name}
+                  email={x.email}
+                  image={x.image}
+                />
+              ))}
+            {props.machines
+              .filter(
+                (x) =>
+                  !x.description ||
+                  !x.image ||
+                  x.name.substring(0, 8) == "Machine-"
+              )
+              .map((x) => (
+                <MachineWidget
+                  name={x.name}
+                  description={x.description}
+                  image={x.image}
+                  url={`/admin/view-machine/${x.id}`}
+                />
+              ))}
           </VStack>
           <CustomDivider color="orange.300" icon={FiClock} text="In Use" />
           <VStack w="100%">
@@ -136,13 +149,13 @@ export default function Home(props: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const students = await prisma.user.findMany({ where: { isAdmin: false } });
+  const users = await prisma.user.findMany();
   const machines = await prisma.machine.findMany({ include: { usedBy: true } });
   const certificates = await prisma.machineCertificate.findMany();
 
   return {
     props: {
-      students,
+      users,
       machines,
       certificates,
     },
