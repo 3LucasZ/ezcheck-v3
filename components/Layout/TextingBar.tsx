@@ -22,6 +22,7 @@ export function TextingBar(props: TextingBarProps) {
       mx="2"
       minH="60px"
       maxH="60px"
+      zIndex={1000}
     >
       <HStack>
         <Input

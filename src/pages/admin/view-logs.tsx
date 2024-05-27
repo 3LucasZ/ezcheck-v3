@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Flex,
   Step,
   StepDescription,
@@ -22,6 +23,10 @@ import AdminLayout from "components/Layout/AdminLayout";
 import { TextingBar } from "components/Layout/TextingBar";
 import { propagateServerField } from "next/dist/server/lib/render-server";
 import { FiAlertCircle, FiAlertTriangle, FiInfo } from "react-icons/fi";
+import {
+  responsiveHeaderFontSize,
+  responsiveSubheaderFontSize,
+} from "services/constants";
 
 type PageProps = {
   logs: LogProps[];
@@ -31,11 +36,11 @@ export default function Home({ logs }: PageProps) {
   const user = session?.user;
   return (
     <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
-      <Box gap="8px" overflowY="auto" px="5" display="grid">
-        <Box minH="0px"></Box>
-        {/* {logs.map((log) => (
-          <LogWidget log={log}></LogWidget>
-        ))} */}
+      <Box overflowY="auto">
+        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
+        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
+        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
+        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
         <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
         <Box minH="16"></Box>
       </Box>
@@ -46,7 +51,7 @@ export default function Home({ logs }: PageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const logs = await prisma.log.findMany({
-    orderBy: [{ id: "asc" }],
+    orderBy: [{ id: "desc" }],
   });
   return {
     props: {
@@ -66,35 +71,46 @@ function LogSet(props: LogSetProps) {
   const borderColor = ["blue.600", "orange.600", "red.600"];
 
   return (
-    <Stepper
-      index={-1}
-      orientation="vertical"
-      // height="400px"
-      gap="0"
-    >
-      {props.cards.map((x) => (
-        <Step>
-          <StepIndicator
-            sx={{
-              "[data-status=incomplete] &": {
-                background: background[x.level],
-                borderColor: borderColor[x.level],
-              },
-            }}
-          >
-            <StepStatus
-              incomplete={
-                <Text color="white" fontWeight={"bold"}>
-                  {icons[x.level]}
-                </Text>
-              }
-            />
-          </StepIndicator>
-          <LogCard {...x} />
-          <StepSeparator />
-        </Step>
-      ))}
-    </Stepper>
+    <>
+      <Box position={"sticky"} top={0} zIndex={500} bg="gray.50">
+        <Text fontSize={responsiveHeaderFontSize} py={2} px={5}>
+          Today
+        </Text>
+        {/* <Divider /> */}
+      </Box>
+      <Box h="8"></Box>
+      <Box px="5">
+        <Stepper
+          index={-1}
+          orientation="vertical"
+          // height="400px"
+          gap="0"
+        >
+          {props.cards.map((x) => (
+            <Step>
+              <StepIndicator
+                sx={{
+                  "[data-status=incomplete] &": {
+                    background: background[x.level],
+                    borderColor: borderColor[x.level],
+                  },
+                }}
+              >
+                <StepStatus
+                  incomplete={
+                    <Text color="white" fontWeight={"bold"}>
+                      {icons[x.level]}
+                    </Text>
+                  }
+                />
+              </StepIndicator>
+              <LogCard {...x} />
+              <StepSeparator />
+            </Step>
+          ))}
+        </Stepper>
+      </Box>
+    </>
   );
 }
 type LogCardProps = {
@@ -107,12 +123,12 @@ type LogCardProps = {
 function LogCard(props: LogCardProps) {
   const titles = ["Severe", "Warning", "Info"];
   return (
-    <Box>
+    <Box h="32">
       <StepDescription>
         {props.timestamp + " | " + props.author}
       </StepDescription>
       <StepTitle>{props.message}</StepTitle>
-      <Box h="16"></Box>
+      {/* <Box h="16"></Box> */}
     </Box>
   );
 }

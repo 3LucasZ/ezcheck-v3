@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "next-auth";
-import serverCreateLog from "services/createLog";
+import { serverCreateLog } from "services/createLog";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { CertificateProps } from "types/db";
