@@ -91,21 +91,26 @@ export default function UserWidget(props: UserWidgetProps) {
               borderRadius="full"
             ></Image>
           </AspectRatio>
-          <Box w="2"></Box>
+
           {content}
-          <AddRemoveButton
-            isAdd={props.inverted}
-            invisible={!props.isEdit}
-            handleAdd={props.handleAdd!}
-            handleRemove={props.handleRm!}
-            askConfirmation={props.askConfirmation}
-            actionStr={
-              (!props.inverted
-                ? "revoke admin priveleges from "
-                : "grant admin priveleges to ") +
-              `${props.name} (${props.email})`
-            }
-          />
+          {(props.handleAdd || props.handleRm) && (
+            <>
+              <Box w="2"></Box>
+              <AddRemoveButton
+                isAdd={props.inverted}
+                invisible={!props.isEdit}
+                handleAdd={props.handleAdd!}
+                handleRemove={props.handleRm!}
+                askConfirmation={props.askConfirmation}
+                actionStr={
+                  (!props.inverted
+                    ? "revoke admin priveleges from "
+                    : "grant admin priveleges to ") +
+                  `${props.name} (${props.email})`
+                }
+              />
+            </>
+          )}
         </HStack>
       </Box>
     </>

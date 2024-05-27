@@ -95,12 +95,14 @@ export default function MachineWidget(props: MachineWidgetProps) {
           ></Image>
         </AspectRatio>
         {content}
-        <AddRemoveButton
-          isAdd={props.inverted}
-          invisible={!props.isEdit}
-          handleAdd={props.handleAdd!}
-          handleRemove={props.handleRemove!}
-        />
+        {(props.handleAdd || props.handleRemove) && (
+          <AddRemoveButton
+            isAdd={props.inverted}
+            invisible={!props.isEdit}
+            handleAdd={props.handleAdd!}
+            handleRemove={props.handleRemove!}
+          />
+        )}
       </HStack>
     </Box>
   );
