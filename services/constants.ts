@@ -1,3 +1,5 @@
+import { keyframes } from "@chakra-ui/react";
+
 export const debugMode = true;
 export const PINLen = 6;
 
@@ -7,6 +9,7 @@ export const responsiveHeaderFontSize = ["2xl", "2xl", "2xl", "3xl", "4xl"];
 export const responsiveSubheaderFontSize = ["lg", "lg", "lg", "xl", "2xl"];
 
 //common styles
+//buttons
 export const btnBase = {
   color: "white",
   transition: "background-color 0.3s",
@@ -33,6 +36,20 @@ export const orangeBtn = {
   ...btnBase,
 };
 
+//animations
+export function animatedGradient(c1: string, c2: string) {
+  const animation = keyframes`
+  to {
+     background-position: 200%;
+   }`;
+  return {
+    backgroundSize: "200% auto",
+    bgGradient: `linear(to-r, ${c1}, ${c2}, ${c1})`,
+    animation: `${animation} 5s linear infinite`,
+  };
+}
+
+//colors
 export const gray = [
   "#F7FAFC",
   "#EDF2F7",
