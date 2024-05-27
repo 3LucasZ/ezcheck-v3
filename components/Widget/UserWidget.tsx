@@ -82,7 +82,7 @@ export default function UserWidget(props: UserWidgetProps) {
         minH="60px"
         w="100%"
       >
-        <HStack h="100%">
+        <HStack h="60px">
           <AspectRatio minW="45px" maxW="45px" ratio={1}>
             <Image
               src={props.image} //pfp stored on google servers, will NOT use our API
