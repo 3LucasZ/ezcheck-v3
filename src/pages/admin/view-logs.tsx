@@ -35,7 +35,11 @@ export default function Home({ logs }: PageProps) {
   const { data: session } = useSession();
   const user = session?.user;
   return (
-    <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
+    <AdminLayout
+      isAdmin={user?.isAdmin}
+      isSupervisor={user?.isSupervising}
+      // noDivider
+    >
       <Box overflowY="auto">
         <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
         <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
@@ -72,7 +76,15 @@ function LogSet(props: LogSetProps) {
 
   return (
     <>
-      <Box position={"sticky"} top={0} zIndex={500} bg="gray.50">
+      <Box
+        position={"sticky"}
+        top={"0"}
+        zIndex={500}
+        bg="gray.50"
+        borderColor={"gray.200"}
+        borderBottomWidth={2}
+        borderBottomRadius={"2xl"}
+      >
         <Text fontSize={responsiveHeaderFontSize} py={2} px={5}>
           Today
         </Text>

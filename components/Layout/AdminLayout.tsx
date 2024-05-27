@@ -18,12 +18,14 @@ import AppBar from "./AppBar";
 type LayoutProps = {
   isAdmin: boolean | undefined;
   isSupervisor: boolean | undefined;
+  noDivider?: boolean;
   children: ReactNode;
 };
 
 export default function AdminLayout({
   isAdmin,
   isSupervisor,
+  noDivider,
   children,
 }: LayoutProps) {
   const forbiddenPage = (
@@ -36,7 +38,11 @@ export default function AdminLayout({
   );
   return (
     <Layout>
-      <Header isAdmin={isAdmin} isSupervisor={isSupervisor} />
+      <Header
+        isAdmin={isAdmin}
+        isSupervisor={isSupervisor}
+        noDivider={noDivider}
+      />
       {isAdmin ? (
         <>
           {children}

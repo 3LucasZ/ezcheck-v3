@@ -5,8 +5,13 @@ import AvatarMenu from "./AvatarMenu";
 type HeaderProps = {
   isAdmin: boolean | undefined;
   isSupervisor?: boolean;
+  noDivider?: boolean;
 };
-export default function Header({ isAdmin, isSupervisor }: HeaderProps) {
+export default function Header({
+  isAdmin,
+  isSupervisor,
+  noDivider,
+}: HeaderProps) {
   return (
     <>
       <HStack
@@ -26,7 +31,7 @@ export default function Header({ isAdmin, isSupervisor }: HeaderProps) {
         </Heading>
         <AvatarMenu isAdmin={isAdmin} isSupervisor={isSupervisor} />
       </HStack>
-      <Divider />
+      {!noDivider && <Divider />}
     </>
   );
 }
