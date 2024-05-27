@@ -120,6 +120,20 @@ export default function Home() {
                 title="Admins"
                 content="Manage machines and students without any hassle."
               />
+              <Box h="8"></Box>
+              <Button
+                rounded={"full"}
+                px={6}
+                colorScheme={"orange"}
+                bg={"orange.300"}
+                _hover={{ bg: "orange.500" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  Router.push("/simulator");
+                }}
+              >
+                Try Simulator
+              </Button>
             </Box>
             <Box h={"10"} />
             <Box
