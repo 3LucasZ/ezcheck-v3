@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -7,31 +6,19 @@ import {
   FormLabel,
   Input,
   Link,
-  SimpleGrid,
   useToast,
   Text,
-  HStack,
   Center,
+  keyframes,
 } from "@chakra-ui/react";
-import { RouteButton } from "components/RouteButton";
-import Layout from "components/Layout/MainLayout";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
-import prisma from "services/prisma";
 
-import { MdManageAccounts } from "react-icons/md";
-import { GiSewingMachine } from "react-icons/gi";
-import { IoDocumentText } from "react-icons/io5";
-import { IoIosInformationCircle } from "react-icons/io";
-
-import { checkAdmin, getMyAdmin } from "services/userHandler";
-import { AdminProps } from "archive/AdminWidget2";
-import Header from "components/Layout/Header";
-import AppBar from "components/Layout/AppBar";
 import AdminLayout from "components/Layout/AdminLayout";
 import Router from "next/router";
 import { useState } from "react";
-import { errorToast, successToast } from "services/toasty";
+import { errorToast } from "services/toasty";
+import { animatedGradient } from "services/constants";
 
 type PageProps = {
   queryName: string;
@@ -42,6 +29,7 @@ export default function Home({ queryName }: PageProps) {
   const toaster = useToast();
 
   const [name, setName] = useState<string>(queryName);
+
   return (
     <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
       <Flex
@@ -68,15 +56,16 @@ export default function Home({ queryName }: PageProps) {
         <Center>
           <Button
             //looks
-            bg="orange.200"
-            bgGradient={"linear(to-br, yellow.200, orange.300)"}
-            _hover={{ bgGradient: "linear(to-br, yellow.300, orange.400)" }}
+            bg="orange.300"
+            _hover={{ bg: "orange.400" }}
+            transition={"background-color 0.3s"}
             color="white"
             size="lg"
             px="16"
             maxW="800px"
             //function
             isDisabled={name.length == 0}
+            pointerEvents={name.length == 0 ? "none" : "auto"}
             type="submit"
             onClick={(e) => {
               e.preventDefault;
