@@ -24,22 +24,22 @@ export default function LCD(props: LCDProps) {
       <boxGeometry args={[lcdWidth, lcdHeight, lcdDepth]} />
       <meshStandardMaterial
         attach={"material-0"}
-        // emissive={"#81E6D9"}
+        emissive={"#319795"}
         emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-1"}
-        // emissive={"#81E6D9"}
+        emissive={"#319795"}
         emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-2"}
-        // emissive={"#81E6D9"}
+        emissive={"#319795"}
         emissiveIntensity={intensity}
       />
       <meshStandardMaterial
         attach={"material-3"}
-        // emissive={"#81E6D9"}
+        emissive={"#319795"}
         emissiveIntensity={intensity}
       />
       <meshStandardMaterial
