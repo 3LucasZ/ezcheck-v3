@@ -30,6 +30,8 @@ export function EZCheckCanvas(props: PageProps) {
         maxAzimuthAngle={Math.PI / 4}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 2}
+        autoRotate={true}
+        autoRotateSpeed={1}
       />
       {/* <OrthographicCamera
           makeDefault
