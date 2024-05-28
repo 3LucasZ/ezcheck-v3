@@ -31,7 +31,7 @@ export default function Home() {
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQ />
         <Box h="2" />
-        <VStack>
+        <VStack align={"left"}>
           <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you what items a
@@ -62,17 +62,22 @@ function FAQItem(props: FAQItemProps) {
   const [active, setActive] = useState(false);
   return (
     <Box
-      //color
-      bg="gray.50"
+      //--color--
+      // bg="gray.50"
+      bg={active ? "" : "gray.50"}
       color="gray.700"
-      //sizing
+      // color={active ? "black" : "white"}
+      transition={"background-color 0.5s linear, color 0.5s linear"}
+      //--sizing--
       w="100%"
+      maxW="800px"
       px={"4"}
       pt={"2"}
       pb={active ? "0" : "2"}
-      //border
+      //--border--
       borderRadius={"xl"}
-      borderColor={"gray.300"}
+      borderColor={"gray.200"}
+      // borderColor={"orange.200"}
       borderWidth={1}
       //function
       cursor={"pointer"}
