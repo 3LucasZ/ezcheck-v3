@@ -13,7 +13,7 @@ import { IconType } from "react-icons";
 import { FiAtSign, FiPhone, FiMapPin, FiSun } from "react-icons/fi";
 
 export default function FAQ() {
-  const titleSz = [130, 130, 200, 300];
+  const titleSz = [130, 130, 200, 200, 260, 300];
   const titleHR = 5 / 6; //(title height / title fontSize) ratio
   const subtitleR = 1 / 6; //(subtitle fontSize / title fontSize) ratio
   return (
@@ -46,8 +46,9 @@ export default function FAQ() {
         <Card
           boxShadow={"md"}
           rounded={"3xl"}
-          w="380px"
-          maxW="100%"
+          minW="260px"
+          w="100%"
+          maxW="380px"
           ml={"auto"}
           mr={["auto", "auto", "0"]}
           // ml={"auto"}
