@@ -100,7 +100,9 @@ export default function StudentPage(props: PageProps) {
       rmCerts,
     };
     const res = await poster("/api/update-student", body, toaster);
-    if (res.status == 200) Router.reload();
+    if (res.status == 200) {
+      Router.push(`/admin/view-student/${props.student.id}`); //necessary to re-grab updated server data
+    }
   };
   //--ret--
   return (
@@ -225,7 +227,10 @@ export default function StudentPage(props: PageProps) {
         onEdit={() => {
           setIsEdit(true);
         }}
-        onSave={handleUpdate}
+        onSave={() => {
+          handleUpdate();
+          setIsEdit(false);
+        }}
         onCancel={() => {
           setNewPIN(props.student.PIN);
           setNewCerts(props.student.certificates);
