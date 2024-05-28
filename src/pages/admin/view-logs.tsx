@@ -12,6 +12,7 @@ import {
   StepStatus,
   StepTitle,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import Layout from "components/Layout/MainLayout";
 import { GetServerSideProps } from "next";
@@ -27,17 +28,22 @@ import {
   responsiveHeaderFontSize,
   responsiveSubheaderFontSize,
 } from "services/constants";
+import { poster } from "services/poster";
+import Router from "next/router";
 
 type PageProps = {
   logs: LogProps[];
 };
 export default function Home({ logs }: PageProps) {
+  //--copy paste on every page--
   const { data: session } = useSession();
-  const user = session?.user;
+  const me = session?.user;
+  const toaster = useToast();
+  //--ret--
   return (
     <AdminLayout
-      isAdmin={user?.isAdmin}
-      isSupervisor={user?.isSupervising}
+      isAdmin={me?.isAdmin}
+      isSupervisor={me?.isSupervising}
       // noDivider
     >
       <Box overflowY="auto">
@@ -48,7 +54,20 @@ export default function Home({ logs }: PageProps) {
         <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
         <Box minH="16"></Box>
       </Box>
-      <TextingBar send={(e) => console.log(e)} />
+      <TextingBar
+        send={async (e) => {
+          const res = await poster(
+            "/api/create-log",
+            {
+              message: e,
+              level: 0,
+              sender: me?.email,
+            },
+            toaster
+          );
+          if (res.status == 200) Router.push("/admin/view-logs");
+        }}
+      />
     </AdminLayout>
   );
 }
