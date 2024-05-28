@@ -14,10 +14,12 @@ import {
   ListItem,
   Text,
   UnorderedList,
+  VStack,
 } from "@chakra-ui/react";
 import Header from "components/Layout/Header";
 import FAQ from "components/Layout/FAQ";
 import { responsivePx } from "services/constants";
+import { useState } from "react";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -26,15 +28,16 @@ export default function Home() {
     <Layout>
       {/* <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} /> */}
 
-      <Box px="5" overflowY="auto">
+      <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQ />
-        <Accordion allowToggle px={responsivePx} gap={8}>
+        <Box h="2" />
+        <VStack>
           <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you what items a
           storage does not contain or what storages an item can not be found in."
           />
-          <Box h="8" />
+
           <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you what items a
@@ -45,8 +48,53 @@ export default function Home() {
             A="When invert mode is on, the display will tell you what items a
           storage does not contain or what storages an item can not be found in."
           />
-        </Accordion>
-        <Text fontSize="4xl">Version</Text>
+        </VStack>
+      </Box>
+    </Layout>
+  );
+}
+
+type FAQItemProps = {
+  Q: string;
+  A: string;
+};
+function FAQItem(props: FAQItemProps) {
+  const [active, setActive] = useState(false);
+  return (
+    <Box
+      //color
+      bg="gray.50"
+      color="gray.700"
+      //sizing
+      w="100%"
+      px={"4"}
+      pt={"2"}
+      pb={active ? "0" : "2"}
+      //border
+      borderRadius={"xl"}
+      borderColor={"gray.300"}
+      borderWidth={1}
+      //function
+      cursor={"pointer"}
+      onClick={() => setActive(!active)}
+    >
+      <Text>{props.Q}</Text>
+      <Box
+        display={"grid"}
+        gridTemplateRows={active ? "1fr" : "0fr"}
+        transition={"grid-template-rows 0.5s ease-out"}
+      >
+        <Box overflow={"hidden"}>
+          <Box h="4" />
+          <Text>{props.A}</Text>
+          <Box h="2" />
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+/*
+ <Text fontSize="4xl">Version</Text>
         <Text fontSize="xl">2.1 (Alpha)</Text>
         <Text fontSize="4xl">Q&A</Text>
         <Text fontSize="xl">
@@ -83,27 +131,4 @@ export default function Home() {
         </Link>
 
         <Box h="10px"></Box>
-      </Box>
-    </Layout>
-  );
-}
-
-type FAQItemProps = {
-  Q: string;
-  A: string;
-};
-function FAQItem(props: FAQItemProps) {
-  return (
-    <AccordionItem m={4}>
-      <h2>
-        <AccordionButton>
-          <Box as="span" flex="1" textAlign="left">
-            {props.Q}
-          </Box>
-          <AccordionIcon />
-        </AccordionButton>
-      </h2>
-      <AccordionPanel pb={4}>{props.A}</AccordionPanel>
-    </AccordionItem>
-  );
-}
+*/
