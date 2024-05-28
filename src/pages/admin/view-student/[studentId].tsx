@@ -99,9 +99,10 @@ export default function StudentPage(props: PageProps) {
       addCerts,
       rmCerts,
     };
-    const res = await poster("/api/update-student", body, toaster);
+    const res = await poster("/api/update-student", body, toaster, true);
     if (res.status == 200) {
       Router.push(`/admin/view-student/${props.student.id}`); //necessary to re-grab updated server data
+      setIsEdit(false);
     }
   };
   //--ret--
@@ -156,7 +157,10 @@ export default function StudentPage(props: PageProps) {
             mask={!isVisible}
           >
             {Array.from(Array(PINLen).keys()).map((key) => (
-              <PinInputField key={key} />
+              <PinInputField
+                key={key}
+                pointerEvents={isEdit ? "auto" : "none"}
+              />
             ))}
           </PinInput>
           <IconButton
@@ -164,6 +168,8 @@ export default function StudentPage(props: PageProps) {
             sx={tealBtn}
             onClick={() => setIsVisible(!isVisible)}
             aria-label={""}
+            isDisabled={isEdit}
+            pointerEvents={isEdit ? "none" : "auto"}
           />
         </HStack>
       </Flex>
@@ -226,15 +232,17 @@ export default function StudentPage(props: PageProps) {
         isEdit={isEdit}
         onEdit={() => {
           setIsEdit(true);
+          setIsVisible(true);
         }}
         onSave={() => {
           handleUpdate();
-          setIsEdit(false);
+          setIsVisible(false);
         }}
         onCancel={() => {
           setNewPIN(props.student.PIN);
           setNewCerts(props.student.certificates);
           setIsEdit(false);
+          setIsVisible(false);
         }}
       />
     </AdminLayout>
