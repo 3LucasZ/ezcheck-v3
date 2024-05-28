@@ -3,7 +3,8 @@ import { errorToast, successToast } from "./toasty";
 export async function poster(
   path: string,
   body: any,
-  toaster?: any
+  toaster?: any,
+  showSuccess?: boolean
 ): Promise<Response> {
   try {
     const res = await fetch(path, {
@@ -14,7 +15,7 @@ export async function poster(
     if (res.status != 200) {
       if (toaster) errorToast(toaster, "" + (await res.json()));
     } else {
-      // if (toaster) successToast(toaster, "Success!"); // Only if you want to show a success toast. However, they can get annoying to the user.
+      if (toaster && showSuccess) successToast(toaster, "Success!"); // Only if you want to show a success toast. However, they can get annoying to the user.
     }
     return res;
   } catch (error) {
