@@ -14,7 +14,8 @@ export default async function handle(
     id: string;
     //student
     newPIN?: string;
-    newCerts?: CertificateProps[];
+    addCerts?: CertificateProps[];
+    rmCerts?: CertificateProps[];
     //admin
     isAdmin?: boolean;
     isSupervising?: boolean;
@@ -22,13 +23,20 @@ export default async function handle(
   res: NextApiResponse
 ) {
   //initialize + checks
-  const { requester, id, newPIN, newCerts, isAdmin, isSupervising } = req.body;
-  console.log(req.body);
-  console.log(isSupervising);
-  const newRelations = newCerts?.map((cert) => ({
-    machineId: cert.machineId!,
-    issuerId: cert.issuerId,
-  }));
+  const { requester, id, newPIN, addCerts, rmCerts, isAdmin, isSupervising } =
+    req.body;
+  const addRelations = addCerts
+    ? addCerts.map((cert) => ({
+        machineId: cert.machineId!,
+        issuerId: cert.issuerId,
+      }))
+    : [];
+  const rmRelations = rmCerts
+    ? rmCerts.map((cert) => ({
+        machineId: cert.machineId!,
+        issuerId: cert.issuerId,
+      }))
+    : [];
   if (newPIN == "") return res.status(500).json("PIN can't be empty");
   //update student
   try {
@@ -39,17 +47,15 @@ export default async function handle(
       },
       data: {
         ...(newPIN != undefined && { PIN: newPIN }),
-        ...(newRelations != undefined && {
-          certificates: {
-            deleteMany: {}, //delete all current certificates
-            createMany: { data: newRelations }, //re-create all certificates
-          },
-        }),
+        certificates: {
+          deleteMany: rmRelations,
+          createMany: { data: addRelations },
+        },
         ...(isAdmin != undefined && { isAdmin: isAdmin }),
         ...(isSupervising != undefined && { isSupervising: isSupervising }),
       },
       include: {
-        ...(newRelations != undefined && { certificates: true }),
+        certificates: true,
       },
     });
     //log certificate changes

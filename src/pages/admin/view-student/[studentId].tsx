@@ -82,10 +82,22 @@ export default function StudentPage(props: PageProps) {
 
   //update
   const handleUpdate = async () => {
+    const addCerts = newCerts.filter(
+      (newCert) =>
+        props.student.certificates.find(
+          (oldCert) => oldCert.machineId == newCert.machineId
+        ) == undefined
+    );
+    const rmCerts = props.student.certificates.filter(
+      (oldCert) =>
+        newCerts.find((newCert) => newCert.machineId == oldCert.machineId) ==
+        undefined
+    );
     const body = {
       id: props.student.id,
       newPIN,
-      newCerts,
+      addCerts,
+      rmCerts,
     };
     const res = await poster("/api/update-student", body, toaster);
     if (res.status == 200) Router.reload();
