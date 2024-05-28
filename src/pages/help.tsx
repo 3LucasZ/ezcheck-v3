@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Heading,
   HStack,
   Icon,
   Link,
@@ -19,10 +20,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Header from "components/Layout/Header";
-import FAQ from "components/Layout/FAQ";
+import { FAQHeader, FAQItem } from "components/Layout/FAQ";
 import { responsivePx } from "services/constants";
 import { useState } from "react";
-import { FiChevronDown, FiChevronLeft } from "react-icons/fi";
+import { FiChevronDown, FiChevronLeft, FiExternalLink } from "react-icons/fi";
+import Router from "next/router";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -32,15 +34,14 @@ export default function Home() {
       {/* <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} /> */}
 
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
-        <FAQ />
-        <Box h="2" />
-        <VStack align={"left"}>
+        <FAQHeader />
+        <Box h="8" />
+        <VStack align={"start"} gap="4">
           <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you what items a
           storage does not contain or what storages an item can not be found in."
           />
-
           <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you what items a
@@ -52,82 +53,53 @@ export default function Home() {
           storage does not contain or what storages an item can not be found in."
           />
         </VStack>
+        <Box h="8"></Box>
+        <Box
+          p="6"
+          bg="orange.200"
+          borderRadius={"3xl"}
+          maxW="400px"
+          w="100%"
+          ml="auto"
+          overflow={"auto"}
+        >
+          <Heading color="white" fontSize={"3xl"}>
+            Documents
+          </Heading>
+          <Box h="4"></Box>
+          <HStack
+            px="4"
+            py="3"
+            bg="white"
+            borderRadius={"2xl"}
+            float="left"
+            mb="4"
+            onClick={() => Router.push("/terms-and-conditions")}
+          >
+            <Text fontSize={"lg"}>Terms and Conditions</Text>
+            <Icon color="orange.400" as={FiExternalLink} />
+          </HStack>
+          <HStack
+            px="4"
+            py="3"
+            bg="white"
+            borderRadius={"2xl"}
+            float="left"
+            onClick={() => Router.push("/terms-and-conditions")}
+          >
+            <Text fontSize={"lg"}>Privacy Policy</Text>
+            <Icon color="orange.400" as={FiExternalLink} />
+          </HStack>
+        </Box>
+        <Box h="8"></Box>
       </Box>
     </Layout>
   );
 }
 
-type FAQItemProps = {
-  Q: string;
-  A: string;
-};
-function FAQItem(props: FAQItemProps) {
-  const [active, setActive] = useState(false);
-  const transitionTime = 0.25;
-  return (
-    <Box
-      //--color--
-      // bg="gray.50"
-      bg={active ? "" : "gray.100"}
-      color="gray.700"
-      // color={active ? "black" : "white"}
-      transition={`background-color ${transitionTime}s linear, color ${transitionTime}s linear, border-color ${transitionTime}s linear`}
-      //--sizing--
-      w="100%"
-      maxW="800px"
-      px={"4"}
-      pt={"2"}
-      pb={active ? "0" : "2"}
-      position={"relative"}
-      //--border--
-      borderRadius={"xl"}
-      borderColor={active ? "gray.300" : "gray.100"}
-      // borderColor={"orange.200"}
-      borderWidth={1}
-      //function
-      cursor={"pointer"}
-      onClick={() => setActive(!active)}
-    >
-      <HStack>
-        <Text w="100%">{props.Q}</Text>
-        <Icon
-          as={FiChevronDown}
-          transform={active ? "rotate(180deg)" : ""}
-          transition={`transform ${transitionTime}s linear`}
-        />
-      </HStack>
-      <Box
-        display={"grid"}
-        gridTemplateRows={active ? "1fr" : "0fr"}
-        transition={`grid-template-rows ${transitionTime}s ease-out`}
-      >
-        <Box overflow={"hidden"}>
-          <Box h="4" />
-          <Text>{props.A}</Text>
-          <Box h="2" />
-        </Box>
-      </Box>
-    </Box>
-  );
-}
 /*
- <Text fontSize="4xl">Version</Text>
-        <Text fontSize="xl">2.1 (Alpha)</Text>
-        <Text fontSize="4xl">Q&A</Text>
-        <Text fontSize="xl">
-          Q: Why is the website considered unsafe and untrusted by Safari and
-          Chrome?
-        </Text>
-        <Text fontSize="xl">
-          A: The website is in the alpha version and running on a local
-          development server. Rest assured, your data is safe. Check out our
-          privacy policy and terms of service below.
-        </Text>
-        <Text fontSize="xl">Q: What does the invert checkbox do?</Text>
-        <Text fontSize="xl">
-          A: When invert mode is on, the display will tell you what machines a
-          student does not have access to, and which students can not use a
-          machine.
+ 
+       
         </Text>
         <Text fontSize={"4xl"}>Documents</Text>
         <Link
