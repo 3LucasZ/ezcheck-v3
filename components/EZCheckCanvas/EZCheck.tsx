@@ -3,15 +3,33 @@ import { boxDepth, boxHeight, boxWidth, ledHeight } from "./constants";
 import Keypad from "./Keypad";
 import LCD from "./LCD";
 import LED from "./LED";
+import { useFrame } from "@react-three/fiber";
 
 type EZCheckProps = {
   leftLEDRef: MutableRefObject<any>;
   rightLEDRef: MutableRefObject<any>;
 };
 export default function EZCheck(props: EZCheckProps) {
-  const [show, setShow] = useState("Welcome!");
+  const [msg, setMsg] = useState("");
+  const [show, setShow] = useState("");
   const [pass, setPass] = useState("");
   const [good, setGood] = useState<boolean | undefined>(undefined);
+
+  const initShow = "Welcome!";
+  useFrame(({ clock }) => {
+    const dt = Math.round(clock.getElapsedTime() * 1000); //milliseconds since page loaded
+    //animate words (initial)
+    const nxt = Math.round(dt / 400);
+    let nextMsg = msg;
+    if (nxt <= initShow.length) nextMsg = initShow.substring(0, nxt);
+    //animate words (type setter effect)
+    if (Math.round(dt / 300) % 2 == 0 && good == undefined) {
+      setShow(nextMsg + "l");
+    } else {
+      setShow(nextMsg);
+    }
+    setMsg(nextMsg);
+  });
 
   return (
     <mesh position={[0, -ledHeight / 2, 0]}>
@@ -38,25 +56,27 @@ export default function EZCheck(props: EZCheckProps) {
           setGood(undefined);
           if (key == "D") {
             setPass(pass.slice(0, -1));
-            setShow("PIN: " + pass.slice(0, -1));
+            setMsg("PIN: " + pass.slice(0, -1));
           } else if (key == "*") {
             if (pass.length > 0) {
               const good = Math.random() < 0.5;
               if (good) {
                 setGood(true);
-                setShow("Authorized");
+                setMsg("Authorized");
               } else {
                 setGood(false);
-                setShow("Denied access");
+                setMsg("Denied access");
               }
               setPass("");
             } else {
-              setShow("PIN: ");
+              setMsg("PIN: ");
             }
           } else if (key != "A" && key != "B" && key != "C" && key != "#") {
             const newPass = pass.length < 10 ? pass.concat(key) : pass;
             setPass(newPass);
-            setShow("PIN: " + newPass);
+            setMsg("PIN: " + newPass);
+          } else {
+            setMsg("PIN: " + pass);
           }
         }}
       />
