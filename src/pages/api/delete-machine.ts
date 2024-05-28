@@ -13,6 +13,7 @@ export default async function handle(
         id: id,
       },
     });
+    return res.status(200).json(op.id);
   } catch (e) {
     return res.status(500).json(prismaErrHandler(e));
   }

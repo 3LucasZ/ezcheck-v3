@@ -1,10 +1,7 @@
-import Layout from "components/Layout/MainLayout";
 import { GetServerSideProps } from "next";
 import SearchView from "components/SearchView";
 import prisma from "services/prisma";
-import { AdminProps } from "archive/AdminWidget2";
 import { useSession } from "next-auth/react";
-import { checkAdmin, getMyAdmin } from "services/userHandler";
 import Router from "next/router";
 import AdminLayout from "components/Layout/AdminLayout";
 import { FAB } from "components/Layout/FAB/FAB";
