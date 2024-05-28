@@ -57,7 +57,7 @@ export default function MachinePage({ machine, students }: PageProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleDelete = async () => {
     const body = { id: machine.id };
-    const res = await poster("/api/delete-machine", body, toaster);
+    const res = await poster("/api/delete-machine", body, toaster, true);
     if (res.status == 200)
       await Router.push({ pathname: "/admin/manage-machines" });
   };
@@ -84,8 +84,11 @@ export default function MachinePage({ machine, students }: PageProps) {
       addCerts,
       rmCerts,
     };
-    const res = await poster("/api/update-machine", body, toaster);
-    if (res.status == 200) Router.reload();
+    const res = await poster("/api/update-machine", body, toaster, true);
+    if (res.status == 200) {
+      Router.push(`/admin/view-machine/${machine.id}`);
+      setIsEdit(false);
+    }
   };
   //--ret--
   return (
