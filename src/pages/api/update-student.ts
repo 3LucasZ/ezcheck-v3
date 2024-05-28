@@ -1,11 +1,12 @@
 import { Prisma } from "@prisma/client";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { User } from "next-auth";
-import { serverCreateLog } from "services/createLog";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { CertificateProps } from "types/db";
 import { TypedRequestBody } from "types/req";
+import handleCreateLog from "./create-log";
+import { NextRequest, NextResponse } from "next/server";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -20,6 +21,7 @@ export default async function handle(
   }>,
   res: NextApiResponse
 ) {
+  //initialize + checks
   const { requester, id, newPIN, newCerts, isAdmin, isSupervising } = req.body;
   console.log(req.body);
   console.log(isSupervising);
@@ -28,6 +30,7 @@ export default async function handle(
     issuerId: cert.issuerId,
   }));
   if (newPIN == "") return res.status(500).json("PIN can't be empty");
+  //update student
   try {
     const oldStudent = await prisma.user.findUnique({ where: { id } });
     const op = await prisma.user.update({
@@ -38,8 +41,8 @@ export default async function handle(
         ...(newPIN != undefined && { PIN: newPIN }),
         ...(newRelations != undefined && {
           certificates: {
-            deleteMany: {},
-            createMany: { data: newRelations },
+            deleteMany: {}, //delete all current certificates
+            createMany: { data: newRelations }, //re-create all certificates
           },
         }),
         ...(isAdmin != undefined && { isAdmin: isAdmin }),
@@ -49,24 +52,44 @@ export default async function handle(
         ...(newRelations != undefined && { certificates: true }),
       },
     });
-    if (oldStudent?.isAdmin == false && isAdmin == true)
-      serverCreateLog(
-        requester.name +
-          " granted admin privileges to " +
-          oldStudent.name +
-          ".",
-        1
-      );
-    if (oldStudent?.isAdmin == true && isAdmin == false) {
-      serverCreateLog(
-        requester.name +
-          " removed admin privileges from " +
-          oldStudent.name +
-          ".",
-        1
-      );
+    //log certificate changes
+
+    //log admin changes
+    if (oldStudent?.isAdmin == false && isAdmin == true) {
+      try {
+        const op = await prisma.log.create({
+          data: {
+            timestamp: Date.now() / 1000,
+            message:
+              requester.name +
+              " granted admin privileges to " +
+              oldStudent.name +
+              ".",
+            level: 0,
+          },
+        });
+      } catch (e) {
+        return res.status(500).json(prismaErrHandler(e));
+      }
+    } else if (oldStudent?.isAdmin == true && isAdmin == false) {
+      try {
+        const op = await prisma.log.create({
+          data: {
+            timestamp: Date.now() / 1000,
+            message:
+              requester.name +
+              " removed admin privileges from " +
+              oldStudent.name +
+              ".",
+            level: 0,
+          },
+        });
+      } catch (e) {
+        return res.status(500).json(prismaErrHandler(e));
+      }
     }
-    return res.status(200).json(op);
+    //post process
+    return res.status(200).json(op.id);
   } catch (e) {
     return res.status(500).json(prismaErrHandler(e));
   }
