@@ -14,7 +14,7 @@ export async function poster(
     if (res.status != 200) {
       if (toaster) errorToast(toaster, "" + (await res.json()));
     } else {
-      if (toaster) successToast(toaster, "Success!");
+      // if (toaster) successToast(toaster, "Success!"); // Only if you want to show a success toast. However, they can get annoying to the user.
     }
     return res;
   } catch (error) {
