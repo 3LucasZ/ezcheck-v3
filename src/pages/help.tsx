@@ -31,7 +31,7 @@ export default function Home() {
   const user = session?.user;
   return (
     <Layout>
-      {/* <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} /> */}
+      <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} />
 
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQHeader />
