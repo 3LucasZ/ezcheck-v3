@@ -85,7 +85,7 @@ export default function Home() {
             bg="white"
             borderRadius={"2xl"}
             float="left"
-            onClick={() => Router.push("/terms-and-conditions")}
+            onClick={() => Router.push("/privacy-policy")}
           >
             <Text fontSize={"lg"}>Privacy Policy</Text>
             <Icon color="orange.400" as={FiExternalLink} />
@@ -96,28 +96,3 @@ export default function Home() {
     </Layout>
   );
 }
-
-/*
- 
-       
-        </Text>
-        <Text fontSize={"4xl"}>Documents</Text>
-        <Link
-          color="teal.500"
-          href="https://www.freeprivacypolicy.com/live/867a55b1-f612-458c-a96b-73337e43fe99"
-          display={"block"}
-          fontSize={"xl"}
-        >
-          Privacy Policy
-        </Link>
-        <Link
-          color="teal.500"
-          href="https://www.freeprivacypolicy.com/live/a127aadd-459e-4134-89e1-c2773f78391f"
-          display={"block"}
-          fontSize={"xl"}
-        >
-          Terms of Service
-        </Link>
-
-        <Box h="10px"></Box>
-*/
