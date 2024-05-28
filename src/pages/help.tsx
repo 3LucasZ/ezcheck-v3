@@ -10,6 +10,8 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  HStack,
+  Icon,
   Link,
   ListItem,
   Text,
@@ -20,6 +22,7 @@ import Header from "components/Layout/Header";
 import FAQ from "components/Layout/FAQ";
 import { responsivePx } from "services/constants";
 import { useState } from "react";
+import { FiChevronDown, FiChevronLeft } from "react-icons/fi";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -60,34 +63,43 @@ type FAQItemProps = {
 };
 function FAQItem(props: FAQItemProps) {
   const [active, setActive] = useState(false);
+  const transitionTime = 0.25;
   return (
     <Box
       //--color--
       // bg="gray.50"
-      bg={active ? "" : "gray.50"}
+      bg={active ? "" : "gray.100"}
       color="gray.700"
       // color={active ? "black" : "white"}
-      transition={"background-color 0.5s linear, color 0.5s linear"}
+      transition={`background-color ${transitionTime}s linear, color ${transitionTime}s linear, border-color ${transitionTime}s linear`}
       //--sizing--
       w="100%"
       maxW="800px"
       px={"4"}
       pt={"2"}
       pb={active ? "0" : "2"}
+      position={"relative"}
       //--border--
       borderRadius={"xl"}
-      borderColor={"gray.200"}
+      borderColor={active ? "gray.300" : "gray.100"}
       // borderColor={"orange.200"}
       borderWidth={1}
       //function
       cursor={"pointer"}
       onClick={() => setActive(!active)}
     >
-      <Text>{props.Q}</Text>
+      <HStack>
+        <Text w="100%">{props.Q}</Text>
+        <Icon
+          as={FiChevronDown}
+          transform={active ? "rotate(180deg)" : ""}
+          transition={`transform ${transitionTime}s linear`}
+        />
+      </HStack>
       <Box
         display={"grid"}
         gridTemplateRows={active ? "1fr" : "0fr"}
-        transition={"grid-template-rows 0.5s ease-out"}
+        transition={`grid-template-rows ${transitionTime}s ease-out`}
       >
         <Box overflow={"hidden"}>
           <Box h="4" />
