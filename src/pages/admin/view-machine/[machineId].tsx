@@ -65,11 +65,24 @@ export default function MachinePage({ machine, students }: PageProps) {
   //--handle upload image--
   //--handle update machine
   const handleUpdate = async () => {
+    const addCerts = newCerts.filter(
+      (newCert) =>
+        machine.certificates.find(
+          (oldCert) => oldCert.recipientId == newCert.recipientId
+        ) == undefined
+    );
+    const rmCerts = machine.certificates.filter(
+      (oldCert) =>
+        newCerts.find(
+          (newCert) => newCert.recipientId == oldCert.recipientId
+        ) == undefined
+    );
     const body = {
       id: machine.id,
       newName,
       newDescription,
-      newCerts,
+      addCerts,
+      rmCerts,
     };
     const res = await poster("/api/update-machine", body, toaster);
     if (res.status == 200) Router.reload();
