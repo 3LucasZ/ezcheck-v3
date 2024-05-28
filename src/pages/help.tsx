@@ -39,18 +39,15 @@ export default function Home() {
         <VStack align={"start"} gap="4">
           <FAQItem
             Q="What does the invert checkbox do?"
-            A="When invert mode is on, the display will tell you what items a
-          storage does not contain or what storages an item can not be found in."
+            A="When invert mode is on, the display will tell you the opposite of what it originally shows. Example: instead of showing what machines a student is allowed to use, the display will show what machines a student is not allowed to use."
           />
           <FAQItem
-            Q="What does the invert checkbox do?"
-            A="When invert mode is on, the display will tell you what items a
-          storage does not contain or what storages an item can not be found in."
+            Q="Why does the machine configuration website not load, despite following the instructions?"
+            A="The wifi network you are on may have a firewall set up preventing you from accessing other devices on the network. This is often the case in secure environments such as businesses and schools."
           />
           <FAQItem
-            Q="What does the invert checkbox do?"
-            A="When invert mode is on, the display will tell you what items a
-          storage does not contain or what storages an item can not be found in."
+            Q="Why does the simulator look/function differently from the physical product?"
+            A="The simulator is only meant to provide a quick overview of what the EZCheck Module looks like and behaves like. It is considerably different and simplified on purpose."
           />
         </VStack>
         <Box h="8"></Box>
