@@ -32,7 +32,7 @@ export default function ConfirmDeleteModal(props: PageProps) {
           </Button>
           <Button
             onClick={() => {
-              successToast(toaster, "Success!");
+              // successToast(toaster, "Success!");
               props.onClose();
               props.handleDelete();
             }}
