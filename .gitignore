@@ -38,3 +38,5 @@ next-env.d.ts
 # -----CUSTOM-----
 .env
 certificates
+converter/in.html
+converter/out.tsx
