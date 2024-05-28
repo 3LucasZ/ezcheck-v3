@@ -26,6 +26,7 @@ import { propagateServerField } from "next/dist/server/lib/render-server";
 import { FiAlertCircle, FiAlertTriangle, FiInfo } from "react-icons/fi";
 import {
   responsiveHeaderFontSize,
+  responsivePx,
   responsiveSubheaderFontSize,
 } from "services/constants";
 import { poster } from "services/poster";
@@ -96,21 +97,24 @@ function LogSet(props: LogSetProps) {
   return (
     <>
       <Box
+        //position
         position={"sticky"}
         top={"0"}
         zIndex={500}
+        //color
         bg="gray.50"
+        //border
         borderColor={"gray.200"}
         borderBottomWidth={2}
         borderBottomRadius={"2xl"}
       >
-        <Text fontSize={responsiveHeaderFontSize} py={2} px={5}>
+        <Text fontSize={responsiveHeaderFontSize} py={2} px={[6]}>
           Today
         </Text>
         {/* <Divider /> */}
       </Box>
       <Box h="8"></Box>
-      <Box px="5">
+      <Box px={[6]}>
         <Stepper
           index={-1}
           orientation="vertical"
