@@ -9,10 +9,15 @@ export default async function handle(
     id: number;
     newName: string;
     newDescription: string;
+    newCerts: CertificateProps[];
   }>,
   res: NextApiResponse
 ) {
-  const { id, newName, newDescription } = req.body;
+  const { id, newName, newDescription, newCerts } = req.body;
+  const newRelations = newCerts.map((cert) => ({
+    recipientId: cert.recipientId!,
+    issuerId: cert.issuerId,
+  }));
   if (newName == "")
     return res.status(500).json("Machine name can not be empty.");
   try {
@@ -23,6 +28,15 @@ export default async function handle(
       data: {
         name: newName,
         description: newDescription,
+        certificates: {
+          deleteMany: {}, //extremely important, this denotes that you want to delete relations too
+          createMany: {
+            data: newRelations,
+          },
+        },
+      },
+      include: {
+        certificates: true,
       },
     });
     return res.status(200).json(op.id);
