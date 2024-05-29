@@ -20,6 +20,18 @@ type AvatarMenuProps = {
 
 export default function AvatarMenu({ me }: AvatarMenuProps) {
   let badgeColor = "gray.400";
+  let statusColor = "gray.100";
+  let statusMsg = "Idle";
+  if (me?.isSupervising) {
+    badgeColor = "purple.400";
+    statusColor = "purple.100";
+    statusMsg = "Supervising";
+  } else if (me?.using) {
+    badgeColor = "green.400";
+    statusColor = "green.100";
+    statusMsg = "Machining";
+  }
+
   if (me?.isSupervising) badgeColor == "purple.500";
   else if (me?.using) badgeColor == "green.500";
 
@@ -36,6 +48,9 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
         </Text>
         <Text px={3} py={1.5}>
           {me ? me.email : "You are not signed in"}
+        </Text>
+        <Text px={3} py={1.5} bg={statusColor}>
+          Status: {statusMsg}
         </Text>
         <MenuDivider />
         <MenuItem
