@@ -79,7 +79,9 @@ export default function UserWidget(props: UserWidgetProps) {
         }
         px="2"
         bg={props.using ? "orange.100" : "white"}
-        _hover={{ bg: !props.disabled && "gray.100" }}
+        _hover={{
+          bg: !props.disabled && (props.using ? "orange.200" : "gray.100"),
+        }}
         minH="60px"
         w="100%"
       >
