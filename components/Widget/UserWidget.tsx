@@ -92,7 +92,7 @@ export default function UserWidget(props: UserWidgetProps) {
               borderRadius="full"
             ></Image>
           </AspectRatio> */}
-          <Avatar name={props.image} src={props.image}></Avatar>
+          <Avatar name={props.name} src={props.image}></Avatar>
 
           {content}
           {(props.handleAdd || props.handleRm) && (
