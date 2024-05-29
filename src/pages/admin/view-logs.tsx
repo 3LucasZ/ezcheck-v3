@@ -105,7 +105,9 @@ export default function Home({ logs }: PageProps) {
             },
             toaster
           );
-          if (res.status == 200) Router.push("/admin/view-logs");
+          if (res.status == 200) {
+            Router.push("/admin/view-logs");
+          }
         }}
       />
     </AdminLayout>

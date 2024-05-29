@@ -42,7 +42,10 @@ export function TextingBar(props: TextingBarProps) {
           rounded="full"
           sx={orangeBtn}
           verticalAlign={"center"}
-          onClick={(e) => props.send(query)}
+          onClick={(e) => {
+            props.send(query);
+            setQuery("");
+          }}
         >
           <Icon aria-label={""} as={FiMessageCircle} p="4" w="100%" h="100%" />
         </Box>
