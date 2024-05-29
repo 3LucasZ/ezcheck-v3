@@ -19,12 +19,12 @@ export default function EZCheck(props: EZCheckProps) {
   useFrame(({ clock }) => {
     const dt = Math.round(clock.getElapsedTime() * 1000); //milliseconds since page loaded
     //animate words (initial)
-    const nxt = Math.round(dt / 400);
+    const nxt = Math.round(dt / 500);
     let nextMsg = msg;
     if (nxt <= initShow.length) nextMsg = initShow.substring(0, nxt);
     //animate words (type setter effect)
-    if (Math.round(dt / 300) % 2 == 0 && good == undefined) {
-      setShow(nextMsg + "l");
+    if (Math.round(dt / 250) % 2 == 0 && good == undefined) {
+      setShow(nextMsg + ""); //you can set this character to an l, I, |, but it ends up looking kinda ugly.
     } else {
       setShow(nextMsg);
     }
