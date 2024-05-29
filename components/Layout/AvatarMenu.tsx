@@ -27,12 +27,12 @@ export default function AvatarMenu({ isAdmin, isSupervisor }: AvatarMenuProps) {
           name={session?.user?.name ? session.user.name : ""}
           src={session?.user?.image ? session.user.image : ""}
         >
-          {isAdmin && (
+          {/* {isAdmin && (
             <AvatarBadge
               boxSize="1.25em"
               bg={isSupervisor ? "green.500" : "red.500"}
             />
-          )}
+          )} */}
         </Avatar>
       </MenuButton>
       <MenuList textAlign="left">
