@@ -1,6 +1,5 @@
 import {
   Box,
-  ButtonGroup,
   Flex,
   HStack,
   Heading,
@@ -16,15 +15,12 @@ import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 
-import { ViewIcon, CheckIcon, ViewOffIcon } from "@chakra-ui/icons";
 import SearchView from "components/SearchView";
 
-import { useEffect, useState } from "react";
-import Router from "next/router";
-import { poster } from "services/poster";
+import { useState } from "react";
 import StudentLayout from "components/Layout/StudentLayout";
 import MachineWidget from "components/Widget/MachineWidget";
-import { basicUser, MachineProps } from "types/db";
+import { MachineProps } from "types/db";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { PINLen, tealBtn } from "services/constants";
 
@@ -88,8 +84,8 @@ export default function Home({ machines }: PageProps) {
           w="100%"
           p="8px"
           roundedLeft="md"
-          bg={isAllowed ? "orange.200" : "gray.100"}
-          _hover={{ bg: isAllowed ? "orange.200" : "gray.200" }}
+          bg={isAllowed ? "teal.200" : "gray.100"}
+          _hover={{ bg: isAllowed ? "teal.200" : "gray.200" }}
           textAlign={"center"}
           onClick={() => setIsAllowed(true)}
         >
