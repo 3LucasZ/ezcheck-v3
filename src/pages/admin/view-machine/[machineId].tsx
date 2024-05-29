@@ -92,7 +92,7 @@ export default function MachinePage({ machine, students }: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Flex px={responsivePx}>
         <EditableTitle
           value={isEdit ? newName : machine.name}

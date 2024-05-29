@@ -12,5 +12,5 @@ export default function Main() {
   useEffect(() => {
     Router.push(isAdmin ? "/admin/home" : "/student/home");
   });
-  return <Layout></Layout>;
+  return "";
 }

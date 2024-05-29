@@ -19,10 +19,16 @@ import { User } from "next-auth";
 type LayoutProps = {
   me?: User;
   noDivider?: boolean;
-  children: ReactNode;
+  loaded: boolean;
+  children?: ReactNode;
 };
 
-export default function AdminLayout({ me, noDivider, children }: LayoutProps) {
+export default function AdminLayout({
+  me,
+  noDivider,
+  loaded,
+  children,
+}: LayoutProps) {
   const forbiddenPage = (
     <>
       <Heading px={responsivePx} py="30vh">
@@ -32,7 +38,7 @@ export default function AdminLayout({ me, noDivider, children }: LayoutProps) {
     </>
   );
   return (
-    <Layout>
+    <Layout authorized={me != undefined && me.isAdmin} loaded={loaded}>
       <Header me={me} noDivider={noDivider} />
       {me?.isAdmin ? (
         <>

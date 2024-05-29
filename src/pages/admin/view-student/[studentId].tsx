@@ -107,7 +107,7 @@ export default function StudentPage(props: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Flex px={responsivePx}>
         <Center
           w="100%"
@@ -174,60 +174,58 @@ export default function StudentPage(props: PageProps) {
         </HStack>
       </Flex>
 
-      {status != "loading" && (
-        <SearchView
-          setIn={newCerts.map((cert) => {
-            return {
-              name:
-                (cert.machine.name == props.student.using?.name ? 0 : 1) +
-                cert.machine.name,
-              widget: (
-                <MachineWidget
-                  image={cert.machine.image}
-                  name={cert.machine.name}
-                  description={cert.machine.description}
-                  type2={true}
-                  name2={cert.issuer.name}
-                  email2={cert.issuer.email}
-                  url={`/admin/view-machine/${cert.machine.id}`}
-                  isEdit={isEdit}
-                  inverted={false}
-                  using={cert.machine.name == props.student.using?.name}
-                  handleRemove={() => rmCert(cert)}
-                />
-              ),
-            };
-          })}
-          setOut={outId.map((id) => {
-            const machine =
-              props.machines.find((x) => x.id == id) || props.machines[0];
-            return {
-              name: machine.name,
-              widget: (
-                <MachineWidget
-                  name={machine.name}
-                  description={machine.description}
-                  image={machine.image}
-                  url={`/admin/view-machine/${machine.id}`}
-                  isEdit={isEdit}
-                  inverted={true}
-                  handleAdd={() =>
-                    addCert({
-                      recipient: props.student,
-                      recipientId: props.student.id,
-                      machine: machine,
-                      machineId: machine.id,
-                      issuer: me,
-                      issuerId: me!.id,
-                    })
-                  }
-                />
-              ),
-            };
-          })}
-          isEdit={false}
-        />
-      )}
+      <SearchView
+        setIn={newCerts.map((cert) => {
+          return {
+            name:
+              (cert.machine.name == props.student.using?.name ? 0 : 1) +
+              cert.machine.name,
+            widget: (
+              <MachineWidget
+                image={cert.machine.image}
+                name={cert.machine.name}
+                description={cert.machine.description}
+                type2={true}
+                name2={cert.issuer.name}
+                email2={cert.issuer.email}
+                url={`/admin/view-machine/${cert.machine.id}`}
+                isEdit={isEdit}
+                inverted={false}
+                using={cert.machine.name == props.student.using?.name}
+                handleRemove={() => rmCert(cert)}
+              />
+            ),
+          };
+        })}
+        setOut={outId.map((id) => {
+          const machine =
+            props.machines.find((x) => x.id == id) || props.machines[0];
+          return {
+            name: machine.name,
+            widget: (
+              <MachineWidget
+                name={machine.name}
+                description={machine.description}
+                image={machine.image}
+                url={`/admin/view-machine/${machine.id}`}
+                isEdit={isEdit}
+                inverted={true}
+                handleAdd={() =>
+                  addCert({
+                    recipient: props.student,
+                    recipientId: props.student.id,
+                    machine: machine,
+                    machineId: machine.id,
+                    issuer: me,
+                    issuerId: me!.id,
+                  })
+                }
+              />
+            ),
+          };
+        })}
+        isEdit={false}
+      />
       <EditFAB
         isEdit={isEdit}
         onEdit={() => {

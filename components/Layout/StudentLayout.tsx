@@ -6,22 +6,15 @@ import { User } from "next-auth";
 
 type LayoutProps = {
   me?: User;
+  loaded: boolean;
   children: ReactNode;
 };
 
-export default function StudentLayout({ me, children }: LayoutProps) {
-  const forbiddenPage = (
-    <>
-      <Heading px={[2, "5vw", "10vw", "15vw"]} py="30vh">
-        Sorry, you do not have access to this page. Please contact an
-        administrator to grant you access.
-      </Heading>
-    </>
-  );
+export default function StudentLayout({ me, loaded, children }: LayoutProps) {
   return (
-    <Layout>
+    <Layout authorized={me != undefined} loaded={false}>
       <Header me={me} />
-      {me ? <>{children}</> : forbiddenPage}
+      {children}
     </Layout>
   );
 }

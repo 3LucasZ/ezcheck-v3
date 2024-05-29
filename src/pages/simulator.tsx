@@ -6,14 +6,14 @@ import { useSession } from "next-auth/react";
 import { responsivePx } from "services/constants";
 
 export default function Simulator() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user = session?.user;
   const useBloom = useBreakpointValue({
     base: false,
     sm: true,
   });
   return (
-    <Layout>
+    <Layout authorized={true} loaded={status !== "loading"}>
       {/* <Header isAdmin={user?.isAdmin} /> */}
 
       <Heading

@@ -19,12 +19,12 @@ type PageProps = {
 };
 export default function ManageMachines({ machines }: PageProps) {
   //--copy paste on every page--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   const toaster = useToast();
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
         Machines
       </Text>

@@ -18,7 +18,7 @@ export default function ManageStudents({ students }: PageProps) {
   const me = session?.user;
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
         Students
       </Text>

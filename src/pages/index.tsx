@@ -38,7 +38,7 @@ import { useState } from "react";
 
 export default function Home() {
   //--copy paste on every page--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   //--3D model states--
   const useBloom = useBreakpointValue({
@@ -51,7 +51,7 @@ export default function Home() {
   //--ret--
   return (
     <>
-      <Layout>
+      <Layout authorized={true} loaded={status !== "loading"}>
         <Header me={me} />
         <Box overflowY={"auto"}>
           <Box px={responsivePx}>

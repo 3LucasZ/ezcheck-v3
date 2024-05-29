@@ -15,7 +15,7 @@ type PageProps = {
 };
 export default function ManageAdmin({ users }: PageProps) {
   //--template--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   const toaster = useToast();
   //--handle add/rm admin--
@@ -42,7 +42,7 @@ export default function ManageAdmin({ users }: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Box px={responsivePx}>
         <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
           Supervision

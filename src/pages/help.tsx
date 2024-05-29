@@ -28,11 +28,11 @@ import Router from "next/router";
 
 export default function Home() {
   //--copy paste on every page--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   //--ret--
   return (
-    <Layout>
+    <Layout authorized={true} loaded={status !== "loading"}>
       <Header me={me} />
 
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">

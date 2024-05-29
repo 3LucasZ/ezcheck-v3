@@ -25,14 +25,14 @@ type PageProps = {
 };
 export default function Home({ queryName }: PageProps) {
   //--copy paste on every page--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   const toaster = useToast();
   //--state--
   const [name, setName] = useState<string>(queryName);
   //--ret--
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Flex
         flexDir="column"
         gap="10"

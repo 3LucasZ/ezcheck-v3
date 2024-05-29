@@ -37,7 +37,7 @@ type PageProps = {
 };
 export default function Home({ logs }: PageProps) {
   //--copy paste on every page--
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   const toaster = useToast();
 
@@ -87,6 +87,7 @@ export default function Home({ logs }: PageProps) {
   return (
     <AdminLayout
       me={me}
+      loaded={status !== "loading"}
       // noDivider
     >
       <Box overflowY="auto">

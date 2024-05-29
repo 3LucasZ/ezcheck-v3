@@ -2,15 +2,32 @@ import Head from "next/head";
 import { useEffect, type ReactNode } from "react";
 import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import RedirectPage from "@/pages/404";
 
 type LayoutProps = {
   // isAdmin: boolean | undefined;
-  authorized?: boolean;
-  loading?: boolean;
+  authorized: boolean;
+  loaded: boolean;
   children?: ReactNode;
 };
 export default function Layout(props: LayoutProps) {
-  // set content based on: loading, authorized
+  //--set content based on: loaded, authorized--
+  let content;
+  if (props.loaded) {
+    if (props.authorized) {
+      content = props.children;
+    } else {
+      content = RedirectPage({
+        errorCode: "401",
+        msg1: "Unauthorized",
+        msg2: "You do not have permissions to view this page",
+      });
+    }
+  } else {
+    content = "";
+  }
+
+  //--ret--
   return (
     <>
       <Head>
@@ -44,7 +61,7 @@ export default function Layout(props: LayoutProps) {
             WebkitTapHighlightColor: "rgba(0,0,0,0)",
           }}
         >
-          {props.children}
+          {content}
         </Flex>
       </main>
     </>

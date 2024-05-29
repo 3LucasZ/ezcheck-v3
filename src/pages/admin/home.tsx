@@ -41,13 +41,13 @@ type PageProps = {
   certificates: CertificateProps[];
 };
 export default function Home(props: PageProps) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const me = session?.user;
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null
   );
   return (
-    <AdminLayout me={me}>
+    <AdminLayout me={me} loaded={status !== "loading"}>
       <Box overflowY="auto">
         <SimpleGrid
           columns={3}

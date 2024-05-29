@@ -46,7 +46,7 @@ export default function Home({ machines }: PageProps) {
   const [isVisible, setIsVisible] = useState(false);
   //--ret--
   return (
-    <StudentLayout me={me}>
+    <StudentLayout me={me} loaded={status !== "loading"}>
       <Stack px={[2, "5vw", "10vw", "15vw"]} alignItems={"center"} spacing="0">
         <Flex flexDir="row" py="8px" gap="8px">
           <Heading>PIN</Heading>
