@@ -42,12 +42,12 @@ type PageProps = {
 };
 export default function Home(props: PageProps) {
   const { data: session } = useSession();
-  const user = session?.user;
+  const me = session?.user;
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null
   );
   return (
-    <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
+    <AdminLayout me={me}>
       <Box overflowY="auto">
         <SimpleGrid
           columns={3}

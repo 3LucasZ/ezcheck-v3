@@ -48,7 +48,7 @@ type PageProps = {
 export default function StudentPage(props: PageProps) {
   //--copy paste on every page--
   const { data: session, status } = useSession();
-  const user = session?.user;
+  const me = session?.user;
   const toaster = useToast();
   //--state--
   const [isVisible, setIsVisible] = useState(false);
@@ -107,7 +107,7 @@ export default function StudentPage(props: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
+    <AdminLayout me={me}>
       <Flex px={responsivePx}>
         <Center
           w="100%"
@@ -217,8 +217,8 @@ export default function StudentPage(props: PageProps) {
                       recipientId: props.student.id,
                       machine: machine,
                       machineId: machine.id,
-                      issuer: user,
-                      issuerId: user!.id,
+                      issuer: me,
+                      issuerId: me!.id,
                     })
                   }
                 />

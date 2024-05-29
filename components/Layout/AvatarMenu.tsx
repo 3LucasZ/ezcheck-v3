@@ -8,44 +8,34 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
+import { User } from "next-auth";
 import { signOut, signIn, useSession } from "next-auth/react";
 import Router from "next/router";
 import React from "react";
 import { debugMode } from "services/constants";
 
 type AvatarMenuProps = {
-  isAdmin: boolean | undefined;
-  isSupervisor?: boolean;
+  me?: User;
 };
 
-export default function AvatarMenu({ isAdmin, isSupervisor }: AvatarMenuProps) {
-  const { data: session } = useSession();
+export default function AvatarMenu({ me }: AvatarMenuProps) {
+  let badgeColor = "gray.400";
+  if (me?.isSupervising) badgeColor == "purple.500";
+  else if (me?.using) badgeColor == "green.500";
+
   return (
     <Menu>
       <MenuButton pos="relative" float="right" right="2">
-        <Avatar
-          name={session?.user?.name ? session.user.name : ""}
-          src={session?.user?.image ? session.user.image : ""}
-        >
-          {isAdmin && (
-            // <AvatarBadge
-            //   boxSize="1.25em"
-            //   bg={isSupervisor ? "green.500" : "red.500"}
-            // />
-            <AvatarBadge
-              boxSize="1.2em"
-              bg={"purple.500"}
-              hidden={!isSupervisor}
-            />
-          )}
+        <Avatar name={me?.name ? me.name : ""} src={me?.image ? me.image : ""}>
+          <AvatarBadge boxSize="0.9em" bg={badgeColor} />
         </Avatar>
       </MenuButton>
       <MenuList textAlign="left">
         <Text px={3} py={1.5}>
-          {session ? session.user!.name : "Guest"}
+          {me ? me.name : "Guest"}
         </Text>
         <Text px={3} py={1.5}>
-          {session ? session.user!.email : "You are not signed in"}
+          {me ? me.email : "You are not signed in"}
         </Text>
         <MenuDivider />
         <MenuItem
@@ -62,7 +52,7 @@ export default function AvatarMenu({ isAdmin, isSupervisor }: AvatarMenuProps) {
         >
           Help
         </MenuItem>
-        {isAdmin && (
+        {me?.isAdmin && (
           <MenuItem
             onClick={(e) => {
               Router.push("/admin/manage-admin");
@@ -76,12 +66,12 @@ export default function AvatarMenu({ isAdmin, isSupervisor }: AvatarMenuProps) {
             if (debugMode) console.log(e);
             e.preventDefault();
 
-            session
+            me
               ? signOut({ callbackUrl: "/" })
               : signIn("google", { callbackUrl: "/" });
           }}
         >
-          {session ? "Sign out" : "Sign in"}
+          {me ? "Sign out" : "Sign in"}
         </MenuItem>
       </MenuList>
     </Menu>

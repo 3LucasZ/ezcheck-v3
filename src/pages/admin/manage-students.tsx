@@ -13,11 +13,12 @@ type PageProps = {
 };
 
 export default function ManageStudents({ students }: PageProps) {
+  //--copy paste on every page--
   const { data: session, status } = useSession();
   const me = session?.user;
-
+  //--ret--
   return (
-    <AdminLayout isAdmin={me?.isAdmin} isSupervisor={me?.isSupervising}>
+    <AdminLayout me={me}>
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
         Students
       </Text>

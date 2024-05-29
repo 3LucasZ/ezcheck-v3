@@ -27,11 +27,13 @@ import { FiChevronDown, FiChevronLeft, FiExternalLink } from "react-icons/fi";
 import Router from "next/router";
 
 export default function Home() {
+  //--copy paste on every page--
   const { data: session } = useSession();
-  const user = session?.user;
+  const me = session?.user;
+  //--ret--
   return (
     <Layout>
-      <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} />
+      <Header me={me} />
 
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQHeader />

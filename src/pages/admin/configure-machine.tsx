@@ -24,14 +24,15 @@ type PageProps = {
   queryName: string;
 };
 export default function Home({ queryName }: PageProps) {
+  //--copy paste on every page--
   const { data: session } = useSession();
-  const user = session?.user;
+  const me = session?.user;
   const toaster = useToast();
-
+  //--state--
   const [name, setName] = useState<string>(queryName);
-
+  //--ret--
   return (
-    <AdminLayout isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising}>
+    <AdminLayout me={me}>
       <Flex
         flexDir="column"
         gap="10"

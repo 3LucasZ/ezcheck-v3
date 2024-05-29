@@ -14,20 +14,15 @@ import { debugMode, responsivePx } from "services/constants";
 import Layout from "./MainLayout";
 import Header from "./Header";
 import AppBar from "./AppBar";
+import { User } from "next-auth";
 
 type LayoutProps = {
-  isAdmin: boolean | undefined;
-  isSupervisor: boolean | undefined;
+  me?: User;
   noDivider?: boolean;
   children: ReactNode;
 };
 
-export default function AdminLayout({
-  isAdmin,
-  isSupervisor,
-  noDivider,
-  children,
-}: LayoutProps) {
+export default function AdminLayout({ me, noDivider, children }: LayoutProps) {
   const forbiddenPage = (
     <>
       <Heading px={responsivePx} py="30vh">
@@ -38,12 +33,8 @@ export default function AdminLayout({
   );
   return (
     <Layout>
-      <Header
-        isAdmin={isAdmin}
-        isSupervisor={isSupervisor}
-        noDivider={noDivider}
-      />
-      {isAdmin ? (
+      <Header me={me} noDivider={noDivider} />
+      {me?.isAdmin ? (
         <>
           {children}
           <Box minH="calc(50px + env(safe-area-inset-bottom))"></Box>

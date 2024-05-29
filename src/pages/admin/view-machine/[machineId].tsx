@@ -30,7 +30,7 @@ type PageProps = {
 export default function MachinePage({ machine, students }: PageProps) {
   //--copy paste on every page--
   const { data: session, status } = useSession();
-  const isAdmin = session?.user.isAdmin;
+  const me = session?.user;
   const toaster = useToast();
   //--state--
   const [isEdit, setIsEdit] = useState(false);
@@ -92,7 +92,7 @@ export default function MachinePage({ machine, students }: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout isAdmin={isAdmin} isSupervisor={session?.user.isSupervising}>
+    <AdminLayout me={me}>
       <Flex px={responsivePx}>
         <EditableTitle
           value={isEdit ? newName : machine.name}

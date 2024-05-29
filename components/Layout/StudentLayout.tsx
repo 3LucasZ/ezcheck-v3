@@ -2,20 +2,14 @@ import { Heading } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import Layout from "./MainLayout";
 import Header from "./Header";
+import { User } from "next-auth";
 
 type LayoutProps = {
-  isStudent: boolean;
-  isAdmin: boolean | undefined;
-  isSupervisor: boolean;
+  me?: User;
   children: ReactNode;
 };
 
-export default function StudentLayout({
-  isStudent,
-  isAdmin,
-  isSupervisor,
-  children,
-}: LayoutProps) {
+export default function StudentLayout({ me, children }: LayoutProps) {
   const forbiddenPage = (
     <>
       <Heading px={[2, "5vw", "10vw", "15vw"]} py="30vh">
@@ -26,8 +20,8 @@ export default function StudentLayout({
   );
   return (
     <Layout>
-      <Header isAdmin={isAdmin} isSupervisor={isSupervisor} />
-      {isStudent ? <>{children}</> : forbiddenPage}
+      <Header me={me} />
+      {me ? <>{children}</> : forbiddenPage}
     </Layout>
   );
 }

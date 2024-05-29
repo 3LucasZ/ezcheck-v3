@@ -86,8 +86,7 @@ export default function Home({ logs }: PageProps) {
   //--ret--
   return (
     <AdminLayout
-      isAdmin={me?.isAdmin}
-      isSupervisor={me?.isSupervising}
+      me={me}
       // noDivider
     >
       <Box overflowY="auto">

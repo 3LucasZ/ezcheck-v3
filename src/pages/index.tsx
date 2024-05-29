@@ -37,8 +37,10 @@ import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
 import { useState } from "react";
 
 export default function Home() {
+  //--copy paste on every page--
   const { data: session } = useSession();
-  const user = session?.user;
+  const me = session?.user;
+  //--3D model states--
   const useBloom = useBreakpointValue({
     base: false,
     sm: true,
@@ -46,10 +48,11 @@ export default function Home() {
   const aspectRatio = 10 / 8.2;
   const widths = [250, 300, 400, 500];
   const heights = widths.map((width) => width * aspectRatio);
+  //--ret--
   return (
     <>
       <Layout>
-        <Header isAdmin={user?.isAdmin} isSupervisor={user?.isSupervising} />
+        <Header me={me} />
         <Box overflowY={"auto"}>
           <Box px={responsivePx}>
             <Box h={["10", "20"]}></Box>
@@ -101,9 +104,7 @@ export default function Home() {
                 onClick={(e) => {
                   e.preventDefault();
                   session
-                    ? Router.push(
-                        user?.isAdmin ? "/admin/home" : "/student/home"
-                      )
+                    ? Router.push(me?.isAdmin ? "/admin/home" : "/student/home")
                     : signIn("google", { callbackUrl: "/main" });
                 }}
               >

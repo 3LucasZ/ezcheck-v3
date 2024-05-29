@@ -28,7 +28,7 @@ type PageProps = {
   machines: MachineProps[];
 };
 export default function Home({ machines }: PageProps) {
-  //--template--
+  //--copy paste on every page--
   const { data: session, status } = useSession();
   const me = session?.user;
   const toaster = useToast();
@@ -46,7 +46,7 @@ export default function Home({ machines }: PageProps) {
   const [isVisible, setIsVisible] = useState(false);
   //--ret--
   return (
-    <StudentLayout isAdmin={me?.isAdmin} isStudent={true} isSupervisor={false}>
+    <StudentLayout me={me}>
       <Stack px={[2, "5vw", "10vw", "15vw"]} alignItems={"center"} spacing="0">
         <Flex flexDir="row" py="8px" gap="8px">
           <Heading>PIN</Heading>

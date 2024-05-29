@@ -1,17 +1,13 @@
 import { Divider, Heading, HStack, Link, Stack } from "@chakra-ui/react";
 import React from "react";
 import AvatarMenu from "./AvatarMenu";
+import { User } from "next-auth";
 
 type HeaderProps = {
-  isAdmin: boolean | undefined;
-  isSupervisor?: boolean;
+  me?: User;
   noDivider?: boolean;
 };
-export default function Header({
-  isAdmin,
-  isSupervisor,
-  noDivider,
-}: HeaderProps) {
+export default function Header({ me, noDivider }: HeaderProps) {
   return (
     <>
       <HStack
@@ -29,7 +25,7 @@ export default function Header({
         >
           EZCheck
         </Heading>
-        <AvatarMenu isAdmin={isAdmin} isSupervisor={isSupervisor} />
+        <AvatarMenu me={me} />
       </HStack>
       {!noDivider && <Divider />}
     </>

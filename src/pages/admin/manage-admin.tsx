@@ -42,7 +42,7 @@ export default function ManageAdmin({ users }: PageProps) {
   };
   //--ret--
   return (
-    <AdminLayout isAdmin={me?.isAdmin} isSupervisor={me?.isSupervising}>
+    <AdminLayout me={me}>
       <Box px={responsivePx}>
         <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
           Supervision

@@ -18,12 +18,13 @@ type PageProps = {
   machines: MachineProps[];
 };
 export default function ManageMachines({ machines }: PageProps) {
+  //--copy paste on every page--
   const { data: session } = useSession();
-  const isAdmin = session?.user.isAdmin;
+  const me = session?.user;
   const toaster = useToast();
-
+  //--ret--
   return (
-    <AdminLayout isAdmin={isAdmin} isSupervisor={session?.user.isSupervising}>
+    <AdminLayout me={me}>
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
         Machines
       </Text>
