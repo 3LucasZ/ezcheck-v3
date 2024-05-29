@@ -29,7 +29,7 @@ import { PiStudent, PiStudentBold, PiStudentDuotone } from "react-icons/pi";
 import Header from "components/Layout/Header";
 import AvatarMenu from "components/Layout/AvatarMenu";
 
-import { responsivePx } from "services/constants";
+import { animatedGradient, responsivePx } from "services/constants";
 import FeatureCard from "components/FeatureCard";
 import Router from "next/router";
 import EZCheck from "components/EZCheckCanvas/EZCheck";
@@ -61,8 +61,9 @@ export default function Home() {
               Machine management{" "}
               <Text
                 as={"span"}
-                bgGradient={"linear(to-r, orange.300, red.400)"}
+                // bgGradient={"linear(to-r, orange.300, red.400)"}
                 bgClip={"text"}
+                sx={animatedGradient("orange.300", "red.400")}
               >
                 made easy
               </Text>

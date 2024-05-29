@@ -45,7 +45,7 @@ export function animatedGradient(c1: string, c2: string) {
   return {
     backgroundSize: "200% auto",
     bgGradient: `linear(to-r, ${c1}, ${c2}, ${c1})`,
-    animation: `${animation} 5s linear infinite`,
+    animation: `${animation} 2s linear infinite`,
   };
 }
 
