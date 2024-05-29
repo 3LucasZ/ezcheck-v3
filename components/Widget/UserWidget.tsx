@@ -8,6 +8,7 @@ import {
   Select,
   useDisclosure,
   useBreakpointValue,
+  Avatar,
 } from "@chakra-ui/react";
 
 import AddRemoveButton from "components/Composable/AddRemoveButton";
@@ -83,14 +84,15 @@ export default function UserWidget(props: UserWidgetProps) {
         w="100%"
       >
         <HStack h="60px">
-          <AspectRatio minW="45px" maxW="45px" ratio={1}>
+          {/* <AspectRatio minW="45px" maxW="45px" ratio={1}>
             <Image
               src={props.image} //pfp stored on google servers, will NOT use our API
               // fallbackSrc="https://via.placeholder.com/150"
               hidden={props.image?.length < 5}
               borderRadius="full"
             ></Image>
-          </AspectRatio>
+          </AspectRatio> */}
+          <Avatar name={props.image} src={props.image}></Avatar>
 
           {content}
           {(props.handleAdd || props.handleRm) && (
