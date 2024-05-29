@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import serverCreateLog from "services/createLog";
+
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
+import { serverCreateLog } from "../create-log";
 
 export default async function handle(
   req: NextApiRequest,

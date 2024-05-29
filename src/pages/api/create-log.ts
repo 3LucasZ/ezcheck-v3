@@ -14,6 +14,14 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const { sender, message, level } = req.body;
+  const ret = await serverCreateLog(message, level, sender);
+  return res.status(ret.status).json(ret.json);
+}
+export async function serverCreateLog(
+  message: string,
+  level: number,
+  sender?: string
+) {
   try {
     const op = await prisma.log.create({
       data: {
@@ -23,8 +31,8 @@ export default async function handle(
         level,
       },
     });
-    return res.status(200).json(op.id);
+    return { status: 200, json: "" + op.id };
   } catch (e) {
-    return res.status(500).json(prismaErrHandler(e));
+    return { status: 500, json: prismaErrHandler(e) };
   }
 }
