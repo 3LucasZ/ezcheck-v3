@@ -196,7 +196,7 @@ function LogSet(props: LogSetProps) {
 type LogCardProps = {
   id: number;
   timestamp: number;
-  author: string;
+  sender: string;
   message: string;
   level: number;
 };
@@ -207,7 +207,7 @@ function LogCard(props: LogCardProps) {
       <StepDescription>
         {new Date(props.timestamp * 1000).toLocaleTimeString() +
           " (" +
-          (props.author ? props.author : "System") +
+          (props.sender ? props.sender : "System") +
           ")"}
       </StepDescription>
       <StepTitle>{props.message}</StepTitle>

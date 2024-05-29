@@ -2,7 +2,7 @@ import { Alert, AlertIcon, Box, Grid } from "@chakra-ui/react";
 
 export type LogProps = {
   id: number;
-  author: string;
+  sender: string;
   timestamp: number;
   message: string;
   level: number;
