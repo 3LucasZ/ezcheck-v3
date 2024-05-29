@@ -19,7 +19,7 @@ type UserWidgetProps = {
   //data
   id: string;
   name: string;
-  email: string;
+  email?: string;
   image: string;
 
   type2?: boolean;

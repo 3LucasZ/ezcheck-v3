@@ -2,7 +2,7 @@ import { Stack, Text } from "@chakra-ui/react";
 
 type WidgetTitlesProps = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   column: boolean;
 };
 export default function WidgetTitles(props: WidgetTitlesProps) {

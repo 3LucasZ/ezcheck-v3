@@ -21,7 +21,7 @@ import WidgetTitles from "./WidgetTitles";
 type MachineWidgetProps = {
   //data
   name: string;
-  description: string;
+  description?: string;
   image: string;
   count?: number;
   url?: string;
@@ -55,7 +55,9 @@ export default function MachineWidget(props: MachineWidgetProps) {
     <HStack w="100%">
       <WidgetTitles
         title={props.name}
-        subtitle={props.description ? props.description : "No description."}
+        subtitle={
+          props.description != "" ? props.description : "No description."
+        }
         column={true}
       />
       <WidgetTitles
@@ -67,7 +69,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   ) : (
     <WidgetTitles
       title={props.name}
-      subtitle={props.description ? props.description : "No description."}
+      subtitle={props.description != "" ? props.description : "No description."}
       column={column}
     ></WidgetTitles>
   );
