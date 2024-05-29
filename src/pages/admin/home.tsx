@@ -32,6 +32,8 @@ import Carousel from "components/Main/Carousel";
 import CustomDivider from "components/Main/CustomDivider";
 import UserWidget from "components/Widget/UserWidget";
 import MachineWidget from "components/Widget/MachineWidget";
+import { AiFillHourglass } from "react-icons/ai";
+import { BiHourglass } from "react-icons/bi";
 
 type PageProps = {
   users: User[];
@@ -133,25 +135,25 @@ export default function Home(props: PageProps) {
                     name={machine.usedBy.name}
                     image={machine.usedBy.image}
                   />
-                  <HStack w="300px">
-                    <VStack>
-                      <Text>
-                        {new Date(
-                          machine.lastLogin * 1000
-                        ).toLocaleTimeString()}
-                      </Text>
-                      <Text fontSize={"xs"} color="gray.600">
-                        {new Date(
+
+                  <VStack minW="100px">
+                    <Text noOfLines={1}>
+                      {new Date(machine.lastLogin * 1000).toLocaleTimeString(
+                        [],
+                        { hour: "2-digit", minute: "2-digit" }
+                      )}
+                    </Text>
+                    <Text fontSize={"xs"} color="gray.600" noOfLines={1}>
+                      {new Date(
+                        Date.now() - machine.lastLogin * 1000
+                      ).getUTCHours() +
+                        " hrs " +
+                        new Date(
                           Date.now() - machine.lastLogin * 1000
-                        ).getUTCHours() +
-                          " hours, " +
-                          new Date(
-                            Date.now() - machine.lastLogin * 1000
-                          ).getUTCMinutes() +
-                          " minutes"}
-                      </Text>
-                    </VStack>
-                  </HStack>
+                        ).getUTCMinutes() +
+                        " mins"}
+                    </Text>
+                  </VStack>
                 </HStack>
               ))
             ) : (
