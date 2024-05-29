@@ -232,7 +232,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     },
   });
-  const students = await prisma.user.findMany({ where: { isAdmin: false } });
+  const students = await prisma.user.findMany({
+    where: {
+      // isAdmin: false,
+    },
+  });
   return {
     props: {
       machine,
