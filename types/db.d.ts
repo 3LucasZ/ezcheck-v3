@@ -21,6 +21,7 @@ export type MachineProps = {
 
   certificates: CertificateProps[];
   usedBy?: UserProps;
+  lastLogin: number;
 };
 const defaultMachine: MachineProps = {
   id: -100,
