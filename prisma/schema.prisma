@@ -90,6 +90,7 @@ model Machine {
   //relations
   certificates  MachineCertificate[] 
   usedBy    User?    @relation("using", fields: [usedById], references: [id])
+  lastLogin Int @default(0)
   usedById  String?        @unique
 }
 
