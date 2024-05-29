@@ -125,6 +125,7 @@ export default async function handle(
         },
         data: {
           usedById: student.id,
+          lastLogin: Date.now() / 1000,
           IP: IP,
         },
       });
