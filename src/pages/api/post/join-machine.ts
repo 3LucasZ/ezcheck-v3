@@ -107,7 +107,7 @@ export default async function handle(
     return res
       .status(500)
       .send(machine.name + " already in use by " + machine.usedBy.name + ".");
-  } else if (!allowedMachineNames.includes(machineName)) {
+  } else if (!allowedMachineNames.includes(machineName) && !student.isAdmin) {
     serverCreateLog(
       student.name +
         " is trying to use " +
