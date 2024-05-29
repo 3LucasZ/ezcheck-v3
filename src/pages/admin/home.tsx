@@ -87,38 +87,6 @@ export default function Home(props: PageProps) {
           />
         </SimpleGrid>
         <Box px={responsivePx}>
-          <CustomDivider
-            color="orange.300"
-            icon={FiAlertTriangle}
-            text="Incomplete"
-          />
-          <VStack>
-            {props.users
-              .filter((x) => !x.PIN)
-              .map((x) => (
-                <UserWidget
-                  id={x.id}
-                  name={x.name}
-                  email={x.email}
-                  image={x.image}
-                />
-              ))}
-            {props.machines
-              .filter(
-                (x) =>
-                  !x.description ||
-                  !x.image ||
-                  x.name.substring(0, 8) == "Machine-"
-              )
-              .map((x) => (
-                <MachineWidget
-                  name={x.name}
-                  description={x.description}
-                  image={x.image}
-                  url={`/admin/view-machine/${x.id}`}
-                />
-              ))}
-          </VStack>
           <CustomDivider color="orange.300" icon={FiClock} text="In Use" />
           <VStack w="100%">
             {machinesInUse.length > 0 ? (
@@ -159,6 +127,38 @@ export default function Home(props: PageProps) {
             ) : (
               <Text>{"No machines in use."}</Text>
             )}
+          </VStack>
+          <CustomDivider
+            color="orange.300"
+            icon={FiAlertTriangle}
+            text="Incomplete"
+          />
+          <VStack>
+            {props.users
+              .filter((x) => !x.PIN)
+              .map((x) => (
+                <UserWidget
+                  id={x.id}
+                  name={x.name}
+                  email={x.email}
+                  image={x.image}
+                />
+              ))}
+            {props.machines
+              .filter(
+                (x) =>
+                  !x.description ||
+                  !x.image ||
+                  x.name.substring(0, 8) == "Machine-"
+              )
+              .map((x) => (
+                <MachineWidget
+                  name={x.name}
+                  description={x.description}
+                  image={x.image}
+                  url={`/admin/view-machine/${x.id}`}
+                />
+              ))}
           </VStack>
         </Box>
         <Box h="16"></Box>
