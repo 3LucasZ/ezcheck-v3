@@ -40,6 +40,49 @@ export default function Home({ logs }: PageProps) {
   const { data: session } = useSession();
   const me = session?.user;
   const toaster = useToast();
+
+  const rn = new Date(Date.now());
+  const todayStart =
+    (rn.getTime() -
+      rn.getMilliseconds() -
+      rn.getSeconds() * 1000 -
+      rn.getMinutes() * 60 * 1000 -
+      rn.getHours() * 60 * 60 * 1000) /
+    1000;
+
+  let logIterator = 0;
+  let daysAgo = 0;
+  let titles: string[] = [
+    new Date(Date.now()).toLocaleDateString() + " (Today)",
+  ];
+  let logPartition: [LogProps[]] = [[]];
+  while (logIterator < logs.length) {
+    while (logs[logIterator].timestamp < todayStart - 24 * 60 * 60 * daysAgo) {
+      daysAgo++;
+      logPartition.push([]);
+      let title = new Date(
+        Date.now() - 24 * 60 * 60 * 1000 * daysAgo
+      ).toLocaleDateString();
+      if (daysAgo == 1) {
+        title += " (Yesterday)";
+      } else {
+        title += ` (${daysAgo} days ago)`;
+      }
+      titles.push(title);
+    }
+    logPartition[daysAgo].push(logs[logIterator]);
+    logIterator++;
+  }
+  let logSets = [];
+  for (let i = 0; i < titles.length; i++) {
+    logSets.push(
+      <LogSet
+        title={titles[i]}
+        cards={logPartition[i].map((log) => ({ ...log }))}
+      />
+    );
+  }
+
   //--ret--
   return (
     <AdminLayout
@@ -48,11 +91,7 @@ export default function Home({ logs }: PageProps) {
       // noDivider
     >
       <Box overflowY="auto">
-        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
-        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
-        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
-        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
-        <LogSet timestamp={""} cards={logs.map((log) => ({ ...log }))} />
+        {logSets}
         <Box minH="16"></Box>
       </Box>
       <TextingBar
@@ -75,7 +114,7 @@ export default function Home({ logs }: PageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const logs = await prisma.log.findMany({
-    orderBy: [{ id: "desc" }],
+    orderBy: [{ timestamp: "desc" }],
   });
   return {
     props: {
@@ -85,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 type LogSetProps = {
-  timestamp: string;
+  title: string;
   cards: LogCardProps[];
 };
 function LogSet(props: LogSetProps) {
@@ -109,48 +148,52 @@ function LogSet(props: LogSetProps) {
         borderBottomRadius={"2xl"}
       >
         <Text fontSize={responsiveHeaderFontSize} py={2} px={[6]}>
-          Today
+          {props.title}
         </Text>
         {/* <Divider /> */}
       </Box>
       <Box h="8"></Box>
       <Box px={[6]}>
-        <Stepper
-          index={-1}
-          orientation="vertical"
-          // height="400px"
-          gap="0"
-        >
-          {props.cards.map((x) => (
-            <Step>
-              <StepIndicator
-                sx={{
-                  "[data-status=incomplete] &": {
-                    background: background[x.level],
-                    borderColor: borderColor[x.level],
-                  },
-                }}
-              >
-                <StepStatus
-                  incomplete={
-                    <Text color="white" fontWeight={"bold"}>
-                      {icons[x.level]}
-                    </Text>
-                  }
-                />
-              </StepIndicator>
-              <LogCard {...x} />
-              <StepSeparator />
-            </Step>
-          ))}
-        </Stepper>
+        {props.cards.length != 0 ? (
+          <Stepper
+            index={-1}
+            orientation="vertical"
+            // height="400px"
+            gap="0"
+          >
+            {props.cards.map((x) => (
+              <Step>
+                <StepIndicator
+                  sx={{
+                    "[data-status=incomplete] &": {
+                      background: background[x.level],
+                      borderColor: borderColor[x.level],
+                    },
+                  }}
+                >
+                  <StepStatus
+                    incomplete={
+                      <Text color="white" fontWeight={"bold"}>
+                        {icons[x.level]}
+                      </Text>
+                    }
+                  />
+                </StepIndicator>
+                <LogCard {...x} />
+                <StepSeparator />
+              </Step>
+            ))}
+          </Stepper>
+        ) : (
+          <Text>No logs available to display.</Text>
+        )}
       </Box>
     </>
   );
 }
 type LogCardProps = {
   id: number;
-  timestamp: string;
+  timestamp: number;
   author: string;
   message: string;
   level: number;
@@ -160,7 +203,10 @@ function LogCard(props: LogCardProps) {
   return (
     <Box h="32">
       <StepDescription>
-        {props.timestamp + " | " + props.author}
+        {new Date(props.timestamp * 1000).toLocaleTimeString() +
+          " (" +
+          (props.author ? props.author : "System") +
+          ")"}
       </StepDescription>
       <StepTitle>{props.message}</StepTitle>
       {/* <Box h="16"></Box> */}
