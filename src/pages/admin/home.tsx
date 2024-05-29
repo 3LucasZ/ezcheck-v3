@@ -125,20 +125,37 @@ export default function Home(props: PageProps) {
                   <MachineWidget
                     url={`/admin/view-machine/${machine.id}`}
                     name={machine.name}
-                    description={machine.description}
                     image={machine.image}
                   />
                   {/* <Text>{"< == >"}</Text> */}
                   <UserWidget
                     id={machine.usedBy.id}
                     name={machine.usedBy.name}
-                    email={machine.usedBy.email}
                     image={machine.usedBy.image}
                   />
+                  <HStack w="300px">
+                    <VStack>
+                      <Text>
+                        {new Date(
+                          machine.lastLogin * 1000
+                        ).toLocaleTimeString()}
+                      </Text>
+                      <Text fontSize={"xs"} color="gray.600">
+                        {new Date(
+                          Date.now() - machine.lastLogin * 1000
+                        ).getUTCHours() +
+                          " hours, " +
+                          new Date(
+                            Date.now() - machine.lastLogin * 1000
+                          ).getUTCMinutes() +
+                          " minutes"}
+                      </Text>
+                    </VStack>
+                  </HStack>
                 </HStack>
               ))
             ) : (
-              <Text>{"No data to display"}</Text>
+              <Text>{"No machines in use."}</Text>
             )}
           </VStack>
         </Box>
