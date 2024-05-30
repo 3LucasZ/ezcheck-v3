@@ -32,6 +32,7 @@ model User {
   isSupervising   Boolean   @default(false)
 
   //custom student
+  preregistered Boolean @default(false)
   PIN       String?      @unique @db.VarChar(255) 
   certificates  MachineCertificate[] @relation("recipient") //special
   issuing MachineCertificate[] @relation("issuer") //special
