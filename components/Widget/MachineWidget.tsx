@@ -23,7 +23,6 @@ type MachineWidgetProps = {
   name: string;
   description?: string;
   image: string;
-  count?: number;
   url?: string;
 
   type2?: boolean;
@@ -34,14 +33,27 @@ type MachineWidgetProps = {
   inverted?: boolean;
   isEdit?: boolean;
   using?: boolean;
+  inUse?: boolean;
 
   //functions
   handleAdd?: Function;
   handleRemove?: Function;
-  handleNewCount?: ChangeEventHandler<HTMLInputElement>;
 };
 
 export default function MachineWidget(props: MachineWidgetProps) {
+  let bg = "white";
+  let hoverBg = "white";
+  if (props.using) {
+    bg = "orange.100";
+    if (props.url) hoverBg = "orange.200";
+    else hoverBg = "orange.100";
+  } else if (props.inUse) {
+    bg = "red.100";
+    if (props.url) hoverBg = "red.200";
+    else hoverBg = "red.100";
+  } else {
+    if (props.url) hoverBg = "gray.100";
+  }
   const column =
     useBreakpointValue(
       {
@@ -82,9 +94,9 @@ export default function MachineWidget(props: MachineWidgetProps) {
       mx={1} //so we can see the side shadows
       onClick={() => props.url && Router.push(props.url)}
       pr="2"
-      bg={props.using ? "orange.100" : "white"}
+      bg={bg}
       _hover={{
-        bg: props.url ? (props.using ? "orange.200" : "gray.100") : "",
+        bg: hoverBg,
       }}
       minH="60px"
       w="100%"
