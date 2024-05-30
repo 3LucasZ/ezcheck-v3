@@ -24,7 +24,13 @@ import { redBtn, responsivePx, tealBtn } from "services/constants";
 import EditableTitle from "components/Composable/EditableTitle";
 import EditableSubtitle from "components/Composable/EditableSubtitle";
 import { User } from "next-auth";
-import { FiImage } from "react-icons/fi";
+import {
+  FiDelete,
+  FiImage,
+  FiSettings,
+  FiTrash,
+  FiTrash2,
+} from "react-icons/fi";
 import ImageModal from "components/Main/ImageModal";
 type PageProps = {
   machine: MachineProps;
@@ -136,29 +142,6 @@ export default function MachinePage({ machine, students }: PageProps) {
         <Center>
           <ButtonGroup spacing="2" pl="2" isAttached>
             <IconButton
-              onClick={onOpen}
-              sx={redBtn}
-              aria-label="delete"
-              icon={<DeleteIcon />}
-            />
-            <ConfirmDeleteModal
-              isOpen={isOpen}
-              onClose={onClose}
-              name={" the machine: " + machine.name}
-              handleDelete={handleDelete}
-            />
-            <IconButton
-              onClick={() =>
-                Router.push({
-                  pathname: "/admin/configure-machine",
-                  query: { name: machine.name },
-                })
-              }
-              sx={tealBtn}
-              aria-label=""
-              icon={<SettingsIcon />}
-            />
-            <IconButton
               colorScheme="blue"
               aria-label=""
               icon={<Icon as={FiImage} boxSize={5} />}
@@ -172,6 +155,30 @@ export default function MachinePage({ machine, students }: PageProps) {
               onUpload={uploadImage}
               canUpload={true}
               imageStr={machine.image}
+            />
+            <IconButton
+              onClick={() =>
+                Router.push({
+                  pathname: "/admin/configure-machine",
+                  query: { name: machine.name },
+                })
+              }
+              sx={tealBtn}
+              aria-label=""
+              icon={<Icon as={FiSettings} boxSize={5} />}
+            />
+
+            <IconButton
+              onClick={onOpen}
+              sx={redBtn}
+              aria-label="delete"
+              icon={<Icon as={FiTrash2} boxSize={5} />}
+            />
+            <ConfirmDeleteModal
+              isOpen={isOpen}
+              onClose={onClose}
+              name={" the machine: " + machine.name}
+              handleDelete={handleDelete}
             />
           </ButtonGroup>
         </Center>
