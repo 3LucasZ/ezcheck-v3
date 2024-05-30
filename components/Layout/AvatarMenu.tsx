@@ -1,6 +1,7 @@
 import {
   Avatar,
   AvatarBadge,
+  Icon,
   Menu,
   MenuButton,
   MenuDivider,
@@ -12,6 +13,16 @@ import { User } from "next-auth";
 import { signOut, signIn, useSession } from "next-auth/react";
 import Router from "next/router";
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
+import {
+  FiActivity,
+  FiBook,
+  FiBookOpen,
+  FiHelpCircle,
+  FiMonitor,
+  FiNavigation,
+  FiUsers,
+} from "react-icons/fi";
 import { debugMode } from "services/constants";
 
 type AvatarMenuProps = {
@@ -20,7 +31,7 @@ type AvatarMenuProps = {
 
 export default function AvatarMenu({ me }: AvatarMenuProps) {
   let badgeColor = "gray.400";
-  let statusColor = "gray.100";
+  let statusColor = "gray.300";
   let statusMsg = "Idle";
   if (me?.isSupervising) {
     badgeColor = "purple.400";
@@ -52,30 +63,6 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
         <Text px={3} py={1.5} bg={statusColor}>
           Status: {statusMsg}
         </Text>
-        <MenuDivider />
-        <MenuItem
-          onClick={(e) => {
-            Router.push("/");
-          }}
-        >
-          Home
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => {
-            Router.push("/help");
-          }}
-        >
-          Help
-        </MenuItem>
-        {me?.isAdmin && (
-          <MenuItem
-            onClick={(e) => {
-              Router.push("/admin/manage-admin");
-            }}
-          >
-            Admin Dashboard
-          </MenuItem>
-        )}
         <MenuItem
           onClick={(e) => {
             if (debugMode) console.log(e);
@@ -83,10 +70,56 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
 
             me
               ? signOut({ callbackUrl: "/" })
-              : signIn("google", { callbackUrl: "/" });
+              : signIn("google", { callbackUrl: "/main" });
           }}
         >
+          <Icon as={FcGoogle} pr="2" boxSize={6} />
           {me ? "Sign out" : "Sign in"}
+        </MenuItem>
+        <MenuDivider />
+        <MenuItem
+          onClick={(e) => {
+            Router.push("/");
+          }}
+        >
+          <Icon as={FiNavigation} pr="2" boxSize={6} />
+          Landing Page
+        </MenuItem>
+        {me?.isAdmin && (
+          <MenuItem
+            onClick={(e) => {
+              Router.push("/admin/home");
+            }}
+          >
+            <Icon as={FiActivity} pr="2" boxSize={6} />
+            Admin Page
+          </MenuItem>
+        )}
+        <MenuItem
+          onClick={(e) => {
+            Router.push("/student/home");
+          }}
+        >
+          <Icon as={FiUsers} pr="2" boxSize={6} />
+          User Page
+        </MenuItem>
+        {me?.isAdmin && (
+          <MenuItem
+            onClick={(e) => {
+              Router.push("/admin/manage-admin");
+            }}
+          >
+            <Icon as={FiMonitor} pr="2" boxSize={6} />
+            Admin Dashboard
+          </MenuItem>
+        )}
+        <MenuItem
+          onClick={(e) => {
+            Router.push("/help");
+          }}
+        >
+          <Icon as={FiBookOpen} pr="2" boxSize={6} />
+          Help
         </MenuItem>
       </MenuList>
     </Menu>
