@@ -12,7 +12,7 @@ type LayoutProps = {
 
 export default function StudentLayout({ me, loaded, children }: LayoutProps) {
   return (
-    <Layout authorized={me != undefined} loaded={false}>
+    <Layout authorized={me != undefined} loaded={loaded}>
       <Header me={me} />
       {children}
     </Layout>
