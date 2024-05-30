@@ -2,6 +2,7 @@ import {
   ButtonGroup,
   Center,
   Flex,
+  Icon,
   IconButton,
   useDisclosure,
   useToast,
@@ -23,6 +24,8 @@ import { redBtn, responsivePx, tealBtn } from "services/constants";
 import EditableTitle from "components/Composable/EditableTitle";
 import EditableSubtitle from "components/Composable/EditableSubtitle";
 import { User } from "next-auth";
+import { FiImage } from "react-icons/fi";
+import ImageModal from "components/Main/ImageModal";
 type PageProps = {
   machine: MachineProps;
   students: User[];
@@ -65,7 +68,33 @@ export default function MachinePage({ machine, students }: PageProps) {
       await Router.push({ pathname: "/admin/manage-machines" });
   };
   //--handle view modal--
+  const {
+    isOpen: isOpenViewer,
+    onOpen: onOpenViewer,
+    onClose: onCloseViewer,
+  } = useDisclosure();
   //--handle upload image--
+  const uploadImage = async (newImage: string) => {
+    //delete old image
+    var body, res;
+    body = { image: machine.image };
+    res = await poster("/api/delete-image", body, toaster, true);
+    if (res.status == 200) {
+      //upload new image
+      body = { image: newImage };
+      res = await poster("/api/upload-image", body, toaster, true);
+      const imageUrl = await res.json();
+      // console.log("upload-image-client fileUrl:", imageUrl);
+      if (res.status == 200) {
+        //attach new image to item
+        const body = { id: machine.id, image: imageUrl };
+        const res = await poster("/api/update-machine-image", body, toaster);
+        if (res.status == 200) {
+          Router.reload();
+        }
+      }
+    }
+  };
   //--handle update machine
   const handleUpdate = async () => {
     const addCerts = newCerts.filter(
@@ -128,6 +157,21 @@ export default function MachinePage({ machine, students }: PageProps) {
               sx={tealBtn}
               aria-label=""
               icon={<SettingsIcon />}
+            />
+            <IconButton
+              colorScheme="blue"
+              aria-label=""
+              icon={<Icon as={FiImage} boxSize={5} />}
+              onClick={() => {
+                onOpenViewer();
+              }}
+            />
+            <ImageModal
+              onClose={onCloseViewer}
+              isOpen={isOpenViewer}
+              onUpload={uploadImage}
+              canUpload={true}
+              imageStr={machine.image}
             />
           </ButtonGroup>
         </Center>
