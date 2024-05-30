@@ -1,15 +1,11 @@
-import { Prisma } from "@prisma/client";
 import { NextApiResponse } from "next";
-import { getServerSession, User } from "next-auth";
-import prisma from "services/prisma";
-import { prismaErrHandler } from "services/prismaErrHandler";
-import { CertificateProps } from "types/db";
+import { getServerSession } from "next-auth";
 import { TypedRequestBody } from "types/req";
-import handleCreateLog from "./create-log";
-import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "./auth/[...nextauth]";
 
 import nodemailer from "nodemailer";
+
+import { GetInviteEmailHtml } from "../../../components/InviteEmail";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -22,6 +18,12 @@ export default async function handle(
   if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
   //--initialize + checks--
   const { email } = req.body;
+  //--webpage :)--
+  const emailHtml = GetInviteEmailHtml({
+    receiverEmail: email,
+    senderEmail: "PLACEHOLDER",
+    senderName: "PLACEHOLDER",
+  });
   try {
     //--operation--
     const transporter = nodemailer.createTransport({
@@ -36,7 +38,7 @@ export default async function handle(
       from: process.env.NODEMAILER_EMAIL,
       to: email,
       subject: "Invitation to join EZCheck",
-      text: "hello",
+      html: emailHtml,
     };
 
     // transporter.sendMail(mailOptions, function (error, info) {
