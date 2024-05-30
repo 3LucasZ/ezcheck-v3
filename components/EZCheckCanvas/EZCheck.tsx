@@ -4,6 +4,7 @@ import Keypad from "./Keypad";
 import LCD from "./LCD";
 import LED from "./LED";
 import { useFrame } from "@react-three/fiber";
+import next from "next";
 
 type EZCheckProps = {
   leftLEDRef: MutableRefObject<any>;
@@ -13,22 +14,25 @@ export default function EZCheck(props: EZCheckProps) {
   const [msg, setMsg] = useState("");
   const [show, setShow] = useState("");
   const [pass, setPass] = useState("");
-  const [good, setGood] = useState<boolean | undefined>(undefined);
+  const [good, setGood] = useState<boolean | undefined>(true);
+  const [isInit, setIsInit] = useState(true);
 
   const initShow = "Welcome!";
   useFrame(({ clock }) => {
     const dt = Math.round(clock.getElapsedTime() * 1000); //milliseconds since page loaded
-    //animate words (initial)
-    const nxt = Math.round(dt / 500);
-    let nextMsg = msg;
-    if (nxt <= initShow.length) nextMsg = initShow.substring(0, nxt);
+    let nextMsg;
+    if (isInit) {
+      //animate words (initial)
+      nextMsg = initShow.substring(0, Math.round(dt / 500));
+    } else {
+      nextMsg = msg;
+    }
     //animate words (type setter effect)
-    if (Math.round(dt / 250) % 2 == 0 && good == undefined) {
-      setShow(nextMsg + ""); //you can set this character to an l, I, |, but it ends up looking kinda ugly.
+    if (Math.round(dt / 250) % 2 == 0 && (isInit || good == undefined)) {
+      setShow(nextMsg + "_"); //you can set this character to an l, I, |, but it ends up looking kinda ugly.
     } else {
       setShow(nextMsg);
     }
-    setMsg(nextMsg);
   });
 
   return (
@@ -53,6 +57,7 @@ export default function EZCheck(props: EZCheckProps) {
       <LCD text={show} />
       <Keypad
         onClick={(key: string) => {
+          setIsInit(false); //no longer init mode once the user clicks EZ
           setGood(undefined);
           if (key == "D") {
             setPass(pass.slice(0, -1));
