@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 
 import AdminLayout from "components/Layout/AdminLayout";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { errorToast } from "services/toasty";
 import { animatedGradient } from "services/constants";
 
@@ -25,7 +25,10 @@ type PageProps = {
 };
 export default function Home({ queryName }: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
   //--state--

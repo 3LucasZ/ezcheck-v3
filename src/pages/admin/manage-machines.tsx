@@ -13,13 +13,17 @@ import MachineWidget from "components/Widget/MachineWidget";
 
 import { Text } from "@chakra-ui/react";
 import { orangeBtn, responsiveHeaderFontSize } from "services/constants";
+import { useEffect } from "react";
 
 type PageProps = {
   machines: MachineProps[];
 };
 export default function ManageMachines({ machines }: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
   //--ret--

@@ -31,13 +31,17 @@ import {
 } from "services/constants";
 import { poster } from "services/poster";
 import Router from "next/router";
+import { useEffect } from "react";
 
 type PageProps = {
   logs: LogProps[];
 };
 export default function Home({ logs }: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
 

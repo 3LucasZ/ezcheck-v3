@@ -9,13 +9,17 @@ import AdminLayout from "components/Layout/AdminLayout";
 import { User } from "next-auth";
 import UserWidget from "components/Widget/UserWidget";
 import { responsiveHeaderFontSize, responsivePx } from "services/constants";
+import { useEffect } from "react";
 
 type PageProps = {
   users: User[];
 };
 export default function ManageAdmin({ users }: PageProps) {
   //--template--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
   //--handle add/rm admin--

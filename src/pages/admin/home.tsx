@@ -34,6 +34,7 @@ import UserWidget from "components/Widget/UserWidget";
 import MachineWidget from "components/Widget/MachineWidget";
 import { AiFillHourglass } from "react-icons/ai";
 import { BiHourglass } from "react-icons/bi";
+import { useEffect } from "react";
 
 type PageProps = {
   users: User[];
@@ -41,7 +42,10 @@ type PageProps = {
   certificates: CertificateProps[];
 };
 export default function Home(props: PageProps) {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null

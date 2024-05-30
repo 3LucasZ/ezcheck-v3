@@ -34,11 +34,14 @@ import FeatureCard from "components/FeatureCard";
 import Router from "next/router";
 import EZCheck from "components/EZCheckCanvas/EZCheck";
 import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   //--3D model states--
   const useBloom = useBreakpointValue({

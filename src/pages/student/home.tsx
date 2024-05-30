@@ -17,7 +17,7 @@ import prisma from "services/prisma";
 
 import SearchView from "components/SearchView";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StudentLayout from "components/Layout/StudentLayout";
 import MachineWidget from "components/Widget/MachineWidget";
 import { MachineProps } from "types/db";
@@ -29,7 +29,10 @@ type PageProps = {
 };
 export default function Home({ machines }: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
   //--relations--

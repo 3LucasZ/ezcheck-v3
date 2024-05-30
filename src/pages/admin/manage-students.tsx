@@ -7,6 +7,7 @@ import UserWidget from "components/Widget/UserWidget";
 import { User } from "next-auth";
 import { responsiveHeaderFontSize } from "services/constants";
 import { Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 type PageProps = {
   students: User[];
@@ -14,7 +15,10 @@ type PageProps = {
 
 export default function ManageStudents({ students }: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   //--ret--
   return (

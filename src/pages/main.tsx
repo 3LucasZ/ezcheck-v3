@@ -6,11 +6,14 @@ import Router from "next/router";
 import { useEffect } from "react";
 
 export default function Main() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+
   const isAdmin = session?.user.isAdmin;
 
   useEffect(() => {
+    update();
     Router.push(isAdmin ? "/admin/home" : "/student/home");
   });
+
   return "";
 }

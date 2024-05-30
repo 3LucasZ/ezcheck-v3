@@ -3,10 +3,14 @@ import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
 import Header from "components/Layout/Header";
 import Layout from "components/Layout/MainLayout";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { responsivePx } from "services/constants";
 
 export default function Simulator() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const user = session?.user;
   const useBloom = useBreakpointValue({
     base: false,

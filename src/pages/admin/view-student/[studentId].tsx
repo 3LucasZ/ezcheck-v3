@@ -37,7 +37,7 @@ import {
   tealBtn,
 } from "services/constants";
 import { EditFAB } from "components/Layout/FAB/EditFAB";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 type PageProps = {
@@ -47,7 +47,10 @@ type PageProps = {
 
 export default function StudentPage(props: PageProps) {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   const toaster = useToast();
   //--state--

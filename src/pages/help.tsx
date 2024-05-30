@@ -22,13 +22,16 @@ import {
 import Header from "components/Layout/Header";
 import { FAQHeader, FAQItem } from "components/Layout/FAQ";
 import { responsivePx } from "services/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronLeft, FiExternalLink } from "react-icons/fi";
 import Router from "next/router";
 
 export default function Home() {
   //--copy paste on every page--
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  useEffect(() => {
+    update();
+  }, []);
   const me = session?.user;
   //--ret--
   return (
