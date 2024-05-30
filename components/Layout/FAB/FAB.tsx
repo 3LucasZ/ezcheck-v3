@@ -17,6 +17,7 @@ type FABProps = {
   hidden?: boolean;
   //style
   sx: any;
+  boxSize?: number;
 };
 
 export const FAB = ({
@@ -27,6 +28,7 @@ export const FAB = ({
   hidden,
   //style
   sx,
+  boxSize,
 }: FABProps) => {
   !bottomOffset && (bottomOffset = 0);
   return (
@@ -52,7 +54,13 @@ export const FAB = ({
         zIndex={100}
         hidden={hidden}
       >
-        <Icon as={icon} boxSize="6" p="0" m="0" w="100%" />
+        <Icon
+          as={icon}
+          boxSize={boxSize ? boxSize : "6"}
+          p="0"
+          m="0"
+          w="100%"
+        />
         <Text fontSize={"2xl"} hidden={name ? false : true}>
           {name}
         </Text>
