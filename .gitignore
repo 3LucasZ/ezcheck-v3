@@ -40,3 +40,4 @@ next-env.d.ts
 certificates
 converter/in.html
 converter/out.tsx
+uploads
