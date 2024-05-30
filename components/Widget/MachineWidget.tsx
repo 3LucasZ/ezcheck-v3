@@ -35,6 +35,7 @@ type MachineWidgetProps = {
   isEdit?: boolean;
   using?: boolean;
   inUse?: boolean;
+  webAuth?: boolean;
 
   //functions
   handleLogin?: Function;
@@ -120,13 +121,13 @@ export default function MachineWidget(props: MachineWidgetProps) {
             handleRemove={props.handleRemove!}
           />
         )}
-        {(props.handleAdd || props.handleRemove) && (
-          <InOutButton
-            isAdd={props.inverted}
-            handleAdd={props.handleLogin}
-            handleRemove={props.handleLogout}
-          />
-        )}
+
+        <InOutButton
+          invisible={!props.webAuth || (!props.using && props.inUse)}
+          isAdd={!props.using}
+          handleAdd={props.handleLogin}
+          handleRemove={props.handleLogout}
+        />
       </HStack>
     </Box>
   );

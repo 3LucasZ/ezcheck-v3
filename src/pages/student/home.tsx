@@ -23,6 +23,7 @@ import MachineWidget from "components/Widget/MachineWidget";
 import { MachineProps } from "types/db";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { PINLen, tealBtn } from "services/constants";
+import { poster } from "services/poster";
 
 type PageProps = {
   machines: MachineProps[];
@@ -121,6 +122,29 @@ export default function Home({ machines }: PageProps) {
                 image={machine.image}
                 using={me?.using?.id == machine.id}
                 inUse={machine.usedBy != undefined}
+                webAuth={machine.webAuth}
+                handleLogin={async () => {
+                  await poster(
+                    "/api/post/join-machine",
+                    {
+                      machineName: machine?.name,
+                      studentPIN: me?.PIN,
+                      IP: "DNE",
+                    },
+                    toaster,
+                    false,
+                    true
+                  );
+                }}
+                handleLogout={async () => {
+                  await poster(
+                    "/api/post/leave-machine",
+                    {
+                      machineName: machine?.name,
+                    },
+                    toaster
+                  );
+                }}
               />
             ),
           };
