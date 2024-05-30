@@ -103,7 +103,7 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
           <Icon as={FiUsers} pr="2" boxSize={6} />
           User Page
         </MenuItem>
-        {me?.isAdmin && (
+        {/* {me?.isAdmin && (
           <MenuItem
             onClick={(e) => {
               Router.push("/admin/manage-admin");
@@ -112,7 +112,7 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
             <Icon as={FiMonitor} pr="2" boxSize={6} />
             Admin Dashboard
           </MenuItem>
-        )}
+        )} */}
         <MenuItem
           onClick={(e) => {
             Router.push("/help");

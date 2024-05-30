@@ -2,13 +2,21 @@ import { Box, Center, HStack, Icon } from "@chakra-ui/react";
 
 import { IconType } from "react-icons";
 import Router from "next/router";
-import { FiCpu, FiFileText, FiHome, FiTool, FiUsers } from "react-icons/fi";
+import {
+  FiCpu,
+  FiFileText,
+  FiHome,
+  FiMonitor,
+  FiTool,
+  FiUsers,
+} from "react-icons/fi";
 
 export default function AppBar() {
   return (
     <Box position="fixed" bottom="0" w="100%">
       <HStack gap={0} h={"calc(50px + env(safe-area-inset-bottom))"}>
         <AppBarBtn icon={FiHome} href="/admin/home" />
+        <AppBarBtn icon={FiMonitor} href="/admin/manage-admin" />
         <AppBarBtn icon={FiUsers} href="/admin/manage-students" />
         <AppBarBtn icon={FiCpu} href="/admin/manage-machines" />
         <AppBarBtn icon={FiFileText} href="/admin/view-logs" />
