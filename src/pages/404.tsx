@@ -1,4 +1,10 @@
-import { Heading, Button, Box, Text } from "@chakra-ui/react";
+import {
+  Heading,
+  Button,
+  Box,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Router from "next/router";
 import { animatedGradient } from "services/constants";
 
@@ -13,14 +19,15 @@ export default function RedirectPage({ errorCode, msg1, msg2 }: PageProps) {
       <Box
         textAlign="center"
         position="fixed"
-        top="45%"
+        top="50%"
         left="50%"
         transform="translate(-50%, -50%)"
+        zIndex={1000}
       >
         <Heading
           display="inline-block"
           as="h1"
-          size="4xl"
+          fontSize="120px"
           // bgGradient="linear(to-r, teal.400, teal.600)"
           // bgGradient="linear(to-br,teal.300, blue.300)"
           sx={animatedGradient("orange.300", "red.400")}
@@ -29,7 +36,7 @@ export default function RedirectPage({ errorCode, msg1, msg2 }: PageProps) {
         >
           {errorCode ? errorCode : 404}
         </Heading>
-        <Text fontSize="3xl" mt={3} mb={2}>
+        <Text fontSize="4xl" mt={3} mb={2}>
           {msg1 ? msg1 : "Page Not Found"}
         </Text>
         <Text fontSize="xl" color={"gray.500"} mb={6}>
@@ -45,7 +52,7 @@ export default function RedirectPage({ errorCode, msg1, msg2 }: PageProps) {
             Router.push("/");
           }}
         >
-          Home
+          Go Home
         </Button>
       </Box>
       <L left={true} top={true} />
@@ -61,10 +68,10 @@ type LProps = {
 };
 function L(props: LProps) {
   const borderWidth = 0;
-  const horLen = 300;
+  const horLen = useBreakpointValue([100, 150, 200, 250, 300]) || 100;
   const vertLen = 200;
   const depth = 25;
-  const spacing = 80;
+  const spacing = useBreakpointValue([10, 20, 30, 40, 50]) || 10;
   let rotation = 0;
   if (props.left && props.top) {
     rotation = 180;
