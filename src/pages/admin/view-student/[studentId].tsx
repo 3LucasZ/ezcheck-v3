@@ -31,6 +31,7 @@ import MachineWidget from "components/Widget/MachineWidget";
 import { User } from "next-auth";
 import {
   PINLen,
+  redBtn,
   responsiveHeaderFontSize,
   responsivePx,
   responsiveSubheaderFontSize,
@@ -38,7 +39,7 @@ import {
 } from "services/constants";
 import { EditFAB } from "components/Layout/FAB/EditFAB";
 import { useEffect, useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLogOut } from "react-icons/fi";
 
 type PageProps = {
   student: User;
@@ -173,6 +174,27 @@ export default function StudentPage(props: PageProps) {
             aria-label={""}
             isDisabled={isEdit}
             pointerEvents={isEdit ? "none" : "auto"}
+          />
+          <IconButton
+            icon={<Icon as={FiLogOut} />}
+            sx={redBtn}
+            onClick={async () => {
+              const res = await poster(
+                "/api/post/leave-machine",
+                {
+                  machineName: props.student.using?.name,
+                },
+                toaster,
+                false,
+                true
+              );
+              if (res.status == 200) {
+                update();
+                Router.push(`/admin/view-student/${props.student.id}`);
+              }
+            }}
+            aria-label={""}
+            isDisabled={props.student.using == undefined}
           />
         </HStack>
       </Flex>
