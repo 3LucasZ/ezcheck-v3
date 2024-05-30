@@ -5,9 +5,28 @@ import { useSession } from "next-auth/react";
 import AdminLayout from "components/Layout/AdminLayout";
 import UserWidget from "components/Widget/UserWidget";
 import { User } from "next-auth";
-import { responsiveHeaderFontSize } from "services/constants";
-import { Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { orangeBtn, responsiveHeaderFontSize } from "services/constants";
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { FAB } from "components/Layout/FAB/FAB";
+import { FiMail, FiPlus, FiUserPlus } from "react-icons/fi";
+import { poster } from "services/poster";
+import Router from "next/router";
 
 type PageProps = {
   students: User[];
@@ -20,6 +39,18 @@ export default function ManageStudents({ students }: PageProps) {
     update();
   }, []);
   const me = session?.user;
+  const toaster = useToast();
+  //--state--
+  const [email, setEmail] = useState("");
+  //--registration--
+  const preregister = async () => {
+    const res = poster("/api/preregister-student", { email }, toaster, true);
+  };
+  const withMail = async () => {
+    const res = poster("/api/preregister-send-email", { email }, toaster, true);
+  };
+  //--pre-register modal--
+  const { isOpen, onOpen, onClose } = useDisclosure();
   //--ret--
   return (
     <AdminLayout me={me} loaded={status !== "loading"}>
@@ -41,6 +72,39 @@ export default function ManageStudents({ students }: PageProps) {
         }))}
         isEdit={true}
       />
+      <FAB onClick={onOpen} icon={FiUserPlus} sx={orangeBtn} boxSize={9} />
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Account Preregistration</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              Students can create their own accounts via the EZCheck website. In
+              addition, you can also preregister student accounts here.
+            </Text>
+            <Box h="4"></Box>
+            <Text>
+              Enter the email address of the student you want to preregister.
+            </Text>
+            <Box h="4"></Box>
+            <Input
+              placeholder="Ex: john.doe@warriorlife.net"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button mr={3} onClick={preregister}>
+              Preregister <Icon as={FiPlus} ml={2} boxSize={5} />
+            </Button>
+            <Button onClick={withMail}>
+              Send invitation <Icon as={FiMail} ml={2} boxSize={5} />
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </AdminLayout>
   );
 }
