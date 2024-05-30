@@ -112,14 +112,15 @@ export default function Home({ machines }: PageProps) {
           var machine = machines.find((x) => x.id == id);
           if (!machine) machine = machines[0];
           return {
-            name: machine.name,
+            name: (me?.using?.id == machine.id ? 0 : 1) + machine.name,
             widget: (
               <MachineWidget
                 key={machine.id}
                 name={machine.name}
-                description={""}
-                image={""}
-                count={0}
+                description={machine.description}
+                image={machine.image}
+                using={me?.using?.id == machine.id}
+                inUse={machine.usedBy != undefined}
               />
             ),
           };
@@ -131,7 +132,7 @@ export default function Home({ machines }: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const machines = await prisma.machine.findMany();
+  const machines = await prisma.machine.findMany({ include: { usedBy: true } });
   return {
     props: {
       machines,
