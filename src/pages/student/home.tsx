@@ -24,6 +24,7 @@ import { MachineProps } from "types/db";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { PINLen, tealBtn } from "services/constants";
 import { poster } from "services/poster";
+import Router from "next/router";
 
 type PageProps = {
   machines: MachineProps[];
@@ -124,7 +125,7 @@ export default function Home({ machines }: PageProps) {
                 inUse={machine.usedBy != undefined}
                 webAuth={machine.webAuth}
                 handleLogin={async () => {
-                  await poster(
+                  const res = await poster(
                     "/api/post/join-machine",
                     {
                       machineName: machine?.name,
@@ -135,15 +136,25 @@ export default function Home({ machines }: PageProps) {
                     false,
                     true
                   );
+                  if (res.status == 200) {
+                    update();
+                    Router.push("/student/home");
+                  }
                 }}
                 handleLogout={async () => {
-                  await poster(
+                  const res = await poster(
                     "/api/post/leave-machine",
                     {
                       machineName: machine?.name,
                     },
-                    toaster
+                    toaster,
+                    false,
+                    true
                   );
+                  if (res.status == 200) {
+                    update();
+                    Router.push("/student/home");
+                  }
                 }}
               />
             ),
