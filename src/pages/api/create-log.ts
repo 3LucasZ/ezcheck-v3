@@ -1,9 +1,11 @@
 import { ServerResponse } from "http";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { TypedRequestBody } from "types/req";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -13,6 +15,10 @@ export default async function handle(
   }>,
   res: NextApiResponse
 ) {
+  //--API Protection--
+  const session = await getServerSession(req, res, authOptions);
+  if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
+  //--Create log--
   const { sender, message, level } = req.body;
   const ret = await serverCreateLog(message, level, sender);
   return res.status(ret.status).json(ret.json);

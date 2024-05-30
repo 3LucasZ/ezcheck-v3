@@ -1,12 +1,13 @@
 import { Prisma } from "@prisma/client";
 import { NextApiResponse } from "next";
-import { User } from "next-auth";
+import { getServerSession, User } from "next-auth";
 import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { CertificateProps } from "types/db";
 import { TypedRequestBody } from "types/req";
 import handleCreateLog from "./create-log";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -22,7 +23,10 @@ export default async function handle(
   }>,
   res: NextApiResponse
 ) {
-  //initialize + checks
+  //--API Protection--
+  const session = await getServerSession(req, res, authOptions);
+  if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
+  //--initialize + checks--
   const { requester, id, newPIN, addCerts, rmCerts, isAdmin, isSupervising } =
     req.body;
   const addRelations = addCerts

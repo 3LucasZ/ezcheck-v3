@@ -1,13 +1,38 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth from "next-auth";
+import NextAuth, { Session, User } from "next-auth";
 import { Adapter, AdapterAccount, AdapterUser } from "next-auth/adapters";
 
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "services/prisma";
 
 const { GOOGLE_ID = "", GOOGLE_SECRET = "" } = process.env;
+
+const prismaAdapter = PrismaAdapter(prisma);
+
+export const authOptions = {
+  adapter: prismaAdapter as Adapter,
+  providers: [
+    GoogleProvider({
+      clientId: GOOGLE_ID,
+      clientSecret: GOOGLE_SECRET,
+    }),
+  ],
+  callbacks: {
+    //Add data to user object so it is passed along with session
+    async session({ session, user }: { session: Session; user: User }) {
+      session.user = user;
+      //instant lucas admin :D
+      if (
+        user.email == "lucas.j.zheng@gmail.com" ||
+        user.email == "lucas.zheng@warriorlife.net"
+      )
+        session.user.isAdmin = true;
+      return session;
+    },
+  },
+};
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const { host } = req.headers;
@@ -16,31 +41,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   // process.env.NEXTAUTH_URL = "https://" + host + "/ezfind/api/auth";
   process.env.NEXTAUTH_URL = "https://" + host;
 
-  return NextAuth({
-    adapter: prismaAdapter as Adapter,
-    providers: [
-      GoogleProvider({
-        clientId: GOOGLE_ID,
-        clientSecret: GOOGLE_SECRET,
-      }),
-    ],
-    callbacks: {
-      //Add data to user object so it is passed along with session
-      async session({ session, token, user }) {
-        session.user = user;
-        //instant lucas admin :D
-        if (
-          user.email == "lucas.j.zheng@gmail.com" ||
-          user.email == "lucas.zheng@warriorlife.net"
-        )
-          session.user.isAdmin = true;
-        return session;
-      },
-    },
-  })(req, res);
+  return NextAuth(authOptions)(req, res);
 }
 
-const prismaAdapter = PrismaAdapter(prisma);
 prismaAdapter.getUser = (id: string) => {
   return prisma.user.findUnique({
     where: {
