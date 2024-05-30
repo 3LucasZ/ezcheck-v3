@@ -39,8 +39,8 @@ export default function ManageMachines({ machines }: PageProps) {
             <MachineWidget
               key={machine.id}
               name={machine.name}
-              description={""}
-              image={""}
+              description={machine.description}
+              image={machine.image}
               count={0}
               url={`/admin/view-machine/${machine.id}`}
             />
