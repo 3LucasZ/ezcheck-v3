@@ -17,6 +17,7 @@ import { genGradient } from "services/gradientGenerator";
 import AddRemoveButton from "components/Composable/AddRemoveButton";
 import { ChangeEventHandler } from "react";
 import WidgetTitles from "./WidgetTitles";
+import InOutButton from "components/Composable/InOutButton";
 
 type MachineWidgetProps = {
   //data
@@ -36,6 +37,8 @@ type MachineWidgetProps = {
   inUse?: boolean;
 
   //functions
+  handleLogin?: Function;
+  handleLogout?: Function;
   handleAdd?: Function;
   handleRemove?: Function;
 };
@@ -115,6 +118,13 @@ export default function MachineWidget(props: MachineWidgetProps) {
             invisible={!props.isEdit}
             handleAdd={props.handleAdd!}
             handleRemove={props.handleRemove!}
+          />
+        )}
+        {(props.handleAdd || props.handleRemove) && (
+          <InOutButton
+            isAdd={props.inverted}
+            handleAdd={props.handleLogin}
+            handleRemove={props.handleLogout}
           />
         )}
       </HStack>
