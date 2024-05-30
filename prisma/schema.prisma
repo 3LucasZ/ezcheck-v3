@@ -83,6 +83,7 @@ model Machine {
   id        Int         @id @default(autoincrement())
   name      String      @unique @db.VarChar(255)
   description String    @db.VarChar(255) @default("")
+  webAuth Boolean @default(false)
   image String @default("")
   //miscellaneous
   lastSeen  String?     @db.VarChar(255)

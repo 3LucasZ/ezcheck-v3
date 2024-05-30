@@ -4,8 +4,12 @@ import {
   Flex,
   Icon,
   IconButton,
+  Switch,
   useDisclosure,
   useToast,
+  Text,
+  Box,
+  HStack,
 } from "@chakra-ui/react";
 import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 import { GetServerSideProps } from "next";
@@ -49,6 +53,7 @@ export default function MachinePage({ machine, students }: PageProps) {
   //--new state--
   const [newName, setNewName] = useState(machine.name);
   const [newDescription, setNewDescription] = useState(machine.description);
+  const [newWebAuth, setNewWebAuth] = useState(machine.webAuth);
   const [newCerts, setNewCerts] = useState(machine.certificates);
   //--handle relations--
   const inId = newCerts.map((cert) => cert.recipientId);
@@ -119,6 +124,7 @@ export default function MachinePage({ machine, students }: PageProps) {
       id: machine.id,
       newName,
       newDescription,
+      newWebAuth,
       addCerts,
       rmCerts,
     };
@@ -183,7 +189,7 @@ export default function MachinePage({ machine, students }: PageProps) {
           </ButtonGroup>
         </Center>
       </Flex>
-      <Flex px={responsivePx} flexDir="column">
+      <Flex px={responsivePx}>
         <EditableSubtitle
           value={
             isEdit
@@ -198,9 +204,17 @@ export default function MachinePage({ machine, students }: PageProps) {
           isDisabled={!isEdit}
           placeholder="Description"
         />
-        {/* <Badge colorScheme={machine.usedBy ? "green" : "red"} w="24" h="8">
-          {machine.usedBy ? machine.usedBy.name : "Standby"}
-        </Badge> */}
+
+        <HStack minW="117px">
+          <Text noOfLines={1}>Web Auth</Text>
+          <Switch
+            size="md"
+            colorScheme="green"
+            isChecked={newWebAuth}
+            onChange={(e) => setNewWebAuth(e.target.checked)}
+            disabled={!isEdit}
+          />
+        </HStack>
       </Flex>
       <SearchView
         setIn={newCerts.map((cert) => ({
@@ -261,8 +275,10 @@ export default function MachinePage({ machine, students }: PageProps) {
         }}
         onSave={handleUpdate}
         onCancel={() => {
+          //reset all the states
           setNewName(machine.name);
           setNewDescription(machine.description);
+          setNewWebAuth(machine.webAuth);
           setNewCerts(machine.certificates);
           setIsEdit(false);
         }}

@@ -11,6 +11,7 @@ export default async function handle(
     id: number;
     newName: string;
     newDescription: string;
+    newWebAuth: boolean;
     addCerts?: CertificateProps[];
     rmCerts?: CertificateProps[];
   }>,
@@ -20,7 +21,8 @@ export default async function handle(
   const session = await getServerSession(req, res, authOptions);
   if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
   //--Update machine--
-  const { id, newName, newDescription, addCerts, rmCerts } = req.body;
+  const { id, newName, newDescription, newWebAuth, addCerts, rmCerts } =
+    req.body;
   const addRelations = addCerts
     ? addCerts.map((cert) => ({
         recipientId: cert.recipientId!,
@@ -43,6 +45,7 @@ export default async function handle(
       data: {
         name: newName,
         description: newDescription,
+        webAuth: newWebAuth,
         certificates: {
           deleteMany: rmRelations, //extremely important, this denotes that you want to delete relations too
           createMany: {

@@ -14,6 +14,7 @@ export type MachineProps = {
   id: number;
   name: string;
   description: string;
+  webAuth: boolean;
   image: string;
 
   lastSeen?: string;
