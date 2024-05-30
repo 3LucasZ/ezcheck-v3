@@ -121,8 +121,11 @@ export default function Home({ machines }: PageProps) {
                 name={machine.name}
                 description={machine.description}
                 image={machine.image}
+                //
                 using={me?.using?.id == machine.id}
                 inUse={machine.usedBy != undefined}
+                //
+                inverted={!isAllowed}
                 webAuth={machine.webAuth}
                 handleLogin={async () => {
                   const res = await poster(
