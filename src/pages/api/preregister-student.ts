@@ -20,10 +20,20 @@ export default async function handle(
   if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
   //--initialize + checks--
   const { email } = req.body;
+  const receiverNames = email.split("@")[0].split(".");
+  let receiverName = "";
+  receiverNames.map(
+    (name) => (receiverName += name[0].toUpperCase() + name.substring(1) + " ")
+  );
+  receiverName = receiverName.slice(0, -1);
   //--operation--
   try {
     const newStudent = await prisma.user.create({
-      data: { email, preregistered: true },
+      data: {
+        name: receiverName,
+        email: email,
+        preregistered: true,
+      },
     });
     //post process
     return res.status(200).json(newStudent.id);
