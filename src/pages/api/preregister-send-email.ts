@@ -22,22 +22,22 @@ export default async function handle(
   const { receiverEmail, senderEmail, senderName } = req.body;
   if (receiverEmail == "") {
     return res.status(500).json("Email can't be empty");
-  } else if (
-    !receiverEmail.endsWith("@vcs.net") &&
-    !receiverEmail.endsWith("@warriorlife.net")
-  ) {
-    return res
-      .status(500)
-      .json("You can not send an email to a user outside of Valley Christian.");
   }
+  // else if (
+  //   !receiverEmail.endsWith("@vcs.net") &&
+  //   !receiverEmail.endsWith("@warriorlife.net")
+  // ) {
+  //   return res
+  //     .status(500)
+  //     .json("You can not send an email to a user outside of Valley Christian.");
+  // }
+  //try to guess the name from the email ;)
   const receiverNames = receiverEmail.split("@")[0].split(".");
   let receiverName = "";
   receiverNames.map(
     (name) => (receiverName += name[0].toUpperCase() + name.substring(1) + " ")
   );
   receiverName = receiverName.slice(0, -1);
-  console.log("email:", receiverEmail);
-  console.log("name:", receiverName);
   //--webpage :)--
   const emailHtml = GetInviteEmailHtml({
     receiverName: receiverName,
