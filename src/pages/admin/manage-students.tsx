@@ -100,7 +100,7 @@ export default function ManageStudents({ students }: PageProps) {
               Preregister <Icon as={FiPlus} ml={2} boxSize={5} />
             </Button>
             <Button onClick={withMail}>
-              Send invitation <Icon as={FiMail} ml={2} boxSize={5} />
+              Include invitation <Icon as={FiMail} ml={2} boxSize={5} />
             </Button>
           </ModalFooter>
         </ModalContent>
