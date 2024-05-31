@@ -44,39 +44,50 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   return NextAuth(authOptions)(req, res);
 }
 
-prismaAdapter.getUser = (id: string) => {
-  return prisma.user.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      using: true,
-      certificates: {
-        include: {
-          machine: true,
-          recipient: true,
+//--Extend prisma adapter to make it ultra fancy :D--
+//Copy from official open-source code, then tweak it: https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-prisma/src/index.ts
+//some more help: https://next-auth.js.org/configuration/events#createuser
+//create new account => move data from old pre-registered account into new one IF it exists
+prismaAdapter.createUser = async ({ id: _id, ...data }) => {
+  // console.log("CREATE USER");
+  //get preregistered account
+  const oldUser = await prisma.user.findUnique({
+    where: { email: data.email, preregistered: true },
+    include: { certificates: true },
+  });
+  if (oldUser) {
+    //preregistered account exists
+    //delete old account (await because it must happen BEFORE we create the new guy to prevent conflicting emails!!)
+    await prisma.user.delete({
+      where: { email: data.email },
+    });
+    //create new account merged with old account data
+    return prisma.user.create({
+      data: {
+        ...data,
+        PIN: oldUser.PIN,
+        certificates: {
+          createMany: {
+            data: oldUser.certificates.map((cert) => ({
+              machineId: cert.machineId,
+              issuerId: cert.issuerId,
+            })),
+          },
         },
       },
-    },
-  });
-};
-prismaAdapter.getUserByEmail = (email: string) => {
-  return prisma.user.findUnique({
-    where: {
-      email,
-    },
-    include: {
-      using: true,
-      certificates: {
-        include: {
-          machine: true,
-          recipient: true,
-        },
+      include: {
+        certificates: true,
       },
-    },
-  });
+    });
+  } else {
+    //preregistered account DNE
+    //create new account as normal
+    return prisma.user.create({ data });
+  }
 };
+//retrieve relational columns from user ("include" tag)
 prismaAdapter.getSessionAndUser = async (sessionToken) => {
+  // console.log("GET SESSION + USER");
   const userAndSession = await prisma.session.findUnique({
     where: { sessionToken },
     include: {
@@ -91,4 +102,50 @@ prismaAdapter.getSessionAndUser = async (sessionToken) => {
   if (!userAndSession) return null;
   const { user, ...session } = userAndSession;
   return { user, session };
+};
+//this is run when a user creates an account for the first time
+//it double checks that the created email
+//does not coincide with an existing one
+//we hack this so it doesn't detect preregistered accounts
+prismaAdapter.getUserByEmail = async (email: string) => {
+  // console.log("GET USER BY EMAIL");
+  const ret = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+    include: {
+      using: true,
+      certificates: {
+        include: {
+          machine: true,
+          recipient: true,
+        },
+      },
+    },
+  });
+  if (ret?.preregistered) {
+    //if an account is preregistered, we pretend like it never existed at all.
+    // Don't worry, we will delete it when a new user is created anyways.
+    return null;
+  } else {
+    return ret;
+  }
+};
+//USELESS (I don't think this is ever called)
+prismaAdapter.getUser = (id: string) => {
+  // console.log("GET USER");
+  return prisma.user.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      using: true,
+      certificates: {
+        include: {
+          machine: true,
+          recipient: true,
+        },
+      },
+    },
+  });
 };
