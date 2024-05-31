@@ -18,6 +18,9 @@ export default async function handle(
   if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
   //--initialize + checks--
   const { email } = req.body;
+  if (email == "") {
+    return res.status(500).json("Email can't be empty");
+  }
   //--webpage :)--
   const emailHtml = GetInviteEmailHtml({
     receiverEmail: email,
@@ -37,7 +40,7 @@ export default async function handle(
     var mailOptions = {
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: "Invitation to join EZCheck",
+      subject: "Welcome to EZCheck",
       html: emailHtml,
     };
 
