@@ -291,6 +291,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       using: true,
     },
   });
+  if (student == null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404",
+      },
+    };
+  }
   const machines = await prisma.machine.findMany();
   return {
     props: {
