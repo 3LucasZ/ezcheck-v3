@@ -39,7 +39,7 @@ import {
 } from "services/constants";
 import { EditFAB } from "components/Layout/FAB/EditFAB";
 import { useEffect, useState } from "react";
-import { FiEye, FiEyeOff, FiLogOut } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLogOut, FiTrash2 } from "react-icons/fi";
 
 type PageProps = {
   student: User;
@@ -75,6 +75,14 @@ export default function StudentPage(props: PageProps) {
   function rmCert(certificate: CertificateProps) {
     setNewCerts(newCerts.filter((t) => t.machineId != certificate.machineId));
   }
+  //--handle delete modal--
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleDelete = async () => {
+    const body = { id: props.student.id };
+    const res = await poster("/api/delete-student", body, toaster, true);
+    if (res.status == 200)
+      await Router.push({ pathname: "/admin/manage-students" });
+  };
   //student force log out
   const handleLeave = async () => {
     const body = {
@@ -121,22 +129,18 @@ export default function StudentPage(props: PageProps) {
           {props.student.name}
         </Center>
         <Spacer />
-        {/* {user?.isAdmin && (
-          <>
-            <IconButton
-              onClick={handleLeave}
-              colorScheme="blue"
-              aria-label=""
-              icon={<PiSignOutBold />}
-            />
-            <ConfirmDeleteModal
-              isOpen={isOpen}
-              onClose={onClose}
-              name={user.name!}
-              handleDelete={handleDelete}
-            />
-          </>
-        )} */}
+        <IconButton
+          onClick={onOpen}
+          sx={redBtn}
+          aria-label="delete"
+          icon={<Icon as={FiTrash2} boxSize={5} />}
+        />
+        <ConfirmDeleteModal
+          isOpen={isOpen}
+          onClose={onClose}
+          name={props.student.name}
+          handleDelete={handleDelete}
+        />
       </Flex>
       <Flex px={responsivePx}>
         <Center
