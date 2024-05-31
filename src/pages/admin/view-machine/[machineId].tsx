@@ -302,6 +302,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     },
   });
+  if (machine == null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404",
+      },
+    };
+  }
   const students = await prisma.user.findMany({
     where: {
       // isAdmin: false,
