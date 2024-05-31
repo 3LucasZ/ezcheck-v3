@@ -47,7 +47,12 @@ export default function ManageStudents({ students }: PageProps) {
     const res = poster("/api/preregister-student", { email }, toaster, true);
   };
   const withMail = async () => {
-    const res = poster("/api/preregister-send-email", { email }, toaster, true);
+    const res = poster(
+      "/api/preregister-send-email",
+      { receiverEmail: email, senderEmail: me?.email, senderName: me?.name },
+      toaster,
+      true
+    );
   };
   //--pre-register modal--
   const { isOpen, onOpen, onClose } = useDisclosure();

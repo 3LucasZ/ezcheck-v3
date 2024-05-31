@@ -9,7 +9,9 @@ import { GetInviteEmailHtml } from "../../../components/InviteEmail";
 
 export default async function handle(
   req: TypedRequestBody<{
-    email: string;
+    receiverEmail: string;
+    senderEmail: string;
+    senderName: string;
   }>,
   res: NextApiResponse
 ) {
@@ -17,15 +19,31 @@ export default async function handle(
   const session = await getServerSession(req, res, authOptions);
   if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
   //--initialize + checks--
-  const { email } = req.body;
-  if (email == "") {
+  const { receiverEmail, senderEmail, senderName } = req.body;
+  if (receiverEmail == "") {
     return res.status(500).json("Email can't be empty");
+  } else if (
+    !receiverEmail.endsWith("@vcs.net") &&
+    !receiverEmail.endsWith("@warriorlife.net")
+  ) {
+    return res
+      .status(500)
+      .json("You can not send an email to a user outside of Valley Christian.");
   }
+  const receiverNames = receiverEmail.split("@")[0].split(".");
+  let receiverName = "";
+  receiverNames.map(
+    (name) => (receiverName += name[0].toUpperCase() + name.substring(1) + " ")
+  );
+  receiverName = receiverName.slice(0, -1);
+  console.log("email:", receiverEmail);
+  console.log("name:", receiverName);
   //--webpage :)--
   const emailHtml = GetInviteEmailHtml({
-    receiverEmail: email,
-    senderEmail: "PLACEHOLDER",
-    senderName: "PLACEHOLDER",
+    receiverName: receiverName,
+    receiverEmail: receiverEmail,
+    senderEmail: senderEmail,
+    senderName: senderName,
   });
   try {
     //--operation--
@@ -39,7 +57,7 @@ export default async function handle(
 
     var mailOptions = {
       from: process.env.NODEMAILER_EMAIL,
-      to: email,
+      to: receiverEmail,
       subject: "Welcome to EZCheck",
       html: emailHtml,
     };

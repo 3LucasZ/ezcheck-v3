@@ -19,23 +19,18 @@ import {
 
 type InviteEmailProps = {
   receiverEmail: string;
+  receiverName: string;
   senderEmail: string;
   senderName: string;
-  senderImage?: string; //might not be a good idea
 };
 export default function InviteEmail(props: InviteEmailProps) {
-  //pre
   const baseUrl = "https://localhost:3000";
-
-  //mid
-  const teamName = "Enigma";
-  const teamImage = `${baseUrl}/images/logo.png`;
   const inviteLink = `${baseUrl}/`;
 
   return (
     <Html>
       <Head />
-      <Preview>{"An EZCheck account has been created for you"}</Preview>
+      <Preview>{props.senderName + " created you an account"}</Preview>
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-sans px-2">
           <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
@@ -53,7 +48,7 @@ export default function InviteEmail(props: InviteEmailProps) {
               {/* on <strong>Vercel</strong> */}
             </Heading>
             <Text className="text-black text-[14px] leading-[24px]">
-              Hello {props.receiverEmail},
+              Hello {props.receiverName},
             </Text>
             <Text className="text-black text-[14px] leading-[24px]">
               <strong>{props.senderName}</strong> (
@@ -86,8 +81,8 @@ export default function InviteEmail(props: InviteEmailProps) {
             <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
             <Text className="text-[#666666] text-[12px] leading-[24px]">
               This notification was intended for{" "}
-              <span className="text-black">{props.receiverEmail}</span>. This
-              notification was sent from{" "}
+              <span className="text-black">{props.receiverName}</span>. This
+              email was sent from{" "}
               <span className="text-black">{"Valley Christian Schools"}</span>{" "}
               located in{" "}
               <span className="text-black">{"San Jose, California"}</span>. If
