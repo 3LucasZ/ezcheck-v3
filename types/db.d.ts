@@ -40,6 +40,7 @@ export type CertificateProps = {
   recipientId: string;
 
   //meta
+  note: string;
   issuer?: UserProps;
   issuerId?: string;
 };
