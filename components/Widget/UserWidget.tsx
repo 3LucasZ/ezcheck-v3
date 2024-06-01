@@ -51,8 +51,7 @@ export default function UserWidget(props: UserWidgetProps) {
     useBreakpointValue(
       {
         base: true,
-        sm: true,
-        md: false,
+        sm: false,
       },
       { fallback: "md", ssr: false }
     ) || false;

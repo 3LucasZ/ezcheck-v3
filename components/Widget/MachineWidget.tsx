@@ -69,8 +69,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
     useBreakpointValue(
       {
         base: true,
-        sm: true,
-        md: false,
+        sm: false,
       },
       { fallback: "md", ssr: false }
     ) || false;
