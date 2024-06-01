@@ -191,7 +191,10 @@ function LogSet(props: LogSetProps) {
             ))}
           </Stepper>
         ) : (
-          <Text>No logs available to display.</Text>
+          <>
+            <Text>No logs to display.</Text>
+            <Box h="8"></Box>
+          </>
         )}
       </Box>
     </>
