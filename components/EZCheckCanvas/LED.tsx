@@ -1,5 +1,12 @@
 import { MutableRefObject, useEffect, useState } from "react";
-import { boxWidth, ledRadius, boxHeight, ledHeight } from "./constants";
+import {
+  boxWidth,
+  ledRadius,
+  boxHeight,
+  ledHeight,
+  t_LEDOff,
+  t_LEDOn,
+} from "./constants";
 import { useFrame } from "@react-three/fiber";
 
 type LEDProps = {
@@ -17,7 +24,7 @@ export default function LED(props: LEDProps) {
   }, [props.active]);
   useFrame(() => {
     //toggle per 500 ms
-    if ((Date.now() - init) % 1000 > 500) {
+    if ((Date.now() - init) % (t_LEDOn + t_LEDOff) < t_LEDOn) {
       props.active && setOn(true);
     } else {
       setOn(false);

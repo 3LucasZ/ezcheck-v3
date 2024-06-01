@@ -1,5 +1,13 @@
 import { MutableRefObject, useState } from "react";
-import { boxDepth, boxHeight, boxWidth, ledHeight } from "./constants";
+import {
+  boxDepth,
+  boxHeight,
+  boxWidth,
+  ledHeight,
+  t_cursorOff,
+  t_cursorOn,
+  t_nextLetter,
+} from "./constants";
 import Keypad from "./Keypad";
 import LCD from "./LCD";
 import LED from "./LED";
@@ -22,13 +30,16 @@ export default function EZCheck(props: EZCheckProps) {
     const dt = Math.round(clock.getElapsedTime() * 1000); //milliseconds since page loaded
     let nextMsg;
     if (isInit) {
-      //animate words (initial): new letter per 500 ms
-      nextMsg = initShow.substring(0, Math.round(dt / 500));
+      //animate words (initial): new letter per <> ms
+      nextMsg = initShow.substring(0, Math.round(dt / t_nextLetter));
     } else {
       nextMsg = msg;
     }
     //animate words (type setter effect): toggle per 250 ms
-    if (Math.round(dt / 250) % 2 == 0 && (isInit || good == undefined)) {
+    if (
+      dt % (t_cursorOn + t_cursorOff) < t_cursorOn &&
+      (isInit || good == undefined)
+    ) {
       setShow(nextMsg + "_"); //you can set this character to an l, I, |, but it ends up looking kinda ugly.
     } else {
       setShow(nextMsg);

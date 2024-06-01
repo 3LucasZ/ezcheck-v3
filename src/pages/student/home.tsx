@@ -117,10 +117,12 @@ export default function Home({ machines }: PageProps) {
             name: (me?.using?.id == machine.id ? 0 : 1) + machine.name,
             widget: (
               <MachineWidget
-                key={machine.id}
+                //all
+                id={machine.id}
                 name={machine.name}
                 description={machine.description}
                 image={machine.image}
+                disabled={true}
                 //
                 using={me?.using?.id == machine.id}
                 inUse={machine.usedBy != undefined}

@@ -1,3 +1,10 @@
+//animations
+export const t_LEDOn = 700;
+export const t_LEDOff = 0;
+export const t_cursorOn = 500;
+export const t_cursorOff = 500;
+export const t_nextLetter = 1000;
+//dimensions
 export const boxWidth = 1.13;
 export const boxHeight = 1.35;
 export const boxDepth = 0.5;
