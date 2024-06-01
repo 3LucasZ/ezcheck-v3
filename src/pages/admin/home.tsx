@@ -97,7 +97,7 @@ export default function Home(props: PageProps) {
               machinesInUse.map((machine) => (
                 <HStack minW="100%">
                   <MachineWidget
-                    url={`/admin/view-machine/${machine.id}`}
+                    id={machine.id}
                     name={machine.name}
                     image={machine.image}
                   />
@@ -157,10 +157,10 @@ export default function Home(props: PageProps) {
               )
               .map((x) => (
                 <MachineWidget
+                  id={x.id}
                   name={x.name}
                   description={x.description}
                   image={x.image}
-                  url={`/admin/view-machine/${x.id}`}
                 />
               ))}
           </VStack>
