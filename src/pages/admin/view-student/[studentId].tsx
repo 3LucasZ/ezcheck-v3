@@ -83,7 +83,7 @@ export default function StudentPage(props: PageProps) {
     if (res.status == 200)
       await Router.push({ pathname: "/admin/manage-students" });
   };
-  //student force log out
+  //--force log out--
   const handleLeave = async () => {
     const body = {
       machineName: props.student.using?.name,
@@ -91,8 +91,7 @@ export default function StudentPage(props: PageProps) {
     const res = await poster("/api/post/leave-machine", body, toaster);
     if (res.status == 200) Router.reload();
   };
-
-  //update
+  //--save edits--
   const handleUpdate = async () => {
     const addCerts = newCerts.filter(
       (newCert) =>
@@ -131,8 +130,7 @@ export default function StudentPage(props: PageProps) {
         <Spacer />
         <IconButton
           onClick={onOpen}
-          sx={redBtn}
-          aria-label="delete"
+          {...redBtn}
           icon={<Icon as={FiTrash2} boxSize={5} />}
         />
         <ConfirmDeleteModal
@@ -152,10 +150,6 @@ export default function StudentPage(props: PageProps) {
           {props.student.email}
         </Center>
       </Flex>
-
-      {/* <Badge colorScheme={props.student.using ? "green" : "red"}>
-        {props.student.using ? props.student.using.name : "Offline"}
-      </Badge> */}
       <Flex px={responsivePx}>
         <HStack spacing={["4px", "8px"]} maxW="100%" mx="auto">
           <PinInput
@@ -173,15 +167,14 @@ export default function StudentPage(props: PageProps) {
           </PinInput>
           <IconButton
             icon={isVisible ? <Icon as={FiEyeOff} /> : <Icon as={FiEye} />}
-            sx={tealBtn}
+            {...tealBtn}
             onClick={() => setIsVisible(!isVisible)}
-            aria-label={""}
             isDisabled={isEdit}
             pointerEvents={isEdit ? "none" : "auto"}
           />
           <IconButton
             icon={<Icon as={FiLogOut} />}
-            sx={redBtn}
+            {...redBtn}
             onClick={async () => {
               const res = await poster(
                 "/api/post/leave-machine",
@@ -197,12 +190,10 @@ export default function StudentPage(props: PageProps) {
                 Router.push(`/admin/view-student/${props.student.id}`);
               }
             }}
-            aria-label={""}
             isDisabled={props.student.using == undefined}
           />
         </HStack>
       </Flex>
-
       <SearchView
         setIn={newCerts.map((cert) => {
           return {
@@ -211,9 +202,11 @@ export default function StudentPage(props: PageProps) {
               cert.machine.name,
             widget: (
               <MachineWidget
+                //all
                 image={cert.machine.image}
                 name={cert.machine.name}
                 description={cert.machine.description}
+                //type2
                 type2={true}
                 name2={cert.issuer.name}
                 email2={cert.issuer.email}
@@ -245,6 +238,8 @@ export default function StudentPage(props: PageProps) {
                     recipientId: props.student.id,
                     machine: machine,
                     machineId: machine.id,
+                    //type2
+                    note: "",
                     issuer: me,
                     issuerId: me!.id,
                   })

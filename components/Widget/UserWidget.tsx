@@ -15,30 +15,32 @@ import AddRemoveButton from "components/Composable/AddRemoveButton";
 import { UserCardModal } from "components/Main/UserCardModal";
 import Router from "next/router";
 import WidgetTitles from "./WidgetTitles";
+import CertModal from "components/Composable/CertModal";
 
 type UserWidgetProps = {
-  //data
+  //all widgets
   id: string;
   name: string;
   email?: string;
   image: string;
-
+  //+certificate widgets
   type2?: boolean;
-  name2?: string;
-  email2?: string;
+  certMachineId?: number;
+  issuerName?: string;
+  issuerEmail?: string;
+  note?: string;
 
+  //admin widgets
   isSupervising?: boolean;
-
-  //state
-  inverted?: boolean;
-  isEdit?: boolean;
-  using?: boolean;
-
-  //functions
-  disabled?: boolean;
+  //additive widgets
   askConfirmation?: boolean; //only for admin add/rm
   handleAdd?: Function;
   handleRm?: Function;
+  //states
+  inverted?: boolean;
+  isEdit?: boolean;
+  using?: boolean;
+  disabled?: boolean;
 };
 
 export default function UserWidget(props: UserWidgetProps) {
@@ -51,22 +53,7 @@ export default function UserWidget(props: UserWidgetProps) {
       },
       { fallback: "md", ssr: false }
     ) || false;
-  const content = props.type2 ? (
-    <HStack w="100%">
-      <WidgetTitles title={props.name} subtitle={props.email} column={true} />
-      <WidgetTitles
-        title={props.name2 ? props.name2 : "Expired admin"}
-        subtitle={props.email2 ? props.email2 : "Expired email"}
-        column={true}
-      />
-    </HStack>
-  ) : (
-    <WidgetTitles
-      title={props.name}
-      subtitle={props.email}
-      column={column}
-    ></WidgetTitles>
-  );
+
   return (
     <>
       <Box
@@ -95,25 +82,37 @@ export default function UserWidget(props: UserWidgetProps) {
             ></Image>
           </AspectRatio> */}
           <Avatar name={props.name} src={props.image}></Avatar>
-
-          {content}
+          <WidgetTitles
+            title={props.name}
+            subtitle={props.email}
+            column={column}
+          ></WidgetTitles>
+          {props.type2 && (
+            <CertModal
+              //server
+              machineId={props.certMachineId ? props.certMachineId : -100}
+              recipientId={props.id}
+              //view
+              issuerName={props.issuerName}
+              issuerEmail={props.issuerEmail}
+              note={props.note ? props.note : ""}
+              isEdit={props.isEdit}
+            />
+          )}
           {(props.handleAdd || props.handleRm) && (
-            <>
-              <Box w="2"></Box>
-              <AddRemoveButton
-                isAdd={props.inverted}
-                invisible={!props.isEdit}
-                handleAdd={props.handleAdd!}
-                handleRemove={props.handleRm!}
-                askConfirmation={props.askConfirmation}
-                actionStr={
-                  (!props.inverted
-                    ? "revoke admin priveleges from "
-                    : "grant admin priveleges to ") +
-                  `${props.name} (${props.email})`
-                }
-              />
-            </>
+            <AddRemoveButton
+              isAdd={props.inverted}
+              invisible={!props.isEdit}
+              handleAdd={props.handleAdd!}
+              handleRemove={props.handleRm!}
+              askConfirmation={props.askConfirmation}
+              actionStr={
+                (!props.inverted
+                  ? "revoke admin priveleges from "
+                  : "grant admin priveleges to ") +
+                `${props.name} (${props.email})`
+              }
+            />
           )}
         </HStack>
       </Box>

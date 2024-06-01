@@ -223,18 +223,21 @@ export default function MachinePage({ machine, students }: PageProps) {
             cert.recipient!.name,
           widget: (
             <UserWidget
-              //data
+              //all
               name={cert.recipient.name}
               email={cert.recipient.email}
               image={cert.recipient.image}
               id={cert.recipient.id}
+              //type2
               type2={true}
-              name2={cert.issuer?.name}
-              email2={cert.issuer?.email}
-              //xtra
+              issuerName={cert.issuer?.name}
+              issuerEmail={cert.issuer?.email}
+              note={cert.note}
+              //additive
               isEdit={isEdit}
-              using={cert.recipient.name == machine.usedBy?.name}
               handleRm={() => rmCert(cert)}
+              //meta
+              using={cert.recipient.name == machine.usedBy?.name}
             />
           ),
         }))}
@@ -258,6 +261,8 @@ export default function MachinePage({ machine, students }: PageProps) {
                     recipientId: student.id,
                     machine: machine,
                     machineId: machine.id,
+                    //
+                    note: "",
                     issuer: session?.user,
                     issuerId: session?.user.id,
                   })
