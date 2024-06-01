@@ -13,6 +13,7 @@ export const responsiveSubheaderFontSize = ["lg", "lg", "lg", "xl", "2xl"];
 export const btnBase = {
   color: "white",
   transition: "background-color 0.3s",
+  "aria-label": "",
 };
 
 export const tealBtn = {
