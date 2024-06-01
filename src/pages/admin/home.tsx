@@ -5,7 +5,9 @@ import {
   HStack,
   Icon,
   SimpleGrid,
+  Stack,
   Text,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
@@ -35,6 +37,7 @@ import MachineWidget from "components/Widget/MachineWidget";
 import { AiFillHourglass } from "react-icons/ai";
 import { BiHourglass } from "react-icons/bi";
 import { useEffect } from "react";
+import InUseWidget from "components/Widget/InUseWidget";
 
 type PageProps = {
   users: User[];
@@ -50,6 +53,8 @@ export default function Home(props: PageProps) {
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null
   );
+
+  //ret
   return (
     <AdminLayout me={me} loaded={status !== "loading"}>
       <Box overflowY="auto">
@@ -95,38 +100,7 @@ export default function Home(props: PageProps) {
           <VStack w="100%">
             {machinesInUse.length > 0 ? (
               machinesInUse.map((machine) => (
-                <HStack minW="100%">
-                  <MachineWidget
-                    id={machine.id}
-                    name={machine.name}
-                    image={machine.image}
-                  />
-                  {/* <Text>{"< == >"}</Text> */}
-                  <UserWidget
-                    id={machine.usedBy.id}
-                    name={machine.usedBy.name}
-                    image={machine.usedBy.image}
-                  />
-
-                  <VStack minW="100px">
-                    <Text noOfLines={1}>
-                      {new Date(machine.lastLogin * 1000).toLocaleTimeString(
-                        [],
-                        { hour: "2-digit", minute: "2-digit" }
-                      )}
-                    </Text>
-                    <Text fontSize={"xs"} color="gray.600" noOfLines={1}>
-                      {new Date(
-                        Date.now() - machine.lastLogin * 1000
-                      ).getUTCHours() +
-                        " hrs " +
-                        new Date(
-                          Date.now() - machine.lastLogin * 1000
-                        ).getUTCMinutes() +
-                        " mins"}
-                    </Text>
-                  </VStack>
-                </HStack>
+                <InUseWidget machine={machine}></InUseWidget>
               ))
             ) : (
               <Text>{"No machines in use."}</Text>
