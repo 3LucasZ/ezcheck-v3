@@ -62,12 +62,15 @@ export default function UserWidget(props: UserWidgetProps) {
         boxShadow={"md"}
         mx={1} //so we can see the side shadows
         onClick={() =>
-          !props.disabled && Router.push(`/admin/view-student/${props.id}`)
+          !(props.disabled || props.isEdit) &&
+          Router.push(`/admin/view-student/${props.id}`)
         }
         px="2"
         bg={props.using ? "orange.100" : "white"}
         _hover={{
-          bg: !props.disabled && (props.using ? "orange.200" : "gray.100"),
+          bg:
+            !(props.disabled || props.isEdit) &&
+            (props.using ? "orange.200" : "gray.100"),
         }}
         minH="60px"
         w="100%"
