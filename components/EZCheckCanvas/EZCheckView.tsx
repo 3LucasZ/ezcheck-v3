@@ -8,7 +8,7 @@ import {
   EffectComposer,
   ToneMapping,
 } from "@react-three/postprocessing";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mesh, Vector3 } from "three";
 import { ToneMappingMode } from "postprocessing";
 import EZCheck from "./EZCheck";
@@ -21,15 +21,24 @@ export function EZCheckCanvas(props: PageProps) {
   const leftLEDRef = useRef<Mesh>(null!);
   const rightLEDRef = useRef<Mesh>(null!);
 
+  const [loaded, setLoaded] = useState(false);
+  // const azimuthAngle = -Math.PI / 3;
+  // const polarAngle = (3 * Math.PI) / 8;
+  const azimuthAngle = -Math.PI / 8;
+  const polarAngle = (3 * Math.PI) / 8;
+  setTimeout(function () {
+    setLoaded(true);
+  }, 1000);
+
   return (
     <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
       {/* <color attach="background" args={["#111"]} /> */}
       <OrbitControls
         enableZoom={false}
-        minAzimuthAngle={-Math.PI / 4}
-        maxAzimuthAngle={Math.PI / 4}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2}
+        minAzimuthAngle={loaded ? -Math.PI / 4 : azimuthAngle}
+        maxAzimuthAngle={loaded ? Math.PI / 4 : azimuthAngle}
+        minPolarAngle={loaded ? Math.PI / 4 : polarAngle}
+        maxPolarAngle={loaded ? Math.PI / 2 : polarAngle}
         // autoRotate={true}
         // autoRotateSpeed={1}
       />
