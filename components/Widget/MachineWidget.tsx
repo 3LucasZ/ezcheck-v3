@@ -45,6 +45,7 @@ type MachineWidgetProps = {
 };
 
 export default function MachineWidget(props: MachineWidgetProps) {
+  //colors
   let bg = "white";
   let hoverBg = "white";
   if (props.using) {
@@ -58,6 +59,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   } else {
     if (props.url) hoverBg = "gray.100";
   }
+  //columns
   const column =
     useBreakpointValue(
       {
