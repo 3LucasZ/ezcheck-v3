@@ -203,14 +203,17 @@ export default function StudentPage(props: PageProps) {
             widget: (
               <MachineWidget
                 //all
+                id={cert.machine.id}
                 image={cert.machine.image}
                 name={cert.machine.name}
                 description={cert.machine.description}
-                //type2
+                //cert
                 type2={true}
-                name2={cert.issuer.name}
-                email2={cert.issuer.email}
-                url={`/admin/view-machine/${cert.machine.id}`}
+                certUserId={props.student.id}
+                issuerName={cert.issuer.name}
+                issuerEmail={cert.issuer.email}
+                note={cert.note}
+                //functions + state
                 isEdit={isEdit}
                 inverted={false}
                 using={cert.machine.name == props.student.using?.name}
@@ -226,10 +229,12 @@ export default function StudentPage(props: PageProps) {
             name: machine.name,
             widget: (
               <MachineWidget
+                //all
+                id={machine.id}
                 name={machine.name}
                 description={machine.description}
                 image={machine.image}
-                url={`/admin/view-machine/${machine.id}`}
+                //state
                 isEdit={isEdit}
                 inverted={true}
                 handleAdd={() =>

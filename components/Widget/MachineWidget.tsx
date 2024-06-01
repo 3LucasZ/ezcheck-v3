@@ -18,19 +18,24 @@ import AddRemoveButton from "components/Composable/AddRemoveButton";
 import { ChangeEventHandler } from "react";
 import WidgetTitles from "./WidgetTitles";
 import InOutButton from "components/Composable/InOutButton";
+import CertModal from "components/Composable/CertModal";
 
 type MachineWidgetProps = {
-  //data
+  //all
+  id: number;
   name: string;
   description?: string;
   image: string;
-  url?: string;
 
+  //certificate
   type2?: boolean;
-  name2?: string;
-  email2?: string;
+  certUserId?: string;
+  issuerName?: string;
+  issuerEmail?: string;
+  note?: string;
 
   //state
+  disabled?: boolean;
   inverted?: boolean;
   isEdit?: boolean;
   using?: boolean;
@@ -50,14 +55,14 @@ export default function MachineWidget(props: MachineWidgetProps) {
   let hoverBg = "white";
   if (props.using) {
     bg = "orange.100";
-    if (props.url) hoverBg = "orange.200";
+    if (!props.disabled) hoverBg = "orange.200";
     else hoverBg = "orange.100";
   } else if (props.inUse) {
     bg = "red.100";
-    if (props.url) hoverBg = "red.200";
+    if (!props.disabled) hoverBg = "red.200";
     else hoverBg = "red.100";
   } else {
-    if (props.url) hoverBg = "gray.100";
+    if (!props.disabled) hoverBg = "gray.100";
   }
   //columns
   const column =
@@ -69,28 +74,6 @@ export default function MachineWidget(props: MachineWidgetProps) {
       },
       { fallback: "md", ssr: false }
     ) || false;
-  const content = props.type2 ? (
-    <HStack w="100%">
-      <WidgetTitles
-        title={props.name}
-        subtitle={
-          props.description != "" ? props.description : "No description."
-        }
-        column={true}
-      />
-      <WidgetTitles
-        title={props.name2 ? props.name2 : "Expired admin"}
-        subtitle={props.email2 ? props.email2 : "Expired email"}
-        column={true}
-      />
-    </HStack>
-  ) : (
-    <WidgetTitles
-      title={props.name}
-      subtitle={props.description != "" ? props.description : "No description."}
-      column={column}
-    ></WidgetTitles>
-  );
 
   return (
     <Box
@@ -98,7 +81,9 @@ export default function MachineWidget(props: MachineWidgetProps) {
       rounded="md"
       boxShadow={"md"}
       mx={1} //so we can see the side shadows
-      onClick={() => props.url && Router.push(props.url)}
+      onClick={() =>
+        !props.disabled && Router.push(`/admin/view-machine/${props.id}`)
+      }
       pr="2"
       bg={bg}
       _hover={{
@@ -114,7 +99,25 @@ export default function MachineWidget(props: MachineWidgetProps) {
             hidden={props.image.length < 5}
           ></Image>
         </AspectRatio>
-        {content}
+        <WidgetTitles
+          title={props.name}
+          subtitle={
+            props.description != "" ? props.description : "No description."
+          }
+          column={column}
+        ></WidgetTitles>
+        {props.type2 && (
+          <CertModal
+            //server
+            recipientId={props.certUserId ? props.certUserId : "BAD_ID"}
+            machineId={props.id}
+            //view
+            issuerName={props.issuerName}
+            issuerEmail={props.issuerEmail}
+            note={props.note ? props.note : ""}
+            isEdit={props.isEdit}
+          />
+        )}
         {(props.handleAdd || props.handleRemove) && (
           <AddRemoveButton
             isAdd={props.inverted}

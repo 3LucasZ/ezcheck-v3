@@ -18,12 +18,13 @@ import WidgetTitles from "./WidgetTitles";
 import CertModal from "components/Composable/CertModal";
 
 type UserWidgetProps = {
-  //all widgets
+  //all
   id: string;
   name: string;
   email?: string;
   image: string;
-  //+certificate widgets
+
+  //certificate
   type2?: boolean;
   certMachineId?: number;
   issuerName?: string;
@@ -32,10 +33,12 @@ type UserWidgetProps = {
 
   //admin widgets
   isSupervising?: boolean;
+
   //additive widgets
   askConfirmation?: boolean; //only for admin add/rm
   handleAdd?: Function;
   handleRm?: Function;
+
   //states
   inverted?: boolean;
   isEdit?: boolean;

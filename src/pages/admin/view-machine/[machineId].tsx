@@ -231,8 +231,8 @@ export default function MachinePage({ machine, students }: PageProps) {
               //type2
               type2={true}
               certMachineId={machine.id}
-              issuerName={cert.issuer?.name}
-              issuerEmail={cert.issuer?.email}
+              issuerName={cert.issuer.name}
+              issuerEmail={cert.issuer.email}
               note={cert.note}
               //additive
               isEdit={isEdit}
