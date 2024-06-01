@@ -77,7 +77,7 @@ export default function ManageStudents({ students }: PageProps) {
         }))}
         isEdit={true}
       />
-      <FAB onClick={onOpen} icon={FiUserPlus} sx={orangeBtn} boxSize={9} />
+      <FAB onClick={onOpen} icon={FiUserPlus} sx={orangeBtn} boxSize={7} />
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
