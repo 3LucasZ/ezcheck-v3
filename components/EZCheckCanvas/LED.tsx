@@ -16,6 +16,7 @@ export default function LED(props: LEDProps) {
     setInit(Date.now());
   }, [props.active]);
   useFrame(() => {
+    //toggle per 500 ms
     if ((Date.now() - init) % 1000 > 500) {
       props.active && setOn(true);
     } else {

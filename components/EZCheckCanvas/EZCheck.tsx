@@ -22,12 +22,12 @@ export default function EZCheck(props: EZCheckProps) {
     const dt = Math.round(clock.getElapsedTime() * 1000); //milliseconds since page loaded
     let nextMsg;
     if (isInit) {
-      //animate words (initial)
+      //animate words (initial): new letter per 500 ms
       nextMsg = initShow.substring(0, Math.round(dt / 500));
     } else {
       nextMsg = msg;
     }
-    //animate words (type setter effect)
+    //animate words (type setter effect): toggle per 250 ms
     if (Math.round(dt / 250) % 2 == 0 && (isInit || good == undefined)) {
       setShow(nextMsg + "_"); //you can set this character to an l, I, |, but it ends up looking kinda ugly.
     } else {
