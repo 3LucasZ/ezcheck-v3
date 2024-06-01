@@ -16,13 +16,27 @@ import {
   useDisclosure,
   Text,
   HStack,
+  useToast,
 } from "@chakra-ui/react";
 
 import { MouseEventHandler, useState } from "react";
-import { FiAward, FiCheck, FiHome, FiMinus, FiPlus, FiX } from "react-icons/fi";
+import {
+  FiAward,
+  FiCheck,
+  FiCheckCircle,
+  FiCheckSquare,
+  FiHome,
+  FiMinus,
+  FiPlus,
+  FiX,
+} from "react-icons/fi";
 import ConfirmActionModal from "../Main/ConfirmActionModal";
 import EditableTitle from "./EditableTitle";
-import { responsiveSubheaderFontSize } from "services/constants";
+import {
+  orangeBtn,
+  responsiveSubheaderFontSize,
+  tealBtn,
+} from "services/constants";
 import { poster } from "services/poster";
 
 type CertModalProps = {
@@ -39,13 +53,20 @@ export default function CertModal(props: CertModalProps) {
   //state
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newNote, setNewNote] = useState(props.note ? props.note : "");
+  const toaster = useToast();
   //server
-  const onUpdate = () => {
-    poster("/api/update-cert", {
-      machineId: props.machineId,
-      recipientId: props.recipientId,
-      newNote,
-    });
+  const onUpdate = async () => {
+    const res = await poster(
+      "/api/update-cert",
+      {
+        machineId: props.machineId,
+        recipientId: props.recipientId,
+        newNote,
+      },
+      toaster,
+      true
+    );
+    if (res.status == 200) onClose();
   };
   //ret
   return (
@@ -70,16 +91,25 @@ export default function CertModal(props: CertModalProps) {
         }}
         aria-label={""}
       />
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          setNewNote(props.note ? props.note : "");
+        }}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="orange.200" overflow={"none"} borderTopRadius={"md"}>
+          <ModalHeader bg="orange.100" borderTopRadius={"md"}>
             <HStack>
-              <Icon color="green.400" as={FiCheck} boxSize={6} />
+              {/* <Icon color="green.400" as={FiCheckSquare} boxSize={6} /> */}
               <Text>Machine Certification</Text>
             </HStack>
           </ModalHeader>
-          <ModalCloseButton color={"red.400"} />
+          <ModalCloseButton
+          // color={"red.400"}
+          />
           <ModalBody>{`Issued by: ${
             props.issuerName ? props.issuerName : "an expired admin"
           } (${props.issuerEmail ? props.issuerEmail : "N/A"})`}</ModalBody>
@@ -106,7 +136,13 @@ export default function CertModal(props: CertModalProps) {
               }) => setNewNote(e.target.value)}
             />
           </Box>
-          <ModalFooter></ModalFooter>
+          <ModalFooter>
+            {props.isEdit && (
+              <Button sx={tealBtn} onClick={onUpdate}>
+                Update Note
+              </Button>
+            )}
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
