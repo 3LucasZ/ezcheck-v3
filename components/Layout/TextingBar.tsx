@@ -37,8 +37,9 @@ export function TextingBar(props: TextingBarProps) {
         />
         <Box
           minH={"60px"}
-          maxH="60px"
+          maxH={"60px"}
           minW={"60px"}
+          maxW={"60px"}
           rounded="full"
           sx={orangeBtn}
           verticalAlign={"center"}
