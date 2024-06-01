@@ -41,6 +41,7 @@ type MachineWidgetProps = {
   using?: boolean;
   inUse?: boolean;
   webAuth?: boolean;
+  forceMini?: boolean;
 
   //functions
   handleLogin?: Function;
@@ -65,14 +66,15 @@ export default function MachineWidget(props: MachineWidgetProps) {
     if (!props.disabled) hoverBg = "gray.100";
   }
   //columns
-  const column =
-    useBreakpointValue(
-      {
-        base: true,
-        sm: false,
-      },
-      { fallback: "md", ssr: false }
-    ) || false;
+  const column = props.forceMini
+    ? true
+    : useBreakpointValue(
+        {
+          base: true,
+          sm: false,
+        },
+        { fallback: "md", ssr: false }
+      ) || false;
 
   return (
     <Box

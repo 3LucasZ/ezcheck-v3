@@ -44,17 +44,19 @@ type UserWidgetProps = {
   isEdit?: boolean;
   using?: boolean;
   disabled?: boolean;
+  forceMini?: boolean;
 };
 
 export default function UserWidget(props: UserWidgetProps) {
-  const column =
-    useBreakpointValue(
-      {
-        base: true,
-        sm: false,
-      },
-      { fallback: "md", ssr: false }
-    ) || false;
+  const column = props.forceMini
+    ? true
+    : useBreakpointValue(
+        {
+          base: true,
+          sm: false,
+        },
+        { fallback: "md", ssr: false }
+      ) || false;
 
   return (
     <>

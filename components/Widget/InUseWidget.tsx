@@ -29,14 +29,18 @@ export default function InUseWidget(props: InUseWidgetProps) {
     <MachineWidget
       id={props.machine.id}
       name={props.machine.name}
+      description={props.machine.description}
       image={props.machine.image}
+      forceMini
     />
   );
   const user = (
     <UserWidget
       id={props.machine.usedBy.id}
       name={props.machine.usedBy.name}
+      email={props.machine.usedBy.email}
       image={props.machine.usedBy.image}
+      forceMini
     />
   );
   const time = (
