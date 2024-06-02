@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Box p="8">
       <Heading size="2xl">Privacy Policy</Heading>
-      <Text>Last updated: January 18, 2024</Text>
+      <Text>Last updated: June 02, 2024</Text>
       <Text>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -114,11 +114,11 @@ export default function Home() {
           <Text>
             <strong>Website</strong> refers to EZSuite, accessible from
             <Link
-              href="https://EZSuite"
+              href="ezcheck.questportal.org"
               rel="external nofollow noopener"
               target="_blank"
             >
-              https://EZSuite
+              ezcheck.questportal.org
             </Link>
           </Text>
         </ListItem>
@@ -515,7 +515,7 @@ export default function Home() {
         If you have any questions about this Privacy Policy, You can contact us:
       </Text>
       <UnorderedList>
-        <ListItem>By email: sahuber@vcs.net</ListItem>
+        <ListItem>By email: vcs.rnd.ezsuite@gmail.com</ListItem>
       </UnorderedList>
     </Box>
   );

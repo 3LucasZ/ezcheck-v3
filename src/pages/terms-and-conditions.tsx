@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Box p="8">
       <Heading size="xl">Terms and Conditions</Heading>
-      <Text>Last updated: January 18, 2024</Text>
+      <Text>Last updated: June 02, 2024</Text>
       <Text>
         Please read these terms and conditions carefully before using Our
         Service.
@@ -64,7 +64,7 @@ export default function Home() {
             &quot;Terms&quot;) mean these Terms and Conditions that form the
             entire agreement between You and the Company regarding the use of
             the Service. This Terms and Conditions agreement has been created
-            with the help of the{" "}
+            with the help of the
             <Link
               href="https://www.freeprivacypolicy.com/free-terms-and-conditions-generator/"
               target="_blank"
@@ -84,13 +84,13 @@ export default function Home() {
         </ListItem>
         <ListItem>
           <Text>
-            <strong>Website</strong> refers to EZSuite, accessible from{" "}
+            <strong>Website</strong> refers to EZSuite, accessible from
             <Link
-              href="https://EZSuite"
+              href="https://ezcheck.questportal.org"
               rel="external nofollow noopener"
               target="_blank"
             >
-              https://EZSuite
+              https://ezcheck.questportal.org
             </Link>
           </Text>
         </ListItem>
@@ -299,7 +299,7 @@ export default function Home() {
         contact us:
       </Text>
       <UnorderedList>
-        <ListItem>By email: sahuber@vcs.net</ListItem>
+        <ListItem>By email: vcs.rnd.ezsuite@gmail.com</ListItem>
       </UnorderedList>
     </Box>
   );
