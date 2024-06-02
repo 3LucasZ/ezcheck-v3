@@ -21,15 +21,13 @@ export default async function handle(
   //--initialize + checks--
   const { receiverEmail, senderEmail, senderName } = req.body;
   if (receiverEmail == "") {
-    return res.status(500).json("Email can't be empty");
+    return res.status(500).json("email can't be empty");
   }
   // else if (
   //   !receiverEmail.endsWith("@vcs.net") &&
   //   !receiverEmail.endsWith("@warriorlife.net")
   // ) {
-  //   return res
-  //     .status(500)
-  //     .json("You can not send an email to a user outside of Valley Christian.");
+  //   return res.status(500).json("You can't invite a user outside of VCS");
   // }
   //try to guess the name from the email ;)
   const receiverNames = receiverEmail.split("@")[0].split(".");

@@ -44,15 +44,36 @@ export default function ManageStudents({ students }: PageProps) {
   const [email, setEmail] = useState("");
   //--registration--
   const preregister = async () => {
-    const res = poster("/api/preregister-student", { email }, toaster, true);
-  };
-  const withMail = async () => {
-    const res = poster(
-      "/api/preregister-send-email",
-      { receiverEmail: email, senderEmail: me?.email, senderName: me?.name },
+    const res = await poster(
+      "/api/preregister-student",
+      { email },
       toaster,
       true
     );
+    if (res.status == 200) {
+      Router.push("/admin/manage-students");
+      onClose();
+    }
+  };
+  const withMail = async () => {
+    const res1 = await poster(
+      "/api/preregister-student",
+      { email },
+      toaster,
+      false
+    );
+    if (res1.status == 200) {
+      const res2 = await poster(
+        "/api/preregister-send-email",
+        { receiverEmail: email, senderEmail: me?.email, senderName: me?.name },
+        toaster,
+        true
+      );
+      if (res2.status == 200) {
+        Router.push("/admin/manage-students");
+        onClose();
+      }
+    }
   };
   //--pre-register modal--
   const { isOpen, onOpen, onClose } = useDisclosure();
