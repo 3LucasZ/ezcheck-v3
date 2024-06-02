@@ -205,7 +205,8 @@ export default function MachinePage({ machine, students }: PageProps) {
           placeholder="Description"
         />
 
-        <HStack minW="117px">
+        <HStack minW="128px">
+          <Box w="1"></Box>
           <Text noOfLines={1}>Web Auth</Text>
           <Switch
             size="md"
