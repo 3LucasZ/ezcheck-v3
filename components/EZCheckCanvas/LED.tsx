@@ -22,14 +22,14 @@ export default function LED(props: LEDProps) {
   useEffect(() => {
     setInit(Date.now());
   }, [props.active]);
-  useFrame(() => {
-    //toggle per 500 ms
-    if ((Date.now() - init) % (t_LEDOn + t_LEDOff) < t_LEDOn) {
-      props.active && setOn(true);
-    } else {
-      setOn(false);
-    }
-  });
+  // useFrame(() => {
+  //   //toggle per 500 ms
+  //   if ((Date.now() - init) % (t_LEDOn + t_LEDOff) < t_LEDOn) {
+  //     props.active && setOn(true);
+  //   } else {
+  //     setOn(false);
+  //   }
+  // });
   return (
     <mesh
       ref={props.rref}
@@ -44,13 +44,13 @@ export default function LED(props: LEDProps) {
       <meshStandardMaterial
         attach="material-0"
         emissive={props.left ? green[1] : red[1]}
-        emissiveIntensity={on ? 2.1 : 1}
+        emissiveIntensity={props.active ? 2.1 : 1} //use "on" instead of props.active to animate
         toneMapped={true}
       />
       <meshStandardMaterial
         attach="material-1"
         emissive={props.left ? green[0] : red[0]}
-        emissiveIntensity={on ? 1.8 : 1}
+        emissiveIntensity={props.active ? 1.8 : 1} //use "on" instead of props.active to animate
         toneMapped={true}
       />
     </mesh>
