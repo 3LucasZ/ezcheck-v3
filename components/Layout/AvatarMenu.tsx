@@ -95,14 +95,16 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
             Admin Page
           </MenuItem>
         )}
-        <MenuItem
-          onClick={(e) => {
-            Router.push("/student/home");
-          }}
-        >
-          <Icon as={FiUsers} pr="2" boxSize={6} />
-          User Page
-        </MenuItem>
+        {me && (
+          <MenuItem
+            onClick={(e) => {
+              Router.push("/student/home");
+            }}
+          >
+            <Icon as={FiUsers} pr="2" boxSize={6} />
+            User Page
+          </MenuItem>
+        )}
         {/* {me?.isAdmin && (
           <MenuItem
             onClick={(e) => {
@@ -113,14 +115,16 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
             Admin Dashboard
           </MenuItem>
         )} */}
-        <MenuItem
-          onClick={(e) => {
-            Router.push("/help");
-          }}
-        >
-          <Icon as={FiBookOpen} pr="2" boxSize={6} />
-          Help
-        </MenuItem>
+        {me && (
+          <MenuItem
+            onClick={(e) => {
+              Router.push("/help");
+            }}
+          >
+            <Icon as={FiBookOpen} pr="2" boxSize={6} />
+            Help
+          </MenuItem>
+        )}
       </MenuList>
     </Menu>
   );
