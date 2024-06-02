@@ -54,7 +54,7 @@ export default async function handle(
     });
 
     var mailOptions = {
-      from: process.env.NODEMAILER_EMAIL,
+      from: `VCS EZSuite <${process.env.NODEMAILER_EMAIL}>`,
       to: receiverEmail,
       subject: "Welcome to EZCheck",
       html: emailHtml,
