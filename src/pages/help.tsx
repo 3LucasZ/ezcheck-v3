@@ -25,6 +25,7 @@ import { responsivePx } from "services/constants";
 import { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronLeft, FiExternalLink } from "react-icons/fi";
 import Router from "next/router";
+import StudentLayout from "components/Layout/StudentLayout";
 
 export default function Home() {
   //--copy paste on every page--
@@ -35,9 +36,7 @@ export default function Home() {
   const me = session?.user;
   //--ret--
   return (
-    <Layout authorized={true} loaded={status !== "loading"}>
-      <Header me={me} />
-
+    <StudentLayout me={me} loaded={status !== "loading"}>
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQHeader />
         <Box h="8" />
@@ -53,6 +52,18 @@ export default function Home() {
           <FAQItem
             Q="Why does the simulator look/function differently from the physical product?"
             A="The simulator is only meant to provide a quick overview of what the EZCheck Module looks like and behaves like. It is considerably different and simplified on purpose."
+          />
+          <FAQItem
+            Q="What is the web auth setting on machines?"
+            A="When web auth is enabled on a machine, a user can log in or log out of a machine via the website. This is useful for tracking machines that do not have an EZCheck module created for them yet."
+          />
+          {/* <FAQItem
+            Q="Why are only VCS accounts allowed to use the system?"
+            A="For security reasons."
+          /> */}
+          <FAQItem
+            Q="Why are some widgets colored differently in some places?"
+            A="Orange: machine is in use by the user in focus. Red: machine is in use. Purple: user is supervising. "
           />
         </VStack>
         <Box h="8"></Box>
@@ -95,6 +106,6 @@ export default function Home() {
         </Box>
         <Box h="8"></Box>
       </Box>
-    </Layout>
+    </StudentLayout>
   );
 }
