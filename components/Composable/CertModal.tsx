@@ -38,6 +38,7 @@ import {
   tealBtn,
 } from "services/constants";
 import { poster } from "services/poster";
+import Router from "next/router";
 
 type CertModalProps = {
   //certificate update
@@ -66,7 +67,10 @@ export default function CertModal(props: CertModalProps) {
       toaster,
       true
     );
-    if (res.status == 200) onClose();
+    if (res.status == 200) {
+      onClose();
+      Router.reload();
+    }
   };
   //ret
   return (
