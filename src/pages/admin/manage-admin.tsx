@@ -75,7 +75,7 @@ export default function ManageAdmin({ users }: PageProps) {
         setIn={users
           .filter((user) => user.isAdmin)
           .map((user) => ({
-            name: user.name,
+            name: (user.isSupervising ? 0 : 1) + user.name, //supervisors show on top
             widget: (
               <UserWidget
                 id={user.id}

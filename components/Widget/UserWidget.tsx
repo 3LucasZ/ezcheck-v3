@@ -48,6 +48,23 @@ type UserWidgetProps = {
 };
 
 export default function UserWidget(props: UserWidgetProps) {
+  //colors
+  let bg = "white";
+  let hoverBg = "white";
+  if (props.isSupervising) {
+    //admin is a supervisor
+    bg = "purple.100";
+    if (!props.disabled && !props.isEdit) hoverBg = "purple.200";
+    else hoverBg = "purple.100";
+  } else if (props.using) {
+    //admin is using a machine
+    bg = "orange.100";
+    if (!props.disabled && !props.isEdit) hoverBg = "orange.200";
+    else hoverBg = "orange.100";
+  } else {
+    if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
+  }
+  //column
   const column = props.forceMini
     ? true
     : useBreakpointValue(
@@ -70,11 +87,9 @@ export default function UserWidget(props: UserWidgetProps) {
           Router.push(`/admin/view-student/${props.id}`)
         }
         px="2"
-        bg={props.using ? "orange.100" : "white"}
+        bg={bg}
         _hover={{
-          bg:
-            !(props.disabled || props.isEdit) &&
-            (props.using ? "orange.200" : "gray.100"),
+          bg: hoverBg,
         }}
         minH="60px"
         w="100%"

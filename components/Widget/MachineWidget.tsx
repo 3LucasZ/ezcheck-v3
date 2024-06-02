@@ -65,7 +65,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   } else {
     if (!props.disabled) hoverBg = "gray.100";
   }
-  //columns
+  //column
   const column = props.forceMini
     ? true
     : useBreakpointValue(
