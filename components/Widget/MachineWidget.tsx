@@ -56,14 +56,14 @@ export default function MachineWidget(props: MachineWidgetProps) {
   let hoverBg = "white";
   if (props.using) {
     bg = "orange.100";
-    if (!props.disabled) hoverBg = "orange.200";
+    if (!props.disabled && !props.isEdit) hoverBg = "orange.200";
     else hoverBg = "orange.100";
   } else if (props.inUse) {
     bg = "red.100";
-    if (!props.disabled) hoverBg = "red.200";
+    if (!props.disabled && !props.isEdit) hoverBg = "red.200";
     else hoverBg = "red.100";
   } else {
-    if (!props.disabled) hoverBg = "gray.100";
+    if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
   }
   //column
   const column = props.forceMini
@@ -83,7 +83,9 @@ export default function MachineWidget(props: MachineWidgetProps) {
       boxShadow={"md"}
       mx={1} //so we can see the side shadows
       onClick={() =>
-        !props.disabled && Router.push(`/admin/view-machine/${props.id}`)
+        !props.disabled &&
+        !props.isEdit &&
+        Router.push(`/admin/view-machine/${props.id}`)
       }
       pr="2"
       bg={bg}
