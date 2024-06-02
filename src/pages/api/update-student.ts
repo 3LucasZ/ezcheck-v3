@@ -5,7 +5,7 @@ import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { CertificateProps } from "types/db";
 import { TypedRequestBody } from "types/req";
-import handleCreateLog from "./create-log";
+import handleCreateLog, { serverCreateLog } from "./create-log";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "./auth/[...nextauth]";
 
@@ -62,41 +62,28 @@ export default async function handle(
         certificates: true,
       },
     });
-    //log certificate changes
-
-    //log admin changes
+    //log certificate changes?
+    //log admin/supervisor changes
     if (oldStudent?.isAdmin == false && isAdmin == true) {
-      try {
-        const op = await prisma.log.create({
-          data: {
-            timestamp: Date.now() / 1000,
-            message:
-              requester.name +
-              " granted admin privileges to " +
-              oldStudent.name +
-              ".",
-            level: 0,
-          },
-        });
-      } catch (e) {
-        return res.status(500).json(prismaErrHandler(e));
-      }
+      serverCreateLog(
+        requester.name +
+          " granted admin privileges to " +
+          oldStudent.name +
+          ".",
+        0
+      );
     } else if (oldStudent?.isAdmin == true && isAdmin == false) {
-      try {
-        const op = await prisma.log.create({
-          data: {
-            timestamp: Date.now() / 1000,
-            message:
-              requester.name +
-              " removed admin privileges from " +
-              oldStudent.name +
-              ".",
-            level: 0,
-          },
-        });
-      } catch (e) {
-        return res.status(500).json(prismaErrHandler(e));
-      }
+      serverCreateLog(
+        requester.name +
+          " removed admin privileges from " +
+          oldStudent.name +
+          ".",
+        0
+      );
+    } else if (oldStudent?.isSupervising == false && isSupervising == true) {
+      serverCreateLog(oldStudent.name + " has started supervising.", 0);
+    } else if (oldStudent?.isSupervising == true && isSupervising == false) {
+      serverCreateLog(oldStudent.name + " has stopped supervising.", 0);
     }
     //post process
     return res.status(200).json(op.id);
