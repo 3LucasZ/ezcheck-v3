@@ -23,16 +23,15 @@ export default function ManageAdmin({ users }: PageProps) {
   const me = session?.user;
   const toaster = useToast();
   //--handle add/rm admin--
-  const admins = users.find((user) => user.isAdmin);
   const addAdmin = async (user: User) => {
     const body = { requester: me, id: user.id, isAdmin: true };
     const res = await poster("/api/update-student", body, toaster);
-    if (res.status == 200) Router.reload();
+    if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   const rmAdmin = async (user: User) => {
     const body = { requester: me, id: user.id, isAdmin: false };
     const res = await poster("/api/update-student", body, toaster);
-    if (res.status == 200) Router.reload();
+    if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   const startSupervising = async () => {
     const body = { requester: me, id: me?.id, isSupervising: true };
@@ -51,11 +50,11 @@ export default function ManageAdmin({ users }: PageProps) {
         <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
           Supervision
         </Text>
-        <Box>
+        {/* <Box>
           {me?.isSupervising
             ? "I agree that when I leave, no students are left in the machine shop unsupervised."
             : "I agree to be physically present in the machine shop as a supervisor. I'm responsible for the safety of the students and will make sure they're using equipment properly."}
-        </Box>
+        </Box> */}
         <Box minH="8px" />
         <Center>
           <Button
