@@ -70,12 +70,13 @@ export function FAQHeader() {
             <VStack align={"start"}>
               <ContactItem
                 title="Email"
-                subtitle="sahuber@vcs.net"
+                subtitle="vcs.rnd.ezsuite@gmail.com"
                 icon={FiAtSign}
               />
               <ContactItem
                 title="Phone"
-                subtitle="+1 (408) 123 4567"
+                // subtitle="+1 (408) 123 4567"
+                subtitle="Not available"
                 icon={FiPhone}
               />
               <ContactItem
