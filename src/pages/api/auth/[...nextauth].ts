@@ -31,6 +31,7 @@ export const authOptions = {
     },
     //Only VCS students/admin can create an account on the service
     //Comment out entire signIn block if dev server
+    //Comment in entire signIn block if prod server
     async signIn({ user }: { user: User }) {
       if (
         user.email.endsWith("@vcs.net") ||

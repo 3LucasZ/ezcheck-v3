@@ -23,12 +23,15 @@ export default async function handle(
   if (receiverEmail == "") {
     return res.status(500).json("email can't be empty");
   }
-  // else if (
-  //   !receiverEmail.endsWith("@vcs.net") &&
-  //   !receiverEmail.endsWith("@warriorlife.net")
-  // ) {
-  //   return res.status(500).json("You can't invite a user outside of VCS");
-  // }
+  //Only VCS students/admin can be added on the service
+  //Comment out entire signIn block if dev server
+  //Comment in entire signIn block if prod server
+  else if (
+    !receiverEmail.endsWith("@vcs.net") &&
+    !receiverEmail.endsWith("@warriorlife.net")
+  ) {
+    return res.status(500).json("You can't invite a user outside of VCS");
+  }
   //try to guess the name from the email ;)
   const receiverNames = receiverEmail.split("@")[0].split(".");
   let receiverName = "";
