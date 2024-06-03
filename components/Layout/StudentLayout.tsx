@@ -1,5 +1,4 @@
-import { Heading } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import Layout from "./MainLayout";
 import Header from "./Header";
 import { User } from "next-auth";

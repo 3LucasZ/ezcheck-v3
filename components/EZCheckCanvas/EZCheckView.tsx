@@ -1,15 +1,14 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import {
   Bloom,
   EffectComposer,
   ToneMapping,
 } from "@react-three/postprocessing";
-import { useEffect, useRef, useState } from "react";
-import { Mesh, Vector3 } from "three";
+import { useRef, useState } from "react";
+import { Mesh } from "three";
 import { ToneMappingMode } from "postprocessing";
 import EZCheck from "./EZCheck";
 import { ledHeight } from "./constants";

@@ -12,7 +12,6 @@ import Keypad from "./Keypad";
 import LCD from "./LCD";
 import LED from "./LED";
 import { useFrame } from "@react-three/fiber";
-import next from "next";
 
 type EZCheckProps = {
   leftLEDRef: MutableRefObject<any>;

@@ -3,14 +3,10 @@ import {
   Avatar,
   Badge,
   Box,
-  Card,
-  Center,
-  HStack,
   Modal,
   ModalContent,
   ModalOverlay,
   Text,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { genGradient } from "services/gradientGenerator";

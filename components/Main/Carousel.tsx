@@ -3,11 +3,8 @@ import {
   Flex,
   Text,
   Image,
-  IconButton,
   Icon,
   useBreakpointValue,
-  AspectRatio,
-  VStack,
   HStack,
 } from "@chakra-ui/react";
 import Router from "next/router";
@@ -18,7 +15,6 @@ import { FiChevronLeft, FiChevronRight, FiEye } from "react-icons/fi";
 import { genGradient } from "services/gradientGenerator";
 
 import { throttle } from "lodash";
-import _ from "lodash";
 
 type CarouselProps = {
   cards: {

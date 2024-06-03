@@ -11,7 +11,6 @@ import {
   Box,
   HStack,
 } from "@chakra-ui/react";
-import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 import { GetServerSideProps } from "next";
 import Router from "next/router";
 import ConfirmDeleteModal from "components/ConfirmDeleteModal";
@@ -28,13 +27,7 @@ import { redBtn, responsivePx, tealBtn } from "services/constants";
 import EditableTitle from "components/Composable/EditableTitle";
 import EditableSubtitle from "components/Composable/EditableSubtitle";
 import { User } from "next-auth";
-import {
-  FiDelete,
-  FiImage,
-  FiSettings,
-  FiTrash,
-  FiTrash2,
-} from "react-icons/fi";
+import { FiImage, FiSettings, FiTrash2 } from "react-icons/fi";
 import ImageModal from "components/Main/ImageModal";
 type PageProps = {
   machine: MachineProps;

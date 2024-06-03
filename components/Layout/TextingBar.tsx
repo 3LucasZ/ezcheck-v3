@@ -1,9 +1,7 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Box, HStack, Icon, IconButton, Input } from "@chakra-ui/react";
+import { Box, HStack, Icon, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { FaCircleArrowRight } from "react-icons/fa6";
-import { FiChevronRight, FiMessageCircle } from "react-icons/fi";
-import { orangeBtn, tealBtn } from "services/constants";
+import { FiMessageCircle } from "react-icons/fi";
+import { orangeBtn } from "services/constants";
 
 type TextingBarProps = {
   send: (query: string) => void;

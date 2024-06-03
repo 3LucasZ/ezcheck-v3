@@ -9,7 +9,6 @@ import {
   ModalOverlay,
   useToast,
 } from "@chakra-ui/react";
-import { successToast } from "services/toasty";
 
 type PageProps = {
   onClose: () => void;

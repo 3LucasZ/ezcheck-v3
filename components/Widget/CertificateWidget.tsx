@@ -1,20 +1,9 @@
-import {
-  Box,
-  Grid,
-  HStack,
-  Image,
-  VStack,
-  Text,
-  AspectRatio,
-  Stack,
-  Show,
-} from "@chakra-ui/react";
+import { Box, HStack, Image, Text, AspectRatio, Show } from "@chakra-ui/react";
 
 import Router from "next/router";
 import { genGradient } from "services/gradientGenerator";
 
 import AddRemoveButton from "components/Composable/AddRemoveButton";
-import { ChangeEventHandler } from "react";
 import { CertificateProps } from "types/db";
 
 type CertificateWidgetProps = {

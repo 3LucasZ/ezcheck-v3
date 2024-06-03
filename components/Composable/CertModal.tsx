@@ -1,11 +1,8 @@
 //COPY FROM EZFIND2
-import { SmallAddIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import {
-  AspectRatio,
   Box,
   Button,
   Icon,
-  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,24 +16,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { MouseEventHandler, useState } from "react";
-import {
-  FiAward,
-  FiCheck,
-  FiCheckCircle,
-  FiCheckSquare,
-  FiHome,
-  FiMinus,
-  FiPlus,
-  FiX,
-} from "react-icons/fi";
-import ConfirmActionModal from "../Main/ConfirmActionModal";
+import { useState } from "react";
+import { FiAward } from "react-icons/fi";
 import EditableTitle from "./EditableTitle";
-import {
-  orangeBtn,
-  responsiveSubheaderFontSize,
-  tealBtn,
-} from "services/constants";
+import { tealBtn } from "services/constants";
 import { poster } from "services/poster";
 import Router from "next/router";
 

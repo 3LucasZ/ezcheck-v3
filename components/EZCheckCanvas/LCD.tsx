@@ -1,4 +1,4 @@
-import { Text, Text3D } from "@react-three/drei";
+import { Text } from "@react-three/drei";
 import {
   boxHeight,
   lcdHeight,
@@ -8,8 +8,6 @@ import {
   lcdDepth,
   lcdPad,
 } from "./constants";
-import { useFrame } from "@react-three/fiber";
-import React from "react";
 type LCDProps = {
   text: string;
 };

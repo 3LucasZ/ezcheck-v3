@@ -7,7 +7,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import { FiZap } from "react-icons/fi";
 
 type PageProps = {
   color: string;

@@ -1,29 +1,9 @@
-import Layout from "components/Layout/MainLayout";
-import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
-import prisma from "services/prisma";
 
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Heading,
-  HStack,
-  Icon,
-  Link,
-  ListItem,
-  Text,
-  UnorderedList,
-  VStack,
-} from "@chakra-ui/react";
-import Header from "components/Layout/Header";
+import { Box, Heading, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import { FAQHeader, FAQItem } from "components/Layout/FAQ";
-import { responsivePx } from "services/constants";
-import { useEffect, useState } from "react";
-import { FiChevronDown, FiChevronLeft, FiExternalLink } from "react-icons/fi";
+import { useEffect } from "react";
+import { FiExternalLink } from "react-icons/fi";
 import Router from "next/router";
 import StudentLayout from "components/Layout/StudentLayout";
 

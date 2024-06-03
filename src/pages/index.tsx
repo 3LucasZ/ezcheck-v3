@@ -1,40 +1,22 @@
 import {
   Box,
   Button,
-  Center,
-  Container,
   Flex,
   Heading,
-  SimpleGrid,
-  Stack,
   Text,
-  Image,
-  AspectRatio,
-  HStack,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { RouteButton } from "components/RouteButton";
 import Layout from "components/Layout/MainLayout";
-import { GetServerSideProps } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
-import prisma from "services/prisma";
+import { signIn, useSession } from "next-auth/react";
 import { FiActivity, FiUsers } from "react-icons/fi";
-import { MdManageAccounts } from "react-icons/md";
-import { GiSewingMachine, GiTeacher } from "react-icons/gi";
-import { IoDocumentText } from "react-icons/io5";
-import { IoIosInformationCircle } from "react-icons/io";
 
-import { RiAdminLine } from "react-icons/ri";
-import { PiStudent, PiStudentBold, PiStudentDuotone } from "react-icons/pi";
 import Header from "components/Layout/Header";
-import AvatarMenu from "components/Layout/AvatarMenu";
 
 import { animatedGradient, responsivePx } from "services/constants";
 import FeatureCard from "components/FeatureCard";
 import Router from "next/router";
-import EZCheck from "components/EZCheckCanvas/EZCheck";
 import { EZCheckCanvas } from "components/EZCheckCanvas/EZCheckView";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
   //--copy paste on every page--

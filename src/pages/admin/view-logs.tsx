@@ -1,12 +1,8 @@
 import {
   Box,
-  Divider,
-  Flex,
   Step,
   StepDescription,
-  StepIcon,
   StepIndicator,
-  StepNumber,
   Stepper,
   StepSeparator,
   StepStatus,
@@ -14,21 +10,14 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import Layout from "components/Layout/MainLayout";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 
-import LogWidget, { LogProps } from "components/Widget/LogWidget";
+import { LogProps } from "components/Widget/LogWidget";
 import AdminLayout from "components/Layout/AdminLayout";
 import { TextingBar } from "components/Layout/TextingBar";
-import { propagateServerField } from "next/dist/server/lib/render-server";
-import { FiAlertCircle, FiAlertTriangle, FiInfo } from "react-icons/fi";
-import {
-  responsiveHeaderFontSize,
-  responsivePx,
-  responsiveSubheaderFontSize,
-} from "services/constants";
+import { responsiveHeaderFontSize } from "services/constants";
 import { poster } from "services/poster";
 import Router from "next/router";
 import { useEffect } from "react";

@@ -1,7 +1,6 @@
 import Head from "next/head";
-import { useEffect, type ReactNode } from "react";
-import { Box, Flex, Spinner } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
+import { type ReactNode } from "react";
+import { Flex } from "@chakra-ui/react";
 import RedirectPage from "@/pages/404";
 
 type LayoutProps = {

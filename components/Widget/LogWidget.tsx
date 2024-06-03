@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Grid } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 
 export type LogProps = {
   id: number;

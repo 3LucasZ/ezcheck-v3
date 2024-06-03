@@ -1,12 +1,10 @@
 import {
-  Stack,
   VStack,
   Text,
   useBreakpointValue,
   HStack,
   Box,
 } from "@chakra-ui/react";
-import { machine } from "os";
 import MachineWidget from "./MachineWidget";
 import UserWidget from "./UserWidget";
 import { MachineProps } from "types/db";

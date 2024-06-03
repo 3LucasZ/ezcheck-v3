@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardBody,
-  Heading,
-  Center,
-  Link,
-  Icon,
-  Box,
-} from "@chakra-ui/react";
+import { Card, CardBody, Heading, Center, Icon, Box } from "@chakra-ui/react";
 import Router from "next/router";
 import { IconType } from "react-icons";
 

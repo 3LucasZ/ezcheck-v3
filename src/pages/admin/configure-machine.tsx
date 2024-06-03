@@ -9,7 +9,6 @@ import {
   useToast,
   Text,
   Center,
-  keyframes,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
@@ -18,7 +17,6 @@ import AdminLayout from "components/Layout/AdminLayout";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import { errorToast } from "services/toasty";
-import { animatedGradient } from "services/constants";
 
 type PageProps = {
   queryName: string;

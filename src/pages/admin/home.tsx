@@ -1,27 +1,12 @@
-import {
-  AbsoluteCenter,
-  Box,
-  Divider,
-  HStack,
-  Icon,
-  SimpleGrid,
-  Stack,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 import AdminLayout from "components/Layout/AdminLayout";
 import { CustomStat } from "components/Main/CustomStat";
-import { group } from "console";
 import {
   FiUsers,
   FiCpu,
   FiAward,
-  FiCompass,
-  FiZap,
-  FiWatch,
   FiClock,
   FiAlertTriangle,
 } from "react-icons/fi";
@@ -30,12 +15,9 @@ import prisma from "services/prisma";
 import { GetServerSideProps } from "next";
 import { User } from "next-auth";
 import { CertificateProps, MachineProps } from "types/db";
-import Carousel from "components/Main/Carousel";
 import CustomDivider from "components/Main/CustomDivider";
 import UserWidget from "components/Widget/UserWidget";
 import MachineWidget from "components/Widget/MachineWidget";
-import { AiFillHourglass } from "react-icons/ai";
-import { BiHourglass } from "react-icons/bi";
 import { useEffect } from "react";
 import InUseWidget from "components/Widget/InUseWidget";
 

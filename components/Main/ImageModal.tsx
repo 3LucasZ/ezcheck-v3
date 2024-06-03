@@ -1,8 +1,6 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Heading,
-  Icon,
   IconButton,
   Input,
   Modal,
@@ -11,7 +9,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
-import { IoCloudUploadOutline } from "react-icons/io5";
 import imageCompression from "browser-image-compression";
 import { debugMode } from "services/constants";
 import imagePlaceholder from "public/images/image-placeholder.png";

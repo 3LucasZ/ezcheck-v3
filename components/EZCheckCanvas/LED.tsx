@@ -1,13 +1,5 @@
 import { MutableRefObject, useEffect, useState } from "react";
-import {
-  boxWidth,
-  ledRadius,
-  boxHeight,
-  ledHeight,
-  t_LEDOff,
-  t_LEDOn,
-} from "./constants";
-import { useFrame } from "@react-three/fiber";
+import { boxWidth, ledRadius, boxHeight, ledHeight } from "./constants";
 
 type LEDProps = {
   left: boolean;

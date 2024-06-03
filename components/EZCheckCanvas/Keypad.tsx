@@ -1,6 +1,5 @@
 import { gray } from "services/constants";
 import {
-  lcdDepth,
   keyLen,
   keys,
   gridPad,
@@ -13,9 +12,7 @@ import {
   keyDownDepth,
 } from "./constants";
 import { Text } from "@react-three/drei";
-import { ThreeEvent } from "@react-three/fiber";
-import { useRef, useState } from "react";
-import { Mesh } from "three";
+import { useState } from "react";
 
 type KeyProps = {
   x: number;

@@ -1,13 +1,8 @@
 import {
   Box,
-  Grid,
   HStack,
   Image,
-  VStack,
-  Text,
   AspectRatio,
-  Stack,
-  Show,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
@@ -15,7 +10,6 @@ import Router from "next/router";
 import { genGradient } from "services/gradientGenerator";
 
 import AddRemoveButton from "components/Composable/AddRemoveButton";
-import { ChangeEventHandler } from "react";
 import WidgetTitles from "./WidgetTitles";
 import InOutButton from "components/Composable/InOutButton";
 import CertModal from "components/Composable/CertModal";

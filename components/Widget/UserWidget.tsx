@@ -1,18 +1,6 @@
-import {
-  Box,
-  HStack,
-  Image,
-  Text,
-  AspectRatio,
-  Stack,
-  Select,
-  useDisclosure,
-  useBreakpointValue,
-  Avatar,
-} from "@chakra-ui/react";
+import { Box, HStack, useBreakpointValue, Avatar } from "@chakra-ui/react";
 
 import AddRemoveButton from "components/Composable/AddRemoveButton";
-import { UserCardModal } from "components/Main/UserCardModal";
 import Router from "next/router";
 import WidgetTitles from "./WidgetTitles";
 import CertModal from "components/Composable/CertModal";

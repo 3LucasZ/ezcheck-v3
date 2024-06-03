@@ -1,16 +1,7 @@
 //COPY FROM EZFIND2
-import { SmallAddIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import { AspectRatio, Icon, IconButton, useDisclosure } from "@chakra-ui/react";
+import { Icon, useDisclosure } from "@chakra-ui/react";
 
-import { MouseEventHandler } from "react";
-import {
-  FiHome,
-  FiLogIn,
-  FiLogOut,
-  FiMinus,
-  FiPlus,
-  FiX,
-} from "react-icons/fi";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
 import ConfirmActionModal from "../Main/ConfirmActionModal";
 
 type InOutButtonProps = {

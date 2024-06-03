@@ -1,31 +1,23 @@
 import {
-  Badge,
   Center,
   Flex,
-  Heading,
   IconButton,
   useDisclosure,
   useToast,
-  Text,
   Spacer,
-  FormControl,
-  FormLabel,
   HStack,
   PinInput,
   PinInputField,
   Icon,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { GetServerSideProps } from "next";
 import { CertificateProps, MachineProps } from "types/db";
 import ConfirmDeleteModal from "components/ConfirmDeleteModal";
 import Router from "next/router";
-import Layout from "components/Layout/MainLayout";
 import SearchView from "components/SearchView";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 import { poster } from "services/poster";
-import { PiSignOutBold } from "react-icons/pi";
 import AdminLayout from "components/Layout/AdminLayout";
 import MachineWidget from "components/Widget/MachineWidget";
 import { User } from "next-auth";

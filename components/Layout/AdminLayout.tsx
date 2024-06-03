@@ -1,16 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Heading,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-} from "@chakra-ui/react";
-import { signOut, signIn, useSession } from "next-auth/react";
-import React, { ReactNode } from "react";
-import { debugMode, responsivePx } from "services/constants";
+import { Box, Heading } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import { responsivePx } from "services/constants";
 import Layout from "./MainLayout";
 import Header from "./Header";
 import AppBar from "./AppBar";

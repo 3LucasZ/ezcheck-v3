@@ -1,7 +1,4 @@
-import Header from "components/Layout/Header";
-import Layout from "components/Layout/MainLayout";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import Router from "next/router";
 import { useEffect } from "react";
 
