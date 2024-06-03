@@ -42,6 +42,9 @@ export default function Layout(props: LayoutProps) {
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
         <meta name="theme-color" content="#fffffe" />
+        {/*Enable PWA*/}
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon/apple-touch-icon.png"></link>
       </Head>
       <main>
         <Flex
