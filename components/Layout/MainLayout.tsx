@@ -33,7 +33,9 @@ export default function Layout(props: LayoutProps) {
         <title>EZCheck</title>
         <meta name="description" content="Machine shop management system" />
         {/* ICON */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icon/favicon.ico" />
+        {/* #dev-only: trick to instantly refresh the favicon, using full pathname */}
+        {/* <link rel="icon" href="https://localhost:3000/icon/favicon.ico" /> */}
         {/*PWA UI*/}
         <meta
           name="viewport"
