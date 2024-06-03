@@ -24,7 +24,8 @@ type InviteEmailProps = {
   senderName: string;
 };
 export default function InviteEmail(props: InviteEmailProps) {
-  const baseUrl = "https://localhost:3000";
+  // const baseUrl = "https://localhost:3000";
+  const baseUrl = process.env.BASE_URL;
   const inviteLink = `${baseUrl}/`;
 
   return (
