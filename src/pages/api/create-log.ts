@@ -17,7 +17,7 @@ export default async function handle(
 ) {
   //--API Protection--
   const session = await getServerSession(req, res, authOptions);
-  if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
+  if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //--Create log--
   const { sender, message, level } = req.body;
   const ret = await serverCreateLog(message, level, sender);

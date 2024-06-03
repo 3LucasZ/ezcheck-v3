@@ -10,7 +10,7 @@ export default async function handle(
 ) {
   //--API Protection--
   const session = await getServerSession(req, res, authOptions);
-  if (!session?.user.isAdmin) return res.status(401).json("Unauthorized");
+  if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //--ID based deletion--
   const { id } = req.body;
   try {

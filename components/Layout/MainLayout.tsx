@@ -18,8 +18,8 @@ export default function Layout(props: LayoutProps) {
       content = props.children;
     } else {
       content = RedirectPage({
-        errorCode: "401",
-        msg1: "Unauthorized",
+        errorCode: "403",
+        msg1: "Forbidden",
         msg2: "You do not have permissions to view this page",
       });
     }
