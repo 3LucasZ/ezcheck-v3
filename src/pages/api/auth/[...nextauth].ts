@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth, { Session, User } from "next-auth";
+import NextAuth, { Account, Profile, Session, User } from "next-auth";
 import { Adapter, AdapterAccount, AdapterUser } from "next-auth/adapters";
 
 import GoogleProvider from "next-auth/providers/google";
@@ -29,6 +29,25 @@ export const authOptions = {
         session.user.isAdmin = true;
       return session;
     },
+    async signIn({
+      user,
+      account,
+      profile,
+      email,
+      credentials,
+    }: {
+      user: User;
+      account: Account;
+      profile: Profile;
+      email: string;
+      credentials: Credential;
+    }) {
+      if (email.endsWith("@vcs.net") || email.endsWith("@warriorlife.net")) {
+        return true;
+      } else {
+        return "/unauthorized";
+      }
+    },
   },
 };
 
@@ -38,7 +57,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
   // process.env.NEXTAUTH_URL = "https://" + host + "/ezfind/api/auth";
   process.env.NEXTAUTH_URL = "https://" + host;
-  console.log(process.env.GOOGLE_ID);
   return NextAuth(authOptions)(req, res);
 }
 
