@@ -29,23 +29,16 @@ export const authOptions = {
         session.user.isAdmin = true;
       return session;
     },
-    async signIn({
-      user,
-      account,
-      profile,
-      email,
-      credentials,
-    }: {
-      user: User;
-      account: Account;
-      profile: Profile;
-      email: string;
-      credentials: Credential;
-    }) {
-      if (email.endsWith("@vcs.net") || email.endsWith("@warriorlife.net")) {
+    //Only VCS students/admin can create an account on the service
+    //Comment out entire signIn block if dev server
+    async signIn({ user }: { user: User }) {
+      if (
+        user.email.endsWith("@vcs.net") ||
+        user.email.endsWith("@warriorlife.net")
+      ) {
         return true;
       } else {
-        return "/unauthorized";
+        return false;
       }
     },
   },
