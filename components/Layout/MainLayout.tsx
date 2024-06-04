@@ -58,15 +58,15 @@ export default function Layout(props: LayoutProps) {
         <Flex
           flexDir="column"
           overflow="hidden"
-          overscrollY="none"
+          // overscrollY="none"
           height={"100svh"}
           width={"100%"}
           position={"fixed"}
           sx={{
             userSelect: "none",
             touchAction: "none",
-            overscrollBehavior: "none",
-            WebkitOverflowScrolling: "touch",
+            // overscrollBehavior: "none",
+            // WebkitOverflowScrolling: "touch",
             WebkitUserSelect: "none",
             WebkitTouchCallout: "none",
             WebkitUserDrag: "none",
