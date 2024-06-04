@@ -51,30 +51,30 @@ export default function Home(props: PageProps) {
             value={"" + props.users.length}
             link={`/admin/manage-students`}
             icon={FiUsers}
-            dark="cyan.400"
-            med="cyan.200"
-            light="cyan.100"
-            xlight="cyan.50"
+            dark="orange.400"
+            med="orange.200"
+            light="orange.100"
+            xlight="orange.50"
           />
           <CustomStat
             label={"Machines"}
             value={"" + props.machines.length}
             link={`/admin/manage-machines`}
             icon={FiCpu}
-            dark="blue.400"
-            med="blue.200"
-            light="blue.100"
-            xlight="blue.50"
+            dark="red.400"
+            med="red.200"
+            light="red.100"
+            xlight="red.50"
           />
           <CustomStat
             label={"Certificates"}
             value={"" + props.certificates.length}
             link={`/admin/manage-machines`}
             icon={FiAward}
-            dark="orange.400"
-            med="orange.200"
-            light="orange.100"
-            xlight="orange.50"
+            dark="blue.400"
+            med="blue.200"
+            light="blue.100"
+            xlight="blue.50"
           />
         </SimpleGrid>
         <Box px={responsivePx}>
