@@ -99,6 +99,8 @@ export default function SearchView(props: SearchViewProps) {
         flexDir="column"
         gap="8px"
         overflowY="auto"
+        overflowX="hidden"
+        w="100%"
         px={[2, "5vw", "10vw", "15vw"]}
         h="100%"
       >
