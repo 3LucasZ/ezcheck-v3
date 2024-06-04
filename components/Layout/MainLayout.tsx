@@ -25,6 +25,12 @@ export default function Layout(props: LayoutProps) {
   } else {
     content = "";
   }
+  //desparation CSS to stop overscrolling
+  const css = `
+  html, body {
+    overscroll-behavior: none;
+  }
+  `;
 
   //--ret--
   return (
@@ -45,6 +51,8 @@ export default function Layout(props: LayoutProps) {
         {/*Enable PWA*/}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon/apple-touch-icon.png"></link>
+        {/*Forced CSS styling underlay*/}
+        <style>{css}</style>
       </Head>
       <main>
         <Flex
