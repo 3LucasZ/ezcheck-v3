@@ -27,7 +27,7 @@ export function EZCheckCanvas(props: PageProps) {
   const polarAngle = (3 * Math.PI) / 8;
   setTimeout(function () {
     setLoaded(true);
-  }, 1000);
+  }, 5000);
 
   return (
     <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
