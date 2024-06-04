@@ -17,9 +17,11 @@ type PageProps = {
 export default function ManageAdmin({ users }: PageProps) {
   //--template--
   const { data: session, status, update } = useSession();
-  useEffect(() => {
+  /*
+useEffect(() => {
     update();
   }, []);
+*/
   const me = session?.user;
   const toaster = useToast();
   //--handle add/rm admin--

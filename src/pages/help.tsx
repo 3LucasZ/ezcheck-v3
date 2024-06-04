@@ -10,9 +10,11 @@ import StudentLayout from "components/Layout/StudentLayout";
 export default function Home() {
   //--copy paste on every page--
   const { data: session, status, update } = useSession();
-  useEffect(() => {
+  /*
+useEffect(() => {
     update();
   }, []);
+*/
   const me = session?.user;
   //--ret--
   return (
