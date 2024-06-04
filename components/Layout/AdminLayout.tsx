@@ -33,7 +33,7 @@ export default function AdminLayout({
       {me?.isAdmin ? (
         <>
           {children}
-          <Box minH="calc(50px + env(safe-area-inset-bottom))"></Box>
+          <Box minH="50px"></Box>
           <AppBar />
         </>
       ) : (

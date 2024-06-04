@@ -36,7 +36,7 @@ export const FAB = ({
       //---position/transition---
       position={"fixed"}
       right={"8px"}
-      bottom={`calc(58px + env(safe-area-inset-bottom) + ${bottomOffset}px)`}
+      bottom={58 + bottomOffset + "px"}
       transition={"bottom 0.3s"}
     >
       <HStack
