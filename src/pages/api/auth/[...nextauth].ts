@@ -6,6 +6,7 @@ import { Adapter, AdapterAccount, AdapterUser } from "next-auth/adapters";
 
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "services/prisma";
+import { validEmail } from "services/utils";
 
 const prismaAdapter = PrismaAdapter(prisma);
 
@@ -33,14 +34,7 @@ export const authOptions = {
     //Comment out entire signIn block if dev server
     //Comment in entire signIn block if prod server
     async signIn({ user }: { user: User }) {
-      if (
-        user.email.endsWith("@vcs.net") ||
-        user.email.endsWith("@warriorlife.net")
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      return validEmail(user.email);
     },
   },
 };

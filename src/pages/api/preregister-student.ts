@@ -8,6 +8,7 @@ import { TypedRequestBody } from "types/req";
 import handleCreateLog from "./create-log";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "./auth/[...nextauth]";
+import { validEmail } from "services/utils";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -26,7 +27,7 @@ export default async function handle(
   //Only VCS students/admin can be added on the service
   //Comment out entire signIn block if dev server
   //Comment in entire signIn block if prod server
-  else if (!email.endsWith("@vcs.net") && !email.endsWith("@warriorlife.net")) {
+  else if (!validEmail(email)) {
     return res.status(500).json("You can't invite a user outside of VCS");
   }
   const receiverNames = email.split("@")[0].split(".");

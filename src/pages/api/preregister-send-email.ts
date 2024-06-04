@@ -6,6 +6,7 @@ import { authOptions } from "./auth/[...nextauth]";
 import nodemailer from "nodemailer";
 
 import { GetInviteEmailHtml } from "../../../components/InviteEmail";
+import { validEmail } from "services/utils";
 
 export default async function handle(
   req: TypedRequestBody<{
@@ -26,10 +27,7 @@ export default async function handle(
   //Only VCS students/admin can be added on the service
   //Comment out entire signIn block if dev server
   //Comment in entire signIn block if prod server
-  else if (
-    !receiverEmail.endsWith("@vcs.net") &&
-    !receiverEmail.endsWith("@warriorlife.net")
-  ) {
+  else if (!validEmail(receiverEmail)) {
     return res.status(500).json("You can't invite a user outside of VCS");
   }
   //try to guess the name from the email ;)

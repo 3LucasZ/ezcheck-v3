@@ -12,3 +12,12 @@ export function getIPFromReq(req: NextApiRequest) {
   if (debugMode) console.log("IP:", ip);
   return ip;
 }
+
+export function validEmail(email: string) {
+  return (
+    email.endsWith("@vcs.net") ||
+    email.endsWith("@warriorlife.net") ||
+    email.endsWith("@vvalley.org") ||
+    email == "lucas.j.zheng@gmail.com"
+  );
+}
