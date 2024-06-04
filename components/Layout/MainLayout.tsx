@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Flex } from "@chakra-ui/react";
 import RedirectPage from "@/pages/404";
 
@@ -31,6 +31,24 @@ export default function Layout(props: LayoutProps) {
     overscroll-behavior: none;
   }
   `;
+
+  //desparation JS to stop zooming
+  if (typeof window !== "undefined") {
+    document.addEventListener("gesturestart", function (e) {
+      e.preventDefault();
+      document.body.style.zoom = 1;
+    });
+
+    document.addEventListener("gesturechange", function (e) {
+      e.preventDefault();
+
+      document.body.style.zoom = 1;
+    });
+    document.addEventListener("gestureend", function (e) {
+      e.preventDefault();
+      document.body.style.zoom = 1;
+    });
+  }
 
   //--ret--
   return (
