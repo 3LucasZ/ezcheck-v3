@@ -40,7 +40,7 @@ export default function Home() {
         <Header me={me} />
         <Box overflowY={"auto"}>
           <Box px={responsivePx}>
-            <Box h={["10", "20"]}></Box>
+            <Box h={["8", "10", "12", "14", "20"]}></Box>
             <Heading
               fontWeight={600}
               fontSize={["3xl", "4xl", "5xl"]}
