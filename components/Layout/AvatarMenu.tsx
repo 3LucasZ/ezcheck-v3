@@ -62,9 +62,7 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
         </Text>
         <MenuItem
           onClick={(e) => {
-            if (debugMode) console.log(e);
             e.preventDefault();
-
             me
               ? signOut({ callbackUrl: "/" })
               : signIn("google", { callbackUrl: "/main" });

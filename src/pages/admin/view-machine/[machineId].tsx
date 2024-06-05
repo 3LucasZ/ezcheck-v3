@@ -88,7 +88,6 @@ useEffect(() => {
       body = { image: newImage };
       res = await poster("/api/upload-image", body, toaster, true);
       const imageUrl = await res.json();
-      // console.log("upload-image-client fileUrl:", imageUrl);
       if (res.status == 200) {
         //attach new image to item
         const body = { id: machine.id, image: imageUrl };

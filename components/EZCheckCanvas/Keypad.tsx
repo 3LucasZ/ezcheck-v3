@@ -29,7 +29,7 @@ function Key(props: KeyProps) {
       onPointerDown={(e) => {
         e.stopPropagation();
         props.onClick(props.text);
-        // console.log(props.text);
+
         setActive(true);
       }}
       onPointerUp={(e) => setActive(false)}

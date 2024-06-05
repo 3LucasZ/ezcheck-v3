@@ -45,7 +45,6 @@ export default async function handle(
       Uint8Array.from(atob(image.split("base64,")[1]), (c) => c.charCodeAt(0))
     );
     const fileUrl = `${relativeUploadDir}/${filename}`;
-    // console.log("upload-image-server fileUrl:", fileUrl);
     return res.status(200).json(fileUrl);
   } catch (e) {
     console.error("Error while trying to upload a file:" + e);

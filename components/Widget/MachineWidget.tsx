@@ -59,7 +59,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   } else {
     if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
   }
-  console.log("machine", props.name, props.image);
+
   //column
   let column =
     useBreakpointValue(
