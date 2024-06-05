@@ -13,7 +13,13 @@ import { User } from "next-auth";
 import { signOut, signIn } from "next-auth/react";
 import Router from "next/router";
 import { FcGoogle } from "react-icons/fc";
-import { FiActivity, FiBookOpen, FiNavigation, FiUsers } from "react-icons/fi";
+import {
+  FiActivity,
+  FiBookOpen,
+  FiNavigation,
+  FiRefreshCcw,
+  FiUsers,
+} from "react-icons/fi";
 import { debugMode } from "services/constants";
 
 type AvatarMenuProps = {
@@ -106,6 +112,14 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
             Admin Dashboard
           </MenuItem>
         )} */}
+        <MenuItem
+          onClick={(e) => {
+            Router.reload();
+          }}
+        >
+          <Icon as={FiRefreshCcw} pr="2" boxSize={6} />
+          Refresh
+        </MenuItem>
         {me && (
           <MenuItem
             onClick={(e) => {
