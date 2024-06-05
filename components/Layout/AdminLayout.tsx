@@ -19,26 +19,12 @@ export default function AdminLayout({
   loaded,
   children,
 }: LayoutProps) {
-  const forbiddenPage = (
-    <>
-      <Heading px={responsivePx} py="30vh">
-        Sorry, you do not have access to this page. Please contact an
-        administrator to grant you access.
-      </Heading>
-    </>
-  );
   return (
     <Layout authorized={me != undefined && me.isAdmin} loaded={loaded}>
       <Header me={me} noDivider={noDivider} />
-      {me?.isAdmin ? (
-        <>
-          {children}
-          <Box minH="50px"></Box>
-          <AppBar />
-        </>
-      ) : (
-        forbiddenPage
-      )}
+      {children}
+      <Box minH="50px"></Box>
+      <AppBar />
     </Layout>
   );
 }
