@@ -59,6 +59,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   } else {
     if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
   }
+  console.log("machine", props.name, props.image);
   //column
   let column =
     useBreakpointValue(
@@ -92,7 +93,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
       <HStack>
         <AspectRatio minW="60px" ratio={1} bgGradient={genGradient(props.name)}>
           <Image
-            src={`/api/${props.image}`}
+            src={props.image.length > 5 ? `/api/${props.image}` : ""}
             hidden={props.image.length < 5}
           ></Image>
         </AspectRatio>
