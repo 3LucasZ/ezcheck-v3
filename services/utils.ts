@@ -18,6 +18,6 @@ export function validEmail(email: string) {
     email.endsWith("@vcs.net") ||
     email.endsWith("@warriorlife.net") ||
     email.endsWith("@vvalley.org") ||
-    email == "lucas.j.zheng@gmail.com"
+    email.endsWith("@thequestinstitute.com")
   );
 }
