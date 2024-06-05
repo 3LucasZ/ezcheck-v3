@@ -89,7 +89,7 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
         {me && (
           <MenuItem
             onClick={(e) => {
-              Router.push("/student/home");
+              Router.push("/user/home");
             }}
           >
             <Icon as={FiUsers} pr="2" boxSize={6} />

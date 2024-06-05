@@ -17,7 +17,7 @@ export default function AppBar() {
       <HStack gap={0} h={"50px"}>
         <AppBarBtn icon={FiHome} href="/admin/home" />
         <AppBarBtn icon={FiMonitor} href="/admin/manage-admin" />
-        <AppBarBtn icon={FiUsers} href="/admin/manage-students" />
+        <AppBarBtn icon={FiUsers} href="/admin/manage-users" />
         <AppBarBtn icon={FiCpu} href="/admin/manage-machines" />
         <AppBarBtn icon={FiFileText} href="/admin/view-logs" />
         <AppBarBtn icon={FiTool} href="/admin/configure-machine" />

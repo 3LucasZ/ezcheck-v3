@@ -18,7 +18,7 @@ import prisma from "services/prisma";
 import SearchView from "components/SearchView";
 
 import { useEffect, useState } from "react";
-import StudentLayout from "components/Layout/StudentLayout";
+import UserLayout from "components/Layout/UserLayout";
 import MachineWidget from "components/Widget/MachineWidget";
 import { MachineProps } from "types/db";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -53,7 +53,7 @@ useEffect(() => {
   const [isVisible, setIsVisible] = useState(false);
   //--ret--
   return (
-    <StudentLayout me={me} loaded={status !== "loading"}>
+    <UserLayout me={me} loaded={status !== "loading"}>
       <Stack px={[2, "5vw", "10vw", "15vw"]} alignItems={"center"} spacing="0">
         <Flex flexDir="row" py="8px" gap="8px">
           <Heading>PIN</Heading>
@@ -136,7 +136,7 @@ useEffect(() => {
                     "/api/post/join-machine",
                     {
                       machineName: machine?.name,
-                      studentPIN: me?.PIN,
+                      userPIN: me?.PIN,
                       IP: "DNE",
                     },
                     toaster,
@@ -145,7 +145,7 @@ useEffect(() => {
                   );
                   if (res.status == 200) {
                     update();
-                    Router.push("/student/home");
+                    Router.push("/user/home");
                   }
                 }}
                 handleLogout={async () => {
@@ -160,7 +160,7 @@ useEffect(() => {
                   );
                   if (res.status == 200) {
                     update();
-                    Router.push("/student/home");
+                    Router.push("/user/home");
                   }
                 }}
               />
@@ -169,7 +169,7 @@ useEffect(() => {
         })}
         isEdit={false}
       />
-    </StudentLayout>
+    </UserLayout>
   );
 }
 

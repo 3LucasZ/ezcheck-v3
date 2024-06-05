@@ -51,7 +51,7 @@ useEffect(() => {
           <CustomStat
             label={"Users"}
             value={"" + props.users.length}
-            link={`/admin/manage-students`}
+            link={`/admin/manage-users`}
             icon={FiUsers}
             dark="orange.400"
             med="orange.200"
@@ -145,11 +145,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 /*
 <Carousel
             cards={[
-              ...props.students.map((student) => ({
-                image: student.image,
+              ...props.users.map((user) => ({
+                image: user.image,
                 dbImage: false,
-                title: student.name,
-                url: "/admin/view-student/" + student.id,
+                title: user.name,
+                url: "/admin/view-user/" + user.id,
               })),
               ...props.machines.map((machine) => ({
                 image: machine.image,

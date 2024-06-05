@@ -30,7 +30,7 @@ export const authOptions = {
         session.user.isAdmin = true;
       return session;
     },
-    //Only VCS students/admin can create an account on the service
+    //Only VCS users/admin can create an account on the service
     //Comment out entire signIn block if dev server
     //Comment in entire signIn block if prod server
     async signIn({ user }: { user: User }) {

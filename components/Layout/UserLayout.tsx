@@ -9,7 +9,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-export default function StudentLayout({ me, loaded, children }: LayoutProps) {
+export default function UserLayout({ me, loaded, children }: LayoutProps) {
   return (
     <Layout authorized={me != undefined} loaded={loaded}>
       <Header me={me} />

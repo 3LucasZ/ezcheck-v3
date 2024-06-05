@@ -19,8 +19,8 @@ export default async function handle(
       usedBy: true,
     },
   });
-  //find student
-  const student = machine?.usedBy;
+  //find user
+  const user = machine?.usedBy;
   //find supervisors
   const supervisors = await prisma.user.findMany({
     where: {
@@ -33,9 +33,9 @@ export default async function handle(
       "."
     : "No supervisors available.";
   //check cases
-  if (student == null || machine == null || supervisors.length == 0) {
+  if (user == null || machine == null || supervisors.length == 0) {
     serverCreateLog(
-      (student == null ? "An unknown student" : student.name) +
+      (user == null ? "An unknown user" : user.name) +
         " might be trespassing on " +
         (machine == null
           ? "an unknown machine (" + machineName + ") "
@@ -47,7 +47,7 @@ export default async function handle(
     if (machine == null) {
       return res.status(500).send(machineName + " doesn't exist");
     }
-    if (student == null) {
+    if (user == null) {
       return res.status(500).send("Already logged out");
     }
     if (supervisors.length == 0) {

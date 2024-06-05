@@ -34,11 +34,11 @@ import { useEffect, useState } from "react";
 import { FiEye, FiEyeOff, FiLogOut, FiTrash2 } from "react-icons/fi";
 
 type PageProps = {
-  student: User;
+  user: User;
   machines: MachineProps[];
 };
 
-export default function StudentPage(props: PageProps) {
+export default function UserPage(props: PageProps) {
   //--copy paste on every page--
   const { data: session, status, update } = useSession();
   /*
@@ -52,10 +52,8 @@ useEffect(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   //--new state--
-  const [newPIN, setNewPIN] = useState(
-    props.student.PIN ? props.student.PIN : ""
-  );
-  const [newCerts, setNewCerts] = useState(props.student.certificates);
+  const [newPIN, setNewPIN] = useState(props.user.PIN ? props.user.PIN : "");
+  const [newCerts, setNewCerts] = useState(props.user.certificates);
   //--handle relations--
   const inId = newCerts.map((cert) => cert.machineId);
   const outId = props.machines
@@ -72,15 +70,15 @@ useEffect(() => {
   //--handle delete modal--
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleDelete = async () => {
-    const body = { id: props.student.id };
-    const res = await poster("/api/delete-student", body, toaster, true);
+    const body = { id: props.user.id };
+    const res = await poster("/api/delete-user", body, toaster, true);
     if (res.status == 200)
-      await Router.push({ pathname: "/admin/manage-students" });
+      await Router.push({ pathname: "/admin/manage-users" });
   };
   //--force log out--
   const handleLeave = async () => {
     const body = {
-      machineName: props.student.using?.name,
+      machineName: props.user.using?.name,
     };
     const res = await poster("/api/post/leave-machine", body, toaster);
     if (res.status == 200) Router.reload();
@@ -89,24 +87,24 @@ useEffect(() => {
   const handleUpdate = async () => {
     const addCerts = newCerts.filter(
       (newCert) =>
-        props.student.certificates.find(
+        props.user.certificates.find(
           (oldCert) => oldCert.machineId == newCert.machineId
         ) == undefined
     );
-    const rmCerts = props.student.certificates.filter(
+    const rmCerts = props.user.certificates.filter(
       (oldCert) =>
         newCerts.find((newCert) => newCert.machineId == oldCert.machineId) ==
         undefined
     );
     const body = {
-      id: props.student.id,
+      id: props.user.id,
       newPIN,
       addCerts,
       rmCerts,
     };
-    const res = await poster("/api/update-student", body, toaster, true);
+    const res = await poster("/api/update-user", body, toaster, true);
     if (res.status == 200) {
-      Router.push(`/admin/view-student/${props.student.id}`); //necessary to re-grab updated server data
+      Router.push(`/admin/view-user/${props.user.id}`); //necessary to re-grab updated server data
       setIsEdit(false);
     }
   };
@@ -119,7 +117,7 @@ useEffect(() => {
           wordBreak={"break-all"}
           fontSize={responsiveHeaderFontSize}
         >
-          {props.student.name}
+          {props.user.name}
         </Center>
         <Spacer />
         <IconButton
@@ -130,7 +128,7 @@ useEffect(() => {
         <ConfirmDeleteModal
           isOpen={isOpen}
           onClose={onClose}
-          name={props.student.name}
+          name={props.user.name}
           handleDelete={handleDelete}
         />
       </Flex>
@@ -141,7 +139,7 @@ useEffect(() => {
           fontSize={responsiveSubheaderFontSize}
           color="gray"
         >
-          {props.student.email}
+          {props.user.email}
         </Center>
       </Flex>
       <Flex px={responsivePx}>
@@ -173,7 +171,7 @@ useEffect(() => {
               const res = await poster(
                 "/api/post/leave-machine",
                 {
-                  machineName: props.student.using?.name,
+                  machineName: props.user.using?.name,
                 },
                 toaster,
                 false,
@@ -181,10 +179,10 @@ useEffect(() => {
               );
               if (res.status == 200) {
                 update();
-                Router.push(`/admin/view-student/${props.student.id}`);
+                Router.push(`/admin/view-user/${props.user.id}`);
               }
             }}
-            isDisabled={props.student.using == undefined}
+            isDisabled={props.user.using == undefined}
           />
         </HStack>
       </Flex>
@@ -192,7 +190,7 @@ useEffect(() => {
         setIn={newCerts.map((cert) => {
           return {
             name:
-              (cert.machine.name == props.student.using?.name ? 0 : 1) +
+              (cert.machine.name == props.user.using?.name ? 0 : 1) +
               cert.machine.name,
             widget: (
               <MachineWidget
@@ -203,14 +201,14 @@ useEffect(() => {
                 description={cert.machine.description}
                 //cert
                 type2={true}
-                certUserId={props.student.id}
+                certUserId={props.user.id}
                 issuerName={cert.issuer.name}
                 issuerEmail={cert.issuer.email}
                 note={cert.note}
                 //functions + state
                 isEdit={isEdit}
                 inverted={false}
-                using={cert.machine.name == props.student.using?.name}
+                using={cert.machine.name == props.user.using?.name}
                 handleRemove={() => rmCert(cert)}
               />
             ),
@@ -233,8 +231,8 @@ useEffect(() => {
                 inverted={true}
                 handleAdd={() =>
                   addCert({
-                    recipient: props.student,
-                    recipientId: props.student.id,
+                    recipient: props.user,
+                    recipientId: props.user.id,
                     machine: machine,
                     machineId: machine.id,
                     //type2
@@ -260,8 +258,8 @@ useEffect(() => {
           setIsVisible(false);
         }}
         onCancel={() => {
-          setNewPIN(props.student.PIN);
-          setNewCerts(props.student.certificates);
+          setNewPIN(props.user.PIN);
+          setNewCerts(props.user.certificates);
           setIsEdit(false);
           setIsVisible(false);
         }}
@@ -271,9 +269,9 @@ useEffect(() => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const student = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
-      id: String(context.params?.studentId),
+      id: String(context.params?.userId),
     },
     include: {
       certificates: {
@@ -285,7 +283,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       using: true,
     },
   });
-  if (student == null) {
+  if (user == null) {
     return {
       redirect: {
         permanent: false,
@@ -296,7 +294,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const machines = await prisma.machine.findMany();
   return {
     props: {
-      student,
+      user,
       machines,
     },
   };

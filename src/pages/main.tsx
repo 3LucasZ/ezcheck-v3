@@ -9,7 +9,7 @@ export default function Main() {
 
   useEffect(() => {
     update();
-    Router.push(isAdmin ? "/admin/home" : "/student/home");
+    Router.push(isAdmin ? "/admin/home" : "/user/home");
   });
 
   return "";

@@ -13,7 +13,7 @@ declare module "next-auth" {
       email: string;
       name: string;
       image: string;
-      //custom student
+      //custom user
       PIN: string;
       certificates: CertificateProps[];
       using?: MachineProps;
@@ -28,7 +28,7 @@ declare module "next-auth" {
     email: string;
     name: string;
     image: string;
-    //custom student
+    //custom user
     PIN: string;
     certificates: CertificateProps[];
     using?: MachineProps;

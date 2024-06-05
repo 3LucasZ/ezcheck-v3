@@ -72,7 +72,7 @@ export default function UserWidget(props: UserWidgetProps) {
         mx={1} //so we can see the side shadows
         onClick={() =>
           !(props.disabled || props.isEdit) &&
-          Router.push(`/admin/view-student/${props.id}`)
+          Router.push(`/admin/view-user/${props.id}`)
         }
         px="2"
         bg={bg}

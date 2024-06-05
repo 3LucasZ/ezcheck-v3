@@ -27,22 +27,22 @@ useEffect(() => {
   //--handle add/rm admin--
   const addAdmin = async (user: User) => {
     const body = { requester: me, id: user.id, isAdmin: true };
-    const res = await poster("/api/update-student", body, toaster);
+    const res = await poster("/api/update-user", body, toaster);
     if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   const rmAdmin = async (user: User) => {
     const body = { requester: me, id: user.id, isAdmin: false };
-    const res = await poster("/api/update-student", body, toaster);
+    const res = await poster("/api/update-user", body, toaster);
     if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   const startSupervising = async () => {
     const body = { requester: me, id: me?.id, isSupervising: true };
-    const res = await poster("/api/update-student", body, toaster);
+    const res = await poster("/api/update-user", body, toaster);
     if (res.status == 200) Router.reload();
   };
   const stopSupervising = async () => {
     const body = { requester: me, id: me?.id, isSupervising: false };
-    const res = await poster("/api/update-student", body, toaster);
+    const res = await poster("/api/update-user", body, toaster);
     if (res.status == 200) Router.reload();
   };
   //--ret--
@@ -54,8 +54,8 @@ useEffect(() => {
         </Text>
         {/* <Box>
           {me?.isSupervising
-            ? "I agree that when I leave, no students are left in the machine shop unsupervised."
-            : "I agree to be physically present in the machine shop as a supervisor. I'm responsible for the safety of the students and will make sure they're using equipment properly."}
+            ? "I agree that when I leave, no users are left in the machine shop unsupervised."
+            : "I agree to be physically present in the machine shop as a supervisor. I'm responsible for the safety of the users and will make sure they're using equipment properly."}
         </Box> */}
         <Box minH="8px" />
         <Center>

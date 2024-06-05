@@ -31,9 +31,9 @@ import { FiImage, FiSettings, FiTrash2 } from "react-icons/fi";
 import ImageModal from "components/Main/ImageModal";
 type PageProps = {
   machine: MachineProps;
-  students: User[];
+  users: User[];
 };
-export default function MachinePage({ machine, students }: PageProps) {
+export default function MachinePage({ machine, users }: PageProps) {
   //--copy paste on every page--
   const { data: session, status, update } = useSession();
   /*
@@ -52,9 +52,7 @@ useEffect(() => {
   const [newCerts, setNewCerts] = useState(machine.certificates);
   //--handle relations--
   const inId = newCerts.map((cert) => cert.recipientId);
-  const outId = students
-    .map((item) => item.id)
-    .filter((id) => !inId.includes(id));
+  const outId = users.map((item) => item.id).filter((id) => !inId.includes(id));
   function addCert(certificate: CertificateProps) {
     const copy = [...newCerts];
     copy.push(certificate);
@@ -239,23 +237,23 @@ useEffect(() => {
           ),
         }))}
         setOut={outId.map((id) => {
-          const student = students.find((x) => x.id == id) || students[0];
+          const user = users.find((x) => x.id == id) || users[0];
           return {
-            name: student.name,
+            name: user.name,
             widget: (
               <UserWidget
                 //data
-                name={student.name}
-                email={student.email}
-                image={student.image}
-                id={student.id}
+                name={user.name}
+                email={user.email}
+                image={user.image}
+                id={user.id}
                 //xtra
                 inverted={true}
                 isEdit={isEdit}
                 handleAdd={() =>
                   addCert({
-                    recipient: student,
-                    recipientId: student.id,
+                    recipient: user,
+                    recipientId: user.id,
                     machine: machine,
                     machineId: machine.id,
                     //
@@ -312,7 +310,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-  const students = await prisma.user.findMany({
+  const users = await prisma.user.findMany({
     where: {
       // isAdmin: false,
     },
@@ -320,7 +318,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       machine,
-      students,
+      users,
     },
   };
 };

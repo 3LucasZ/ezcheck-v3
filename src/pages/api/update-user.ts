@@ -13,7 +13,7 @@ export default async function handle(
   req: TypedRequestBody<{
     requester: User;
     id: string;
-    //student
+    //user
     newPIN?: string;
     addCerts?: CertificateProps[];
     rmCerts?: CertificateProps[];
@@ -42,9 +42,9 @@ export default async function handle(
       }))
     : [];
   if (newPIN == "") return res.status(500).json("PIN can't be empty");
-  //update student
+  //update user
   try {
-    const oldStudent = await prisma.user.findUnique({ where: { id } });
+    const oldUser = await prisma.user.findUnique({ where: { id } });
     const op = await prisma.user.update({
       where: {
         id,
@@ -64,26 +64,20 @@ export default async function handle(
     });
     //log certificate changes?
     //log admin/supervisor changes
-    if (oldStudent?.isAdmin == false && isAdmin == true) {
+    if (oldUser?.isAdmin == false && isAdmin == true) {
       serverCreateLog(
-        requester.name +
-          " granted admin privileges to " +
-          oldStudent.name +
-          ".",
+        requester.name + " granted admin privileges to " + oldUser.name + ".",
         0
       );
-    } else if (oldStudent?.isAdmin == true && isAdmin == false) {
+    } else if (oldUser?.isAdmin == true && isAdmin == false) {
       serverCreateLog(
-        requester.name +
-          " removed admin privileges from " +
-          oldStudent.name +
-          ".",
+        requester.name + " removed admin privileges from " + oldUser.name + ".",
         0
       );
-    } else if (oldStudent?.isSupervising == false && isSupervising == true) {
-      serverCreateLog(oldStudent.name + " has started supervising.", 0);
-    } else if (oldStudent?.isSupervising == true && isSupervising == false) {
-      serverCreateLog(oldStudent.name + " has stopped supervising.", 0);
+    } else if (oldUser?.isSupervising == false && isSupervising == true) {
+      serverCreateLog(oldUser.name + " has started supervising.", 0);
+    } else if (oldUser?.isSupervising == true && isSupervising == false) {
+      serverCreateLog(oldUser.name + " has stopped supervising.", 0);
     }
     //post process
     return res.status(200).json(op.id);

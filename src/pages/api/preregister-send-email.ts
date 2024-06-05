@@ -24,7 +24,7 @@ export default async function handle(
   if (receiverEmail == "") {
     return res.status(500).json("email can't be empty");
   }
-  //Only VCS students/admin can be added on the service
+  //Only VCS users/admin can be added on the service
   //Comment out entire signIn block if dev server
   //Comment in entire signIn block if prod server
   else if (!validEmail(receiverEmail)) {

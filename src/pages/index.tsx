@@ -68,7 +68,7 @@ useEffect(() => {
           </Box>
 
           {/* <Text color={"gray.500"}>
-            Whether you are a student or administrator, this is the ultimate
+            Whether you are a user or administrator, this is the ultimate
             management tool for your Never miss a meeting. Never be late for one
             too. Keep track of your meetings and receive smart reminders in
             appropriate times. Read your smart “Daily Agenda” every morning.
@@ -91,7 +91,7 @@ useEffect(() => {
                 onClick={(e) => {
                   e.preventDefault();
                   session
-                    ? Router.push(me?.isAdmin ? "/admin/home" : "/student/home")
+                    ? Router.push(me?.isAdmin ? "/admin/home" : "/user/home")
                     : signIn("google", { callbackUrl: "/main" });
                 }}
               >
@@ -100,14 +100,14 @@ useEffect(() => {
               <Box h={["10"]}></Box>
               <FeatureCard
                 icon={FiUsers}
-                title="Students"
+                title="Users"
                 content="View your information on-demand and real-time."
               />
               <Box h="12" />
               <FeatureCard
                 icon={FiActivity}
                 title="Admins"
-                content="Manage machines and students without any hassle."
+                content="Manage machines and users without any hassle."
               />
               <Box h="8"></Box>
               <Button

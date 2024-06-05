@@ -5,7 +5,7 @@ import { FAQHeader, FAQItem } from "components/Layout/FAQ";
 import { useEffect } from "react";
 import { FiExternalLink } from "react-icons/fi";
 import Router from "next/router";
-import StudentLayout from "components/Layout/StudentLayout";
+import UserLayout from "components/Layout/UserLayout";
 
 export default function Home() {
   //--copy paste on every page--
@@ -18,14 +18,14 @@ useEffect(() => {
   const me = session?.user;
   //--ret--
   return (
-    <StudentLayout me={me} loaded={status !== "loading"}>
+    <UserLayout me={me} loaded={status !== "loading"}>
       <Box px={[5, 10, 10, 28, 48, 60]} overflowY="auto">
         <FAQHeader />
         <Box h="8" />
         <VStack align={"start"} gap="4">
           <FAQItem
             Q="What does the invert checkbox do?"
-            A="When invert mode is on, the display will tell you the opposite of what it originally shows. Example: instead of showing what machines a student is allowed to use, the display will show what machines a student is not allowed to use."
+            A="When invert mode is on, the display will tell you the opposite of what it originally shows. Example: instead of showing what machines a user is allowed to use, the display will show what machines a user is not allowed to use."
           />
           <FAQItem
             Q="Why does the machine configuration website not load, despite following the instructions?"
@@ -88,6 +88,6 @@ useEffect(() => {
         </Box>
         <Box h="8"></Box>
       </Box>
-    </StudentLayout>
+    </UserLayout>
   );
 }

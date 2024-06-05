@@ -32,7 +32,7 @@ model User {
   isAdmin       Boolean @default(false)
   isSupervising   Boolean   @default(false)
 
-  //custom student
+  //custom user
   preregistered Boolean @default(false)
   PIN       String?      @unique @db.VarChar(255) 
   certificates  MachineCertificate[] @relation("recipient") //special
@@ -102,7 +102,7 @@ model Log {
   timestamp Int       //seconds since epoch via Date.now()/1000. Using seconds instead of millis to avoid having to use BigInt which is unseralizable into JSON.
   sender    String?      @db.VarChar(255)
   message   String      @db.VarChar(2047)
-  level     Int         //0 = info(create/update student/machine, legal join-machine, legal leave-machine), 1 = dangerous(delete student/machine, create/delete admin), 2 = fatal(wrong student password in join-machine, student using multiple machines)
+  level     Int         //0 = info(create/update user/machine, legal join-machine, legal leave-machine), 1 = dangerous(delete user/machine, create/delete admin), 2 = fatal(wrong user password in join-machine, user using multiple machines)
 }
 
 //----Relations----

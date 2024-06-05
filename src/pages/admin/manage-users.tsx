@@ -29,10 +29,10 @@ import { poster } from "services/poster";
 import Router from "next/router";
 
 type PageProps = {
-  students: User[];
+  users: User[];
 };
 
-export default function ManageStudents({ students }: PageProps) {
+export default function ManageUsers({ users }: PageProps) {
   //--copy paste on every page--
   const { data: session, status, update } = useSession();
   /*
@@ -46,20 +46,15 @@ useEffect(() => {
   const [email, setEmail] = useState("");
   //--registration--
   const preregister = async () => {
-    const res = await poster(
-      "/api/preregister-student",
-      { email },
-      toaster,
-      true
-    );
+    const res = await poster("/api/preregister-user", { email }, toaster, true);
     if (res.status == 200) {
-      Router.push("/admin/manage-students");
+      Router.push("/admin/manage-users");
       onClose();
     }
   };
   const withMail = async () => {
     const res1 = await poster(
-      "/api/preregister-student",
+      "/api/preregister-user",
       { email },
       toaster,
       false
@@ -72,7 +67,7 @@ useEffect(() => {
         true
       );
       if (res2.status == 200) {
-        Router.push("/admin/manage-students");
+        Router.push("/admin/manage-users");
         onClose();
       }
     }
@@ -83,18 +78,18 @@ useEffect(() => {
   return (
     <AdminLayout me={me} loaded={status !== "loading"}>
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
-        Students
+        Users
       </Text>
       <SearchView
-        setIn={students.map((student) => ({
-          name: student.name,
+        setIn={users.map((user) => ({
+          name: user.name,
           widget: (
             <UserWidget
-              key={student.id}
-              id={student.id}
-              name={student.name}
-              email={student.email}
-              image={student.image}
+              key={user.id}
+              id={user.id}
+              name={user.name}
+              email={user.email}
+              image={user.image}
             />
           ),
         }))}
@@ -108,12 +103,12 @@ useEffect(() => {
           <ModalCloseButton />
           <ModalBody>
             <Text>
-              Students can create their own accounts via the EZCheck website. In
-              addition, you can also preregister student accounts here.
+              Users can create their own accounts via the EZCheck website. In
+              addition, you can also preregister user accounts here.
             </Text>
             <Box h="4"></Box>
             <Text>
-              Enter the email address of the student you want to preregister.
+              Enter the email address of the user you want to preregister.
             </Text>
             <Box h="4"></Box>
             <Input
@@ -137,11 +132,11 @@ useEffect(() => {
   );
 }
 export const getServerSideProps: GetServerSideProps = async () => {
-  const students = await prisma.user.findMany({
+  const users = await prisma.user.findMany({
     // where: { isAdmin: false },
     include: { using: true },
   });
   return {
-    props: { students },
+    props: { users },
   };
 };

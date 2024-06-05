@@ -24,7 +24,7 @@ export default async function handle(
   if (email == "") {
     return res.status(500).json("email can't be empty");
   }
-  //Only VCS students/admin can be added on the service
+  //Only VCS users/admin can be added on the service
   //Comment out entire signIn block if dev server
   //Comment in entire signIn block if prod server
   else if (!validEmail(email)) {
@@ -38,7 +38,7 @@ export default async function handle(
   receiverName = receiverName.slice(0, -1);
   //--operation--
   try {
-    const newStudent = await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name: receiverName,
         email: email,
@@ -46,7 +46,7 @@ export default async function handle(
       },
     });
     //post process
-    return res.status(200).json(newStudent.id);
+    return res.status(200).json(newUser.id);
   } catch (e) {
     return res.status(500).json(prismaErrHandler(e));
   }
