@@ -24,6 +24,10 @@ useEffect(() => {
         <Box h="8" />
         <VStack align={"start"} gap="4">
           <FAQItem
+            Q="What is the version of this website?"
+            A="You are currently using version 2.1 of the website."
+          />
+          <FAQItem
             Q="What does the invert checkbox do?"
             A="When invert mode is on, the display will tell you the opposite of what it originally shows. Example: instead of showing what machines a user is allowed to use, the display will show what machines a user is not allowed to use."
           />
