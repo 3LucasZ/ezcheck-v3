@@ -10,7 +10,7 @@ export default async function handle(
 ) {
   //--API Protection--
   const session = await getServerSession(req, res, authOptions);
-  if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
+  //if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //arbitrary creation
   try {
     const op = await prisma.machine.create({
