@@ -60,7 +60,11 @@ export default function LCD(props: LCDProps) {
         maxWidth={lcdWidth * (1 / 0.11)}
       >
         {props.text}
-        <meshBasicMaterial color="black" />
+        {/* <meshBasicMaterial color="black" /> */}
+        <meshStandardMaterial
+          emissive={"#2C7A7B"}
+          emissiveIntensity={intensity}
+        />
       </Text>
       {/* <Text3D
         scale={[0.11, 0.11, 0]}

@@ -20,7 +20,7 @@ export const lcdPad = 0.025;
 
 export const gridLen = boxHeight - 3 * boxPad - lcdHeight;
 export const gridPad = 0.04;
-export const gridDepth = 0.03;
+export const gridDepth = 0.015;
 
 export const keys = [
   "1",

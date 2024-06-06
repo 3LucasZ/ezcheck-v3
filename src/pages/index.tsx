@@ -127,7 +127,7 @@ useEffect(() => {
             w={widths.map((width) => width + "px")}
             alignSelf={"center"}
           >
-            <EZCheckCanvas useBloom={useBloom} />
+            <EZCheckCanvas useBloom={false} />
           </Box>
         </Flex>
         <Box h="20"></Box>

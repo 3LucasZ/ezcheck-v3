@@ -8,7 +8,7 @@ import {
   ToneMapping,
 } from "@react-three/postprocessing";
 import { useRef, useState } from "react";
-import { Mesh } from "three";
+import { HalfFloatType, Mesh } from "three";
 import { ToneMappingMode } from "postprocessing";
 import EZCheck from "./EZCheck";
 import { ledHeight } from "./constants";
@@ -27,10 +27,14 @@ export function EZCheckCanvas(props: PageProps) {
   const polarAngle = (3 * Math.PI) / 8;
   setTimeout(function () {
     setLoaded(true);
-  }, 5000);
-
+  }, 3000);
+  // console.log("dpr:", window.devicePixelRatio);
   return (
-    <Canvas camera={{ zoom: 4, position: [0, -ledHeight / 2, 5] }}>
+    <Canvas
+      camera={{ zoom: 4, position: [0, -ledHeight / 2, 5.3] }}
+      // frameloop="demand"
+      // dpr={4}
+    >
       {/* <color attach="background" args={["#111"]} /> */}
       <OrbitControls
         enableZoom={false}
@@ -38,6 +42,7 @@ export function EZCheckCanvas(props: PageProps) {
         maxAzimuthAngle={loaded ? Math.PI / 4 : azimuthAngle}
         minPolarAngle={loaded ? Math.PI / 4 : polarAngle}
         maxPolarAngle={loaded ? Math.PI / 2 : polarAngle}
+        enablePan={false}
         // autoRotate={true}
         // autoRotateSpeed={1}
       />
@@ -53,12 +58,16 @@ export function EZCheckCanvas(props: PageProps) {
       <EZCheck leftLEDRef={leftLEDRef} rightLEDRef={rightLEDRef} />
 
       {props.useBloom && (
-        <EffectComposer enableNormalPass={false}>
+        <EffectComposer
+          enableNormalPass={false}
+          frameBufferType={HalfFloatType}
+        >
           <Bloom
-            mipmapBlur
-            luminanceThreshold={1}
-            levels={8}
-            intensity={0.4 * 4}
+            mipmapBlur={true}
+            luminanceThreshold={1.0}
+            // levels={8}
+            // intensity={0.4 * 4}
+            // intensity={1.1}
           />
           <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
         </EffectComposer>

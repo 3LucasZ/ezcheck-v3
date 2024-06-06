@@ -33,8 +33,8 @@ useEffect(() => {
         EZCheck Simulator
       </Heading>
       <AvatarMenu me={me} /> */}
-      <Box h="80%">
-        <EZCheckCanvas useBloom={useBloom}></EZCheckCanvas>
+      <Box h="85%">
+        <EZCheckCanvas useBloom={false}></EZCheckCanvas>
       </Box>
     </Layout>
   );
