@@ -23,7 +23,8 @@ export default function Layout(props: LayoutProps) {
       });
     }
   } else {
-    content = "";
+    // content = "";
+    content = props.children;
   }
   //desparation CSS to stop overscrolling
   const css = `
