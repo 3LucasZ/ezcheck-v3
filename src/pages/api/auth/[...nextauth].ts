@@ -24,7 +24,7 @@ export const authOptions = {
       session.user = user;
       //instant lucas admin :D
       if (
-        user.email == "lucas.j.zheng@gmail.com" ||
+        // user.email == "lucas.j.zheng@gmail.com" ||
         user.email == "lucas.zheng@warriorlife.net"
       )
         session.user.isAdmin = true;
@@ -34,7 +34,10 @@ export const authOptions = {
     //Comment out entire signIn block if dev server
     //Comment in entire signIn block if prod server
     async signIn({ user }: { user: User }) {
-      return validEmail(user.email);
+      const prismaUser = await prisma.user.findUnique({
+        where: { email: user.email },
+      });
+      return validEmail(user.email) || prismaUser != null;
     },
   },
 };

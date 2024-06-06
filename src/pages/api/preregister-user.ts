@@ -13,6 +13,7 @@ import { validEmail } from "services/utils";
 export default async function handle(
   req: TypedRequestBody<{
     email: string;
+    restrict?: boolean;
   }>,
   res: NextApiResponse
 ) {
@@ -20,16 +21,20 @@ export default async function handle(
   const session = await getServerSession(req, res, authOptions);
   if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //--initialize + checks--
-  const { email } = req.body;
+  const { email, restrict } = req.body;
   if (email == "") {
     return res.status(500).json("email can't be empty");
   }
-  //Only VCS users/admin can be added on the service
-  //Comment out entire signIn block if dev server
-  //Comment in entire signIn block if prod server
-  else if (!validEmail(email)) {
-    return res.status(500).json("You can't invite a user outside of VCS");
+  //In restrict mode, only VCS users can be preregistered.
+  //Used in conjunction with preregister-send-email.
+  if (restrict && !validEmail(email)) {
+    // return res.status(500).json("You can't invite a user outside of VCS");
+    return res
+      .status(500)
+      .json("You can't send an email to a user outside of VCS");
   }
+  //Otherwise, anyone can be added on the service via preregistration.
+  //Predict the name from the email
   const receiverNames = email.split("@")[0].split(".");
   let receiverName = "";
   receiverNames.map(

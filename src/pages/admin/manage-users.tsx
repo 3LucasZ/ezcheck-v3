@@ -55,7 +55,7 @@ useEffect(() => {
   const withMail = async () => {
     const res1 = await poster(
       "/api/preregister-user",
-      { email },
+      { email, restrict: true },
       toaster,
       false
     );

@@ -24,20 +24,21 @@ export default async function handle(
   if (receiverEmail == "") {
     return res.status(500).json("email can't be empty");
   }
-  //Only VCS users/admin can be added on the service
-  //Comment out entire signIn block if dev server
-  //Comment in entire signIn block if prod server
+  //Only VCS users/admin can be sent an email
   else if (!validEmail(receiverEmail)) {
-    return res.status(500).json("You can't invite a user outside of VCS");
+    // return res.status(500).json("You can't invite a user outside of VCS");
+    return res
+      .status(500)
+      .json("You can't send an email to a user outside of VCS");
   }
-  //try to guess the name from the email ;)
+  //Predict the name from the email
   const receiverNames = receiverEmail.split("@")[0].split(".");
   let receiverName = "";
   receiverNames.map(
     (name) => (receiverName += name[0].toUpperCase() + name.substring(1) + " ")
   );
   receiverName = receiverName.slice(0, -1);
-  //--webpage :)--
+  //--email html--
   const emailHtml = GetInviteEmailHtml({
     receiverName: receiverName,
     receiverEmail: receiverEmail,
