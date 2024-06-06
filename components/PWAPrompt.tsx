@@ -1,32 +1,29 @@
+"use client";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { FiPlusSquare, FiX } from "react-icons/fi";
 import { IoShareOutline } from "react-icons/io5";
 
 export default function PWAPrompt() {
-  const isIos = () => {
-    // const userAgent = window.navigator.userAgent.toLowerCase();
-    // return /iphone|ipad|ipod/.test(userAgent);
-    return (
-      [
-        "iPad Simulator",
-        "iPhone Simulator",
-        "iPod Simulator",
-        "iPad",
-        "iPhone",
-        "iPod",
-      ].includes(navigator.platform) ||
-      // iPad on iOS 13 detection
-      (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-    );
-  };
+  const isIos =
+    [
+      "iPad Simulator",
+      "iPhone Simulator",
+      "iPod Simulator",
+      "iPad",
+      "iPhone",
+      "iPod",
+    ].includes(navigator.platform) ||
+    // iPad on iOS 13 detection
+    (navigator.userAgent.includes("Mac") && "ontouchend" in document);
   console.log("isIos:", isIos);
-  const isInStandaloneMode = () =>
+  const isInStandaloneMode =
     "standalone" in window.navigator && window.navigator.standalone;
   console.log("isStandalone:", isInStandaloneMode);
-  const isCancelled = () => localStorage.getItem("isCancelled") === "true";
+  const isCancelled = localStorage.getItem("isCancelled") === "true";
+  console.log("isCancelled:", isCancelled);
   const [invisible, setInvisible] = useState(
-    !isIos() || isInStandaloneMode() || isCancelled()
+    !isIos || isInStandaloneMode || isCancelled
   );
   return (
     <Box
