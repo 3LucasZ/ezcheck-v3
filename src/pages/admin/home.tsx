@@ -28,11 +28,9 @@ type PageProps = {
 };
 export default function Home(props: PageProps) {
   const { data: session, status, update } = useSession();
-  /*
-useEffect(() => {
+  useEffect(() => {
     update();
   }, []);
-*/
   const me = session?.user;
   const machinesInUse = props.machines.filter(
     (machine) => machine.usedBy != undefined && machine.usedBy != null

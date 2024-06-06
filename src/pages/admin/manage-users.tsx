@@ -35,11 +35,9 @@ type PageProps = {
 export default function ManageUsers({ users }: PageProps) {
   //--copy paste on every page--
   const { data: session, status, update } = useSession();
-  /*
-useEffect(() => {
+  useEffect(() => {
     update();
   }, []);
-*/
   const me = session?.user;
   const toaster = useToast();
   //--state--

@@ -17,11 +17,9 @@ type PageProps = {
 export default function ManageAdmin({ users }: PageProps) {
   //--template--
   const { data: session, status, update } = useSession();
-  /*
-useEffect(() => {
+  useEffect(() => {
     update();
   }, []);
-*/
   const me = session?.user;
   const toaster = useToast();
   //--handle add/rm admin--
@@ -38,12 +36,14 @@ useEffect(() => {
   const startSupervising = async () => {
     const body = { requester: me, id: me?.id, isSupervising: true };
     const res = await poster("/api/update-user", body, toaster);
-    if (res.status == 200) Router.reload();
+    // if (res.status == 200) Router.reload();
+    if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   const stopSupervising = async () => {
     const body = { requester: me, id: me?.id, isSupervising: false };
     const res = await poster("/api/update-user", body, toaster);
-    if (res.status == 200) Router.reload();
+    // if (res.status == 200) Router.reload();
+    if (res.status == 200) await Router.push("/admin/manage-admin");
   };
   //--ret--
   return (

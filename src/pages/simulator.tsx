@@ -8,11 +8,9 @@ import { useEffect } from "react";
 
 export default function Simulator() {
   const { data: session, status, update } = useSession();
-  /*
-useEffect(() => {
+  useEffect(() => {
     update();
   }, []);
-*/
   const me = session?.user;
   const useBloom = useBreakpointValue({
     base: false,
