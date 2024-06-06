@@ -1,30 +1,33 @@
-"use client";
 import { Box, Icon, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiPlusSquare, FiX } from "react-icons/fi";
 import { IoShareOutline } from "react-icons/io5";
 
 export default function PWAPrompt() {
-  const isIos =
-    [
-      "iPad Simulator",
-      "iPhone Simulator",
-      "iPod Simulator",
-      "iPad",
-      "iPhone",
-      "iPod",
-    ].includes(navigator.platform) ||
-    // iPad on iOS 13 detection
-    (navigator.userAgent.includes("Mac") && "ontouchend" in document);
-  console.log("isIos:", isIos);
-  const isInStandaloneMode =
-    "standalone" in window.navigator && window.navigator.standalone;
-  console.log("isStandalone:", isInStandaloneMode);
-  const isCancelled = localStorage.getItem("isCancelled") === "true";
-  console.log("isCancelled:", isCancelled);
-  const [invisible, setInvisible] = useState(
-    !isIos || isInStandaloneMode || isCancelled
-  );
+  //can not call navigator on server side since it is strictly a web API.
+  //we wrap it inside useEffect to force it to be called on the client only.
+  useEffect(() => {
+    const isIos =
+      [
+        "iPad Simulator",
+        "iPhone Simulator",
+        "iPod Simulator",
+        "iPad",
+        "iPhone",
+        "iPod",
+      ].includes(navigator.platform) ||
+      // iPad on iOS 13 detection
+      (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+    console.log("isIos:", isIos);
+    const isInStandaloneMode =
+      "standalone" in window.navigator && window.navigator.standalone == true;
+    console.log("isStandalone:", isInStandaloneMode);
+    const isCancelled = localStorage.getItem("isCancelled") === "true";
+    console.log("isCancelled:", isCancelled);
+    setInvisible(!isIos || isInStandaloneMode || isCancelled);
+  });
+  const [invisible, setInvisible] = useState(false);
+
   return (
     <Box
       pos="fixed"
