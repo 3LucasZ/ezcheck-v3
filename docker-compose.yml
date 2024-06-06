@@ -47,8 +47,12 @@ services:
       - NODEMAILER_PW=${NODEMAILER_PW}
       - NODEMAILER_EMAIL=${NODEMAILER_EMAIL}
       - BASE_URL=${BASE_URL}
+    volumes:
+      - app:/app/uploads
     restart: always
 volumes:
   db:
+    driver: local
+  app:
     driver: local
 # NOTE: DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA
