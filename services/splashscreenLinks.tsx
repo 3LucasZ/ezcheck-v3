@@ -1,4 +1,4 @@
-const splashScreenLinks = (
+export const splashScreenLinks = (
   <>
     <link
       rel="apple-touch-startup-image"

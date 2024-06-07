@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, type ReactNode } from "react";
 import { Flex } from "@chakra-ui/react";
 import RedirectPage from "@/pages/404";
+import { splashScreenLinks } from "services/splashscreenLinks";
 
 type LayoutProps = {
   // isAdmin: boolean | undefined;
