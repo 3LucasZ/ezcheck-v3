@@ -5,7 +5,10 @@
 
 ## Credit
 
+- UI
+  - Chakra UI
 - PWA
-- - PWA splash screen generator: https://appsco.pe/developer/splash-screens/
+  - PWA splash screen generator: https://github.com/elegantapp/pwa-asset-generator
 - Refresh
-- - Server side props https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+  - Server side props https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+  - Session
