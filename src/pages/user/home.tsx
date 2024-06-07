@@ -110,7 +110,7 @@ export default function Home({ machines }: PageProps) {
       </Flex>
 
       <SearchView
-        setIn={(isAllowed ? inId : outId).map((id) => {
+        setIn={(isAllowed ? inId : outId).map((id, index) => {
           var machine = machines.find((x) => x.id == id);
           if (!machine) machine = machines[0];
           return {
@@ -118,10 +118,12 @@ export default function Home({ machines }: PageProps) {
             widget: (
               <MachineWidget
                 //all
+                key={machine.id}
                 id={machine.id}
                 name={machine.name}
                 description={machine.description}
                 image={machine.image}
+                index={index}
                 disabled={true}
                 //
                 using={me?.using?.id == machine.id}
