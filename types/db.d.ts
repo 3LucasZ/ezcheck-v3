@@ -55,3 +55,10 @@ export const basicUser: User = {
   isAdmin: false,
   isSupervising: false,
 };
+export type LogProps = {
+  id: number;
+  sender: string;
+  timestamp: number;
+  message: string;
+  level: number;
+};

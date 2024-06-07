@@ -14,7 +14,7 @@ import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import prisma from "services/prisma";
 
-import { LogProps } from "components/Widget/LogWidget";
+import { LogProps } from "types/db";
 import AdminLayout from "components/Layout/AdminLayout";
 import { TextingBar } from "components/Layout/TextingBar";
 import { responsiveHeaderFontSize } from "services/constants";
