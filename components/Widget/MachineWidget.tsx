@@ -15,6 +15,7 @@ type MachineWidgetProps = {
   name: string;
   description?: string;
   image: string;
+  index: number;
 
   //certificate
   type2?: boolean;
@@ -97,11 +98,11 @@ export default function MachineWidget(props: MachineWidgetProps) {
               loader={({ src, width, quality }) => {
                 return `/api/${src}`;
               }}
-              src={`${props.image}`}
+              src={props.image}
               width={60}
               height={60}
               alt="mach"
-              hidden={props.image.length < 5}
+              priority={props.index < 10}
             />
           ) : (
             <></>

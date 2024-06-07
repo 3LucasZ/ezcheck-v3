@@ -12,6 +12,7 @@ type UserWidgetProps = {
   name: string;
   email?: string;
   image: string;
+  index: number;
 
   //certificate
   type2?: boolean;
@@ -100,7 +101,17 @@ export default function UserWidget(props: UserWidgetProps) {
             minH="48px"
             maxH="48px"
           >
-            <Image src={props.image} width={48} height={48} alt="avatar" />
+            {props.image ? (
+              <Image
+                src={props.image}
+                width={48}
+                height={48}
+                alt="avatar"
+                priority={props.index < 10}
+              />
+            ) : (
+              <Avatar name={props.name ? props.name : ""} />
+            )}
           </Box>
           <WidgetTitles
             title={props.name}

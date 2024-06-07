@@ -1,6 +1,7 @@
 import {
   Avatar,
   AvatarBadge,
+  Box,
   Icon,
   Menu,
   MenuButton,
@@ -9,6 +10,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import { User } from "next-auth";
 import { signOut, signIn } from "next-auth/react";
 import Router from "next/router";
@@ -46,9 +48,22 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
   return (
     <Menu>
       <MenuButton pos="relative" float="right" right="2">
-        <Avatar name={me?.name ? me.name : ""} src={me?.image ? me.image : ""}>
+        {/* <Avatar name={me?.name ? me.name : ""} src={me?.image ? me.image : ""}>
           <AvatarBadge boxSize="0.9em" bg={badgeColor} />
-        </Avatar>
+        </Avatar> */}
+        <Box minW="48px" minH="48px" borderRadius={"full"} overflow={"hidden"}>
+          {me?.image ? (
+            <Image
+              width={48}
+              height={48}
+              src={me?.image}
+              alt="avatar"
+              priority
+            />
+          ) : (
+            <Avatar name={me?.name ? me.name : ""} />
+          )}
+        </Box>
       </MenuButton>
       <MenuList textAlign="left">
         <Text px={3} py={1.5}>
