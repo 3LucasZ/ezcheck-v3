@@ -81,8 +81,8 @@ export default function Home(props: PageProps) {
           <CustomDivider color="orange.300" icon={FiClock} text="In Use" />
           <VStack w="100%">
             {machinesInUse.length > 0 ? (
-              machinesInUse.map((machine) => (
-                <InUseWidget machine={machine}></InUseWidget>
+              machinesInUse.map((machine, index) => (
+                <InUseWidget machine={machine} index={index}></InUseWidget>
               ))
             ) : (
               <Text>{"No machines in use."}</Text>

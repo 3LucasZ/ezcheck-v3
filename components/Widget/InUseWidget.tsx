@@ -11,6 +11,7 @@ import { MachineProps } from "types/db";
 
 type InUseWidgetProps = {
   machine: MachineProps;
+  index: number;
 };
 export default function InUseWidget(props: InUseWidgetProps) {
   const column =
@@ -29,6 +30,7 @@ export default function InUseWidget(props: InUseWidgetProps) {
       name={props.machine.name}
       description={props.machine.description}
       image={props.machine.image}
+      index={props.index}
       forceMini
     />
   );
@@ -38,6 +40,7 @@ export default function InUseWidget(props: InUseWidgetProps) {
       name={props.machine.usedBy.name}
       email={props.machine.usedBy.email}
       image={props.machine.usedBy.image}
+      index={props.index}
       forceMini
     />
   );
