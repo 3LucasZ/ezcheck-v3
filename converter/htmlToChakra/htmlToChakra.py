@@ -1,5 +1,5 @@
-inputFile = "converter/in.html"
-outputFile = "converter/out.tsx"
+inputFile = "in.html"
+outputFile = "out.tsx"
 
 delimeter1 = ["<","</"]
 # delimeter2 = [">",">"]
