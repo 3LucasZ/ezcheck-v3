@@ -96,12 +96,14 @@ export default function Home(props: PageProps) {
           <VStack>
             {props.users
               .filter((x) => !x.PIN)
-              .map((x) => (
+              .map((x, index) => (
                 <UserWidget
+                  key={x.id}
                   id={x.id}
                   name={x.name}
                   email={x.email}
                   image={x.image}
+                  index={index}
                 />
               ))}
             {props.machines
@@ -111,12 +113,14 @@ export default function Home(props: PageProps) {
                   !x.image ||
                   x.name.substring(0, 8) == "Machine-"
               )
-              .map((x) => (
+              .map((x, index) => (
                 <MachineWidget
+                  key={x.id}
                   id={x.id}
                   name={x.name}
                   description={x.description}
                   image={x.image}
+                  index={index}
                 />
               ))}
           </VStack>

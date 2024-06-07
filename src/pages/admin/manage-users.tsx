@@ -79,7 +79,7 @@ export default function ManageUsers({ users }: PageProps) {
         Users
       </Text>
       <SearchView
-        setIn={users.map((user) => ({
+        setIn={users.map((user, index) => ({
           name: user.name,
           widget: (
             <UserWidget
@@ -88,6 +88,7 @@ export default function ManageUsers({ users }: PageProps) {
               name={user.name}
               email={user.email}
               image={user.image}
+              index={index}
             />
           ),
         }))}

@@ -186,7 +186,7 @@ export default function UserPage(props: PageProps) {
         </HStack>
       </Flex>
       <SearchView
-        setIn={newCerts.map((cert) => {
+        setIn={newCerts.map((cert, index) => {
           return {
             name:
               (cert.machine.name == props.user.using?.name ? 0 : 1) +
@@ -194,10 +194,12 @@ export default function UserPage(props: PageProps) {
             widget: (
               <MachineWidget
                 //all
+                key={cert.machine.id}
                 id={cert.machine.id}
-                image={cert.machine.image}
                 name={cert.machine.name}
                 description={cert.machine.description}
+                image={cert.machine.image}
+                index={index}
                 //cert
                 type2={true}
                 certUserId={props.user.id}
@@ -213,7 +215,7 @@ export default function UserPage(props: PageProps) {
             ),
           };
         })}
-        setOut={outId.map((id) => {
+        setOut={outId.map((id, index) => {
           const machine =
             props.machines.find((x) => x.id == id) || props.machines[0];
           return {
@@ -221,10 +223,12 @@ export default function UserPage(props: PageProps) {
             widget: (
               <MachineWidget
                 //all
+                key={machine.id}
                 id={machine.id}
                 name={machine.name}
                 description={machine.description}
                 image={machine.image}
+                index={index}
                 //state
                 isEdit={isEdit}
                 inverted={true}

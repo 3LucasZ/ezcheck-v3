@@ -33,14 +33,16 @@ export default function ManageMachines({ machines }: PageProps) {
         Machines
       </Text>
       <SearchView
-        setIn={machines.map((machine) => ({
+        setIn={machines.map((machine, index) => ({
           name: machine.name,
           widget: (
             <MachineWidget
+              key={machine.id}
               id={machine.id}
               name={machine.name}
               description={machine.description}
               image={machine.image}
+              index={index}
             />
           ),
         }))}

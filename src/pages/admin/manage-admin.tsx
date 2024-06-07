@@ -82,14 +82,16 @@ export default function ManageAdmin({ users }: PageProps) {
       <SearchView
         setIn={users
           .filter((user) => user.isAdmin)
-          .map((user) => ({
+          .map((user, index) => ({
             name: (user.isSupervising ? 0 : 1) + user.name, //supervisors show on top
             widget: (
               <UserWidget
+                key={user.id}
                 id={user.id}
                 name={user.name}
                 email={user.email}
                 image={user.image}
+                index={index}
                 isSupervising={user.isSupervising}
                 disabled={true}
                 isEdit={true}
@@ -101,14 +103,16 @@ export default function ManageAdmin({ users }: PageProps) {
           }))}
         setOut={users
           .filter((user) => !user.isAdmin)
-          .map((user) => ({
+          .map((user, index) => ({
             name: user.name,
             widget: (
               <UserWidget
+                key={user.id}
                 id={user.id}
                 name={user.name}
                 email={user.email}
                 image={user.image}
+                index={index}
                 disabled={true}
                 isEdit={true}
                 inverted={true}
