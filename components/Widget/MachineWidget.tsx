@@ -1,10 +1,5 @@
-import {
-  Box,
-  HStack,
-  Image,
-  AspectRatio,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, HStack, AspectRatio, useBreakpointValue } from "@chakra-ui/react";
+import Image from "next/image";
 
 import Router from "next/router";
 import { genGradient } from "services/gradientGenerator";
@@ -91,11 +86,27 @@ export default function MachineWidget(props: MachineWidgetProps) {
       w="100%"
     >
       <HStack>
-        <AspectRatio minW="60px" ratio={1} bgGradient={genGradient(props.name)}>
+        {/* <AspectRatio minW="60px" ratio={1} bgGradient={genGradient(props.name)}>
           <Image
             src={props.image.length > 5 ? `/api/${props.image}` : ""}
             hidden={props.image.length < 5}
           ></Image>
+        </AspectRatio> */}
+        <AspectRatio minW="60px" ratio={1} bgGradient={genGradient(props.name)}>
+          {props.image.length > 5 ? (
+            <Image
+              loader={({ src, width, quality }) => {
+                return `/api/${src}`;
+              }}
+              src={`${props.image}`}
+              width={60}
+              height={60}
+              alt="mach"
+              hidden={props.image.length < 5}
+            />
+          ) : (
+            <></>
+          )}
         </AspectRatio>
         <WidgetTitles
           title={props.name}

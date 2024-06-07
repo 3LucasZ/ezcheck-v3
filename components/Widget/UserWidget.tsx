@@ -1,4 +1,5 @@
 import { Box, HStack, useBreakpointValue, Avatar } from "@chakra-ui/react";
+import Image from "next/image";
 
 import AddRemoveButton from "components/Composable/AddRemoveButton";
 import Router from "next/router";
@@ -91,7 +92,17 @@ export default function UserWidget(props: UserWidgetProps) {
               borderRadius="full"
             ></Image>
           </AspectRatio> */}
-          <Avatar name={props.name} src={props.image}></Avatar>
+          {/* <Avatar name={props.name} src={props.image}></Avatar> */}
+          <Box
+            borderRadius={"full"}
+            overflow={"clip"}
+            minW="48px"
+            maxW="48px"
+            minH="48px"
+            maxH="48px"
+          >
+            <Image src={props.image} width={48} height={48} alt="avatar" />
+          </Box>
           <WidgetTitles
             title={props.name}
             subtitle={props.email}
