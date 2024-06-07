@@ -54,21 +54,17 @@ export default function MachineWidget(props: MachineWidgetProps) {
   } else {
     if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
   }
-
   //column
-  let column = props.forceMini ? props.forceMini : false;
-  if (typeof window !== "undefined") {
-    let column =
-      useBreakpointValue(
-        {
-          base: true,
-          sm: false,
-        },
-        { fallback: "md", ssr: false }
-      ) || false;
-    if (props.forceMini) column = true;
-  }
-
+  const column =
+    useBreakpointValue(
+      {
+        base: true,
+        sm: false,
+      },
+      { fallback: "md", ssr: typeof window === "undefined" }
+    ) || props.forceMini == true;
+  console.log(props.index);
+  //ret
   return (
     <Box
       overflow={"hidden"}
