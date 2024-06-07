@@ -122,6 +122,7 @@ export default function UserPage(props: PageProps) {
           onClick={onOpen}
           {...redBtn}
           icon={<Icon as={FiTrash2} boxSize={5} />}
+          mt={"3px"}
         />
         <ConfirmDeleteModal
           isOpen={isOpen}
