@@ -26,7 +26,8 @@ export default function PWAPrompt() {
     console.log("isCancelled:", isCancelled);
     setInvisible(!isIos || isInStandaloneMode || isCancelled);
   });
-  const [invisible, setInvisible] = useState(false);
+  //default true so that it never "accidentally" shows
+  const [invisible, setInvisible] = useState(true);
 
   return (
     <Box
