@@ -56,15 +56,18 @@ export default function MachineWidget(props: MachineWidgetProps) {
   }
 
   //column
-  let column =
-    useBreakpointValue(
-      {
-        base: true,
-        sm: false,
-      },
-      { fallback: "md", ssr: false }
-    ) || false;
-  if (props.forceMini) column = true;
+  let column = props.forceMini;
+  if (typeof window !== "undefined") {
+    let column =
+      useBreakpointValue(
+        {
+          base: true,
+          sm: false,
+        },
+        { fallback: "md", ssr: false }
+      ) || false;
+    if (props.forceMini) column = true;
+  }
 
   return (
     <Box
