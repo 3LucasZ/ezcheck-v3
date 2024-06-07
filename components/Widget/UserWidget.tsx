@@ -54,7 +54,7 @@ export default function UserWidget(props: UserWidgetProps) {
     if (!props.disabled && !props.isEdit) hoverBg = "gray.100";
   }
   //column
-  let column = props.forceMini;
+  let column = props.forceMini ? props.forceMini : false;
   if (typeof window !== "undefined") {
     column =
       useBreakpointValue(

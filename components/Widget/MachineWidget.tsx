@@ -56,7 +56,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
   }
 
   //column
-  let column = props.forceMini;
+  let column = props.forceMini ? props.forceMini : false;
   if (typeof window !== "undefined") {
     let column =
       useBreakpointValue(
