@@ -80,11 +80,11 @@ export default function MachinePage({ machine, users }: PageProps) {
     //delete old image
     var body, res;
     body = { image: machine.image };
-    res = await poster("/api/delete-image", body, toaster, true);
+    res = await poster("/api/delete-image", body, toaster);
     if (res.status == 200) {
       //upload new image
       body = { image: newImage };
-      res = await poster("/api/upload-image", body, toaster, true);
+      res = await poster("/api/upload-image", body, toaster);
       const imageUrl = await res.json();
       if (res.status == 200) {
         //attach new image to item
