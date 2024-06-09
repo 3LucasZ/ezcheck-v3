@@ -35,8 +35,8 @@ export const FAB = ({
     <Box
       //---position/transition---
       position={"fixed"}
-      right={"8px"}
-      bottom={58 + bottomOffset + "px"}
+      right={"10px"}
+      bottom={`calc(50px + 10px + ${bottomOffset}px + env(safe-area-inset-bottom))`}
       transition={"bottom 0.3s"}
     >
       <HStack
@@ -51,7 +51,7 @@ export const FAB = ({
         sx={sx}
         //---misc---
         onClick={(e) => onClick()}
-        zIndex={100}
+        zIndex={4}
         hidden={hidden}
       >
         <Icon

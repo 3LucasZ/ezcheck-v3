@@ -44,7 +44,7 @@ export default function PWAPrompt() {
       borderRadius={"xl"}
       px="2"
       py="1"
-      zIndex={10000}
+      zIndex={5}
       transition={"all 0.05s linear"}
     >
       <Text>

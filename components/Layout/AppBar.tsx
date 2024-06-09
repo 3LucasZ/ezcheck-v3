@@ -14,7 +14,7 @@ import {
 export default function AppBar() {
   return (
     <Box position="fixed" bottom="0" w="100%">
-      <HStack gap={0} h={"50px"}>
+      <HStack gap={0} h={`calc(50px + env(safe-area-inset-bottom))`}>
         <AppBarBtn icon={FiHome} href="/admin/home" />
         <AppBarBtn icon={FiMonitor} href="/admin/manage-admin" />
         <AppBarBtn icon={FiUsers} href="/admin/manage-users" />

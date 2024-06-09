@@ -14,13 +14,13 @@ export function TextingBar(props: TextingBarProps) {
   return (
     <Box
       position={"fixed"}
-      bottom={"60px"}
+      bottom={`calc(50px + 10px + env(safe-area-inset-bottom))`}
       left={0}
       right={0}
       mx="2"
       minH="60px"
       maxH="60px"
-      zIndex={1000}
+      zIndex={3}
     >
       <HStack>
         <Input

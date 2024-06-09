@@ -14,7 +14,7 @@ export default function FeatureCard(props: FeatureCardProps) {
         <Icon
           as={props.icon}
           boxSize={16}
-          zIndex={100}
+          zIndex={2}
           rounded="full"
           color="red.400"
           bg="orange.100"
@@ -34,7 +34,7 @@ export default function FeatureCard(props: FeatureCardProps) {
             pos="relative"
             as={props.icon}
             boxSize={10}
-            zIndex={100}
+            zIndex={2}
             color="black"
           ></Icon>
           <Box

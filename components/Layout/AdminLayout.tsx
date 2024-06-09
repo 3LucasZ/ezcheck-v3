@@ -23,7 +23,7 @@ export default function AdminLayout({
     <Layout authorized={me != undefined && me.isAdmin} loaded={loaded}>
       <Header me={me} noDivider={noDivider} />
       {children}
-      <Box minH="50px"></Box>
+      <Box minH={`calc(50px + env(safe-area-inset-bottom))`}></Box>
       <AppBar />
     </Layout>
   );

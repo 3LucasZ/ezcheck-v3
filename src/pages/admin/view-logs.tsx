@@ -134,7 +134,7 @@ function LogSet(props: LogSetProps) {
         //position
         position={"sticky"}
         top={"0"}
-        zIndex={500}
+        zIndex={3}
         //color
         bg="gray.50"
         //border

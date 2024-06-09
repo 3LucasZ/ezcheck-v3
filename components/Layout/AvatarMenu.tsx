@@ -65,7 +65,7 @@ export default function AvatarMenu({ me }: AvatarMenuProps) {
           )}
         </Box>
       </MenuButton>
-      <MenuList textAlign="left">
+      <MenuList textAlign="left" zIndex={5}>
         <Text px={3} py={1.5}>
           {me ? me.name : "Guest"}
         </Text>
