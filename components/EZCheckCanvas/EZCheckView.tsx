@@ -27,7 +27,7 @@ export function EZCheckCanvas(props: PageProps) {
   const polarAngle = (3 * Math.PI) / 8;
   setTimeout(function () {
     setLoaded(true);
-  }, 3000);
+  }, 500);
   // console.log("dpr:", window.devicePixelRatio);
   return (
     <Canvas
