@@ -111,7 +111,8 @@ export default function SearchView(props: SearchViewProps) {
             return pair.widget;
           })
         )}
-        <Box h={"8px"}></Box>
+        <Box minH={"8px"}></Box>
+        <Box minH={"60px"}></Box>
       </Flex>
     </>
   );
