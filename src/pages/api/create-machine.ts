@@ -13,9 +13,12 @@ export default async function handle(
   if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //arbitrary creation
   try {
+    //this is a better suffix than Date.time()
+    //Date.time() feels unprofessional/obviously time generated
+    const suffix = await prisma.machine.count();
     const op = await prisma.machine.create({
       data: {
-        name: "Machine-" + new Date().getTime(),
+        name: "Machine-" + suffix,
       },
     });
     return res.status(200).json(op.id);
