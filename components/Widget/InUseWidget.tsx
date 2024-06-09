@@ -8,6 +8,7 @@ import {
 import MachineWidget from "./MachineWidget";
 import UserWidget from "./UserWidget";
 import { MachineProps } from "types/db";
+import { formatClock, formatTimeSince } from "services/utils";
 
 type InUseWidgetProps = {
   machine: MachineProps;
@@ -46,19 +47,9 @@ export default function InUseWidget(props: InUseWidgetProps) {
   );
   const time = (
     <VStack minW="100px">
-      <Text noOfLines={1}>
-        {new Date(props.machine.lastLogin * 1000).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
-      </Text>
+      <Text noOfLines={1}>{formatClock(props.machine.lastLogin)}</Text>
       <Text fontSize={"xs"} color="gray.600" noOfLines={1}>
-        {new Date(Date.now() - props.machine.lastLogin * 1000).getUTCHours() +
-          " hrs " +
-          new Date(
-            Date.now() - props.machine.lastLogin * 1000
-          ).getUTCMinutes() +
-          " mins"}
+        {formatTimeSince(props.machine.lastLogin)}
       </Text>
     </VStack>
   );

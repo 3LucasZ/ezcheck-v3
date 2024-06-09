@@ -22,3 +22,18 @@ export function validEmail(email: string) {
     email.endsWith("@q4excellence.com")
   );
 }
+
+export function formatClock(millis: number) {
+  return new Date(millis * 1000).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+export function formatTimeSince(initMillis: number) {
+  return (
+    new Date(Date.now() - initMillis * 1000).getUTCHours() +
+    " hrs " +
+    new Date(Date.now() - initMillis * 1000).getUTCMinutes() +
+    " mins"
+  );
+}
