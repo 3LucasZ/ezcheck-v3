@@ -23,6 +23,9 @@ export function validEmail(email: string) {
   );
 }
 
+//***IMPORTANT***
+//If running this on the server, which is probably not in California,
+//the time zone will be incorrect!!! Do not ever run toLocaleTime methods on the server!!!
 export function formatClock(millis: number) {
   return new Date(millis * 1000).toLocaleTimeString([], {
     hour: "2-digit",
