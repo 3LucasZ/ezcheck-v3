@@ -75,7 +75,7 @@ export default function ManageAdmin({ users }: PageProps) {
           </Button>
         </Center>
       </Box>
-      <Box minH="8" />
+      <Box minH="8px" />
       <Text fontSize={responsiveHeaderFontSize} textAlign={"center"}>
         Admins
       </Text>
