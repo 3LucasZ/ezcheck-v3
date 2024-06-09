@@ -25,15 +25,13 @@ export default async function handle(
   if (email == "") {
     return res.status(500).json("email can't be empty");
   }
-  //In restrict mode, only VCS users can be preregistered.
-  //Used in conjunction with preregister-send-email.
+  //If in restrict mode, only VCS users can be preregistered.
   if (restrict && !validEmail(email)) {
     // return res.status(500).json("You can't invite a user outside of VCS");
     return res
       .status(500)
       .json("You can't send an email to a user outside of VCS");
   }
-  //Otherwise, anyone can be added on the service via preregistration.
   //Predict the name from the email
   const receiverNames = email.split("@")[0].split(".");
   let receiverName = "";

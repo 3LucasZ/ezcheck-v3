@@ -53,7 +53,7 @@ export default function ManageUsers({ users }: PageProps) {
   const withMail = async () => {
     const res1 = await poster(
       "/api/preregister-user",
-      { email, restrict: true },
+      { email },
       toaster,
       false
     );

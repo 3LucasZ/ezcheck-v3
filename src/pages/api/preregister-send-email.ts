@@ -13,6 +13,7 @@ export default async function handle(
     receiverEmail: string;
     senderEmail: string;
     senderName: string;
+    restrict?: boolean;
   }>,
   res: NextApiResponse
 ) {
@@ -20,12 +21,12 @@ export default async function handle(
   const session = await getServerSession(req, res, authOptions);
   if (!session?.user.isAdmin) return res.status(403).json("Forbidden");
   //--initialize + checks--
-  const { receiverEmail, senderEmail, senderName } = req.body;
+  const { receiverEmail, senderEmail, senderName, restrict } = req.body;
   if (receiverEmail == "") {
     return res.status(500).json("email can't be empty");
   }
-  //Only VCS users/admin can be sent an email
-  else if (!validEmail(receiverEmail)) {
+  //If in restrict mode, only VCS users can be sent an email
+  if (restrict && !validEmail(receiverEmail)) {
     // return res.status(500).json("You can't invite a user outside of VCS");
     return res
       .status(500)
