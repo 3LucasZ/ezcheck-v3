@@ -4,6 +4,7 @@ import prisma from "services/prisma";
 import { prismaErrHandler } from "services/prismaErrHandler";
 import { serverCreateLog } from "../create-log";
 import { TypedRequestBody } from "types/req";
+import { formatTimeSince } from "services/utils";
 
 //IMPORTANT RULE #1: all response messages must be short because they have to be
 //displayed on a tiny LCD screen.
@@ -74,7 +75,9 @@ export default async function handle(
         machine.usedBy?.name +
           " logged out of " +
           machine.name +
-          ". " +
+          " (" +
+          formatTimeSince(machine.lastLogin) +
+          "). " +
           supervisorsMsg,
         0
       );
