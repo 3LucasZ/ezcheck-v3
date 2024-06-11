@@ -303,6 +303,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     },
   });
+  //redirect if invalid id
   if (machine == null) {
     return {
       redirect: {

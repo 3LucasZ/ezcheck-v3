@@ -51,10 +51,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   return NextAuth(authOptions)(req, res);
 }
 
-//--Extend prisma adapter to make it ultra fancy :D--
-//Copy from official open-source code, then tweak it: https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-prisma/src/index.ts
-//some more help: https://next-auth.js.org/configuration/events#createuser
-//create new account => move data from old pre-registered account into new one IF it exists
+//--Extend prisma adapter--
+//Extend official open-source: https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-prisma/src/index.ts
+//Extra help: https://next-auth.js.org/configuration/events#createuser
+//Create new account => move data from old pre-registered account into new one IF it exists
 prismaAdapter.createUser = async ({ id: _id, ...data }) => {
   // console.log("CREATE USER");
   //get preregistered account

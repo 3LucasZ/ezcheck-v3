@@ -9,6 +9,7 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
+      {/*basePath="/ezfind/api/auth" */}
       <ChakraProvider>
         <Component {...pageProps} />
       </ChakraProvider>

@@ -32,10 +32,7 @@ export default function PWAPrompt() {
   return (
     <Box
       pos="fixed"
-      bottom={
-        // invisible ? "-80px" :
-        "calc(12px + env(safe-area-inset-bottom))"
-      }
+      bottom={invisible ? "-80px" : "calc(12px + env(safe-area-inset-bottom))"}
       left="12px"
       right="12px"
       maxW="400px"
