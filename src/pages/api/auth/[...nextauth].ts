@@ -73,6 +73,7 @@ prismaAdapter.createUser = async ({ id: _id, ...data }) => {
       data: {
         ...data,
         PIN: oldUser.PIN,
+        isAdmin: oldUser.isAdmin,
         certificates: {
           createMany: {
             data: oldUser.certificates.map((cert) => ({
