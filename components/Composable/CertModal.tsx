@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 import { FiAward } from "react-icons/fi";
 import EditableTitle from "./EditableTitle";
-import { tealBtn } from "services/constants";
+import { blueBtn, tealBtn } from "services/constants";
 import { poster } from "services/poster";
 import Router from "next/router";
 
@@ -60,8 +60,7 @@ export default function CertModal(props: CertModalProps) {
     <>
       <Icon
         //---color
-        bg="blue.400"
-        _hover={{ bg: "blue.500" }}
+        {...blueBtn}
         color="white"
         //---border
         rounded="xl"
@@ -76,7 +75,6 @@ export default function CertModal(props: CertModalProps) {
           e.stopPropagation(); //if parent element is clicked, it will be ignored, so that this action activates instead.
           onOpen();
         }}
-        aria-label={""}
       />
       <Modal
         isOpen={isOpen}

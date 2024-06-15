@@ -80,6 +80,7 @@ export default function UserWidget(props: UserWidgetProps) {
         _hover={{
           bg: hoverBg,
         }}
+        transition={"background-color 0.3s"}
         minH="60px"
         w="100%"
       >

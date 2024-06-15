@@ -23,7 +23,7 @@ import { poster } from "services/poster";
 import UserWidget from "components/Widget/UserWidget";
 import { EditFAB } from "components/Layout/FAB/EditFAB";
 import { useEffect, useState } from "react";
-import { redBtn, responsivePx, tealBtn } from "services/constants";
+import { blueBtn, redBtn, responsivePx, tealBtn } from "services/constants";
 import EditableTitle from "components/Composable/EditableTitle";
 import EditableSubtitle from "components/Composable/EditableSubtitle";
 import { User } from "next-auth";
@@ -138,7 +138,7 @@ export default function MachinePage({ machine, users }: PageProps) {
         <Center>
           <ButtonGroup spacing="2" pl="2" isAttached>
             <IconButton
-              colorScheme="blue"
+              {...blueBtn}
               aria-label=""
               icon={<Icon as={FiImage} boxSize={5} />}
               onClick={() => {

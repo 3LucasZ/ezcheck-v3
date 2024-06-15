@@ -82,6 +82,7 @@ export default function MachineWidget(props: MachineWidgetProps) {
       _hover={{
         bg: hoverBg,
       }}
+      transition={"background-color 0.3s"}
       minH="60px"
       w="100%"
     >
