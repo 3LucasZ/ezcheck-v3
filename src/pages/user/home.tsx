@@ -136,7 +136,7 @@ export default function Home({ machines }: PageProps) {
                     "/api/post/join-machine",
                     {
                       machineName: machine?.name,
-                      userPIN: me?.PIN,
+                      studentPIN: me?.PIN,
                       IP: "DNE",
                     },
                     toaster,
