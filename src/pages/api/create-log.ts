@@ -37,6 +37,13 @@ export async function serverCreateLog(
         level,
       },
     });
+    await prisma.log.deleteMany({
+      where: {
+        timestamp: {
+          lte: Date.now() / 1000 - 30 * 24 * 60 * 60,
+        },
+      },
+    });
     return { status: 200, json: "" + op.id };
   } catch (e) {
     return { status: 500, json: prismaErrHandler(e) };

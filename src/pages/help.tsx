@@ -49,6 +49,10 @@ export default function Home() {
             Q="Why are some widgets colored differently in some places?"
             A="Orange: machine is in use by the user in focus. Red: machine is in use. Purple: user is supervising. "
           />
+          <FAQItem
+            Q="When are logs cleared?"
+            A="All logs over a month old will be cleared automatically."
+          />
         </VStack>
         <Box h="8"></Box>
         <Box
