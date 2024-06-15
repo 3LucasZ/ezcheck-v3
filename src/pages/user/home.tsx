@@ -130,7 +130,7 @@ export default function Home({ machines }: PageProps) {
                 inUse={machine.usedBy != undefined}
                 //
                 inverted={!isAllowed}
-                webAuth={machine.webAuth}
+                webAuth={machine.webAuth && me?.PIN != undefined}
                 handleLogin={async () => {
                   const res = await poster(
                     "/api/post/join-machine",
